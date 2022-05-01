@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:sikcal/main_view.dart';
+import 'package:sikcal/data/constants.dart';
+import 'package:sikcal/screens/main_view.dart';
 
 void main() {
   runApp(const MyApp());
@@ -16,6 +17,13 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      theme: ThemeData(
+          floatingActionButtonTheme: FloatingActionButtonThemeData(
+            backgroundColor: primaryColor,
+          ),
+          textTheme: TextTheme(
+            bodyText2: defaultTextStyle,
+          )),
       home: MainView(),
     );
   }
