@@ -4,6 +4,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:liquid_progress_indicator/liquid_progress_indicator.dart';
 import 'package:sikcal/components/circular_progress.dart';
 import 'package:sikcal/data/constants.dart';
+import 'package:sikcal/screens/search_menu_view.dart';
 
 class MainView extends StatefulWidget {
   const MainView({Key? key}) : super(key: key);
@@ -27,30 +28,36 @@ class _MainViewState extends State<MainView> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Row(
-          children: const [
-            Image(
-              image: AssetImage('images/fork.png'),
-              height: 25.0,
-            ),
-            SizedBox(
-              width: 10.0,
-            ),
-            Text(
-              "식칼",
-              style: TextStyle(
-                fontSize: 25.0,
+        title: Hero(
+          tag: "appBar",
+          child: Row(
+            children: const [
+              Image(
+                image: AssetImage('images/fork.png'),
+                height: 25.0,
               ),
-            ),
-            SizedBox(
-              width: 10.0,
-            ),
-            Image(
-              image: AssetImage('images/knife.png'),
-              height: 25.0,
-            ),
-          ],
-          mainAxisSize: MainAxisSize.min,
+              SizedBox(
+                width: 10.0,
+              ),
+              Text(
+                "식칼",
+                style: TextStyle(
+                  fontSize: 25.0,
+                  color: Colors.white,
+                  decoration: TextDecoration.none,
+                  fontWeight: FontWeight.normal,
+                ),
+              ),
+              SizedBox(
+                width: 10.0,
+              ),
+              Image(
+                image: AssetImage('images/knife.png'),
+                height: 25.0,
+              ),
+            ],
+            mainAxisSize: MainAxisSize.min,
+          ),
         ),
         backgroundColor: primaryColor,
       ),
@@ -193,7 +200,12 @@ class _MainViewState extends State<MainView> {
                     ),
                     FloatingActionButton(
                       child: const Icon(FontAwesomeIcons.plus),
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => SearchMenuView()));
+                      },
                     ),
                   ],
                 ),
