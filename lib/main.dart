@@ -8,6 +8,7 @@ void main() {
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
+<<<<<<< HEAD
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
@@ -18,3 +19,21 @@ class MyApp extends StatelessWidget {
     );
   }
 }
+=======
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Flutter Demo',
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+      ),
+      home: Scaffold(
+        appBar: AppBar(
+          title: const Text("식칼"),
+        ),
+      ),
+    );
+  }
+}
+>>>>>>> 57480088bad54e0a7a910d669fce02fe8b183c1d
