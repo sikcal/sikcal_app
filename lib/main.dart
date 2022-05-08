@@ -1,39 +1,31 @@
 import 'package:flutter/material.dart';
 import 'package:sikcal/screen/welcome/welcome_screen.dart';
-
+import 'package:sikcal/data/constants.dart';
+import 'package:sikcal/screens/main_view.dart';
 
 void main() {
   runApp(const MyApp());
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({Key? key}) : super(key: key);
-<<<<<<< HEAD
-  // This widget is the root of your application.
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'sikcal-app',
-      theme: ThemeData(),
-      home: WelcomeScreen(),
-    );
-  }
-}
-=======
 
   @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: Scaffold(
-        appBar: AppBar(
-          title: const Text("식칼"),
-        ),
-      ),
+          floatingActionButtonTheme: FloatingActionButtonThemeData(
+            backgroundColor: primaryColor,
+          ),
+          textTheme: TextTheme(
+            bodyText2: defaultTextStyle,
+          )),
+      home: MainView(),
     );
   }
 }
->>>>>>> 57480088bad54e0a7a910d669fce02fe8b183c1d
