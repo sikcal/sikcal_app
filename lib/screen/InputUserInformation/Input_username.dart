@@ -1,7 +1,16 @@
 import 'package:flutter/material.dart';
+
+import '../../model/User.dart';
+import '../../component/textfield.dart';
+import '../../component/button_green.dart';
+
 import 'package:sikcal/screen/InputUserInformation/input_userbirth.dart';
 
+
+User user = User();
+
 class InputUserNameScreen extends StatelessWidget {
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -10,6 +19,9 @@ class InputUserNameScreen extends StatelessWidget {
   }
 }
 class Body extends StatelessWidget {
+
+  final usernamecontroller = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -19,20 +31,16 @@ class Body extends StatelessWidget {
           child: Text('이름이 무엇인가요?'),
         ),
         SizedBox(height: 50),
-        Container(
-          width: 250,
-          child: TextField(
-            decoration: InputDecoration(
-              border: OutlineInputBorder(),
-              labelText: '이름을 입력해주세요.'
-            )
-          )
+        PlainTextField(
+          controller: usernamecontroller,
+          text: '이름을 입력해주세요'
         ),
         SizedBox(height: 25),
-        Container(
-          margin: EdgeInsets.all(5),
-          child: ElevatedButton(
-            onPressed: () {
+        Button_Green(
+            text: '다음',
+            press: () {
+              print(usernamecontroller.text);
+              user.username = usernamecontroller.text;
               Navigator.push(
                 context,
                 MaterialPageRoute(
@@ -41,15 +49,7 @@ class Body extends StatelessWidget {
                   },
                 ),
               );
-            },
-            child: Text('다음'),
-            style: ElevatedButton.styleFrom(
-              primary: Colors.green,
-              padding: EdgeInsets.all(10.0),
-              textStyle: TextStyle(color: Colors.white),
-              minimumSize: Size(250, 50),
-            ),
-          ),
+            }
         ),
       ]
       ),

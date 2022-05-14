@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import 'package:sikcal/screen/welcome/welcome_screen.dart';
 
 
@@ -16,11 +17,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: Scaffold(
-        appBar: AppBar(
-          title: const Text("식칼"),
-        ),
-      ),
+      home: WelcomeScreen()
     );
   }
 }

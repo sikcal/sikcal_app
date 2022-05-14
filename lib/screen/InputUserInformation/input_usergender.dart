@@ -1,5 +1,11 @@
 import 'package:flutter/material.dart';
+
+import '../../Component/button_green.dart';
+import '../../component/button_grey.dart';
+
+import 'package:sikcal/screen/InputUserInformation/Input_username.dart';
 import 'package:sikcal/screen/InputUserInformation/input_userheight.dart';
+
 
 class InputUserGenderScreen extends StatelessWidget {
   @override
@@ -10,6 +16,9 @@ class InputUserGenderScreen extends StatelessWidget {
   }
 }
 class Body extends StatelessWidget {
+
+  String? usergender;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -19,42 +28,25 @@ class Body extends StatelessWidget {
           child: Text('성별을 선택해 주세요.'),
         ),
         SizedBox(height: 50),
-        Container(
-          margin: EdgeInsets.all(5),
-          child: ElevatedButton(
-            onPressed: () {
-              null;
-            },
-            child: Text('여자'),
-            style: ElevatedButton.styleFrom(
-              primary: Colors.grey,
-              padding: EdgeInsets.all(10.0),
-              textStyle: TextStyle(color: Colors.white),
-              minimumSize: Size(250, 50),
-            ),
-          ),
+        Button_Grey(
+            text: '여자',
+            press: () {
+              usergender = '여자';
+            }
         ),
         SizedBox(height: 25),
-        Container(
-          margin: EdgeInsets.all(5),
-          child: ElevatedButton(
-            onPressed: () {
-              null;
-            },
-            child: Text('남자'),
-            style: ElevatedButton.styleFrom(
-              primary: Colors.grey,
-              padding: EdgeInsets.all(10.0),
-              textStyle: TextStyle(color: Colors.white),
-              minimumSize: Size(250, 50),
-            ),
-          ),
+        Button_Grey(
+            text: '남자',
+            press: () {
+              usergender = '남자';
+            }
         ),
         SizedBox(height: 25),
-        Container(
-          margin: EdgeInsets.all(5),
-          child: ElevatedButton(
-            onPressed: () {
+        Button_Green(
+            text: '다음',
+            press: () {
+              print(usergender);
+              user.usergender = usergender;
               Navigator.push(
                 context,
                 MaterialPageRoute(
@@ -63,15 +55,7 @@ class Body extends StatelessWidget {
                   },
                 ),
               );
-            },
-            child: Text('다음'),
-            style: ElevatedButton.styleFrom(
-              primary: Colors.green,
-              padding: EdgeInsets.all(10.0),
-              textStyle: TextStyle(color: Colors.white),
-              minimumSize: Size(250, 50),
-            ),
-          ),
+            }
         ),
       ]
       ),

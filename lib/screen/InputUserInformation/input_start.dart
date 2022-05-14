@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+
+import 'package:sikcal/Component/button_green.dart';
+
 import 'package:sikcal/screen/InputUserInformation/Input_username.dart';
 
 
@@ -34,28 +37,19 @@ class Body extends StatelessWidget {
           child: Text('반갑습니다! 앱의 사용에 앞서 필요한\n 개인정보와 권장섭취량 측정을 위한\n 정보를 수집합니다.'),
         ),
         SizedBox(height: 25),
-        Container(
-          margin: EdgeInsets.all(5),
-          child: ElevatedButton(
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) {
-                    return InputUserNameScreen();
-                  },
-                ),
-              );
-            },
-            child: Text('알겠습니다.'),
-            style: ElevatedButton.styleFrom(
-              primary: Colors.green,
-              padding: EdgeInsets.all(10.0),
-              textStyle: TextStyle(color: Colors.white),
-              minimumSize: Size(250, 50),
-            ),
-          ),
-        ),
+        Button_Green(
+          text: '알겠습니다',
+          press: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) {
+                  return InputUserNameScreen();
+                },
+              ),
+            );
+          }
+        )
       ]
       ),
       ),

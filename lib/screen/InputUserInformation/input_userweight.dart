@@ -1,5 +1,11 @@
 import 'package:flutter/material.dart';
+
+import '../../component/textfield.dart';
+import '../../Component/button_green.dart';
+
+import 'package:sikcal/screen/InputUserInformation/Input_username.dart';
 import 'package:sikcal/screen/InputUserInformation/input_usertargetweight.dart';
+
 
 class InputUserWeightScreen extends StatelessWidget {
   @override
@@ -10,6 +16,9 @@ class InputUserWeightScreen extends StatelessWidget {
   }
 }
 class Body extends StatelessWidget {
+
+  final userweightcontroller = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -19,20 +28,16 @@ class Body extends StatelessWidget {
           child: Text('현재 체중은 얼마인가요?'),
         ),
         SizedBox(height: 50),
-        Container(
-            width: 250,
-            child: TextField(
-                decoration: InputDecoration(
-                    border: OutlineInputBorder(),
-                    labelText: '현재 체중을 입력해주세요.'
-                )
-            )
+        PlainTextField(
+            controller: userweightcontroller,
+            text: '현재 체중을 입력해주세요.'
         ),
         SizedBox(height: 25),
-        Container(
-          margin: EdgeInsets.all(5),
-          child: ElevatedButton(
-            onPressed: () {
+        Button_Green(
+            text: '다음',
+            press: () {
+              print(userweightcontroller.text);
+              user.userweight = userweightcontroller.text;
               Navigator.push(
                 context,
                 MaterialPageRoute(
@@ -41,15 +46,7 @@ class Body extends StatelessWidget {
                   },
                 ),
               );
-            },
-            child: Text('다음'),
-            style: ElevatedButton.styleFrom(
-              primary: Colors.green,
-              padding: EdgeInsets.all(10.0),
-              textStyle: TextStyle(color: Colors.white),
-              minimumSize: Size(250, 50),
-            ),
-          ),
+            }
         ),
       ]
       ),
