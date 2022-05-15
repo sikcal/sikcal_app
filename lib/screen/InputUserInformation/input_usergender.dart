@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../../Component/button_green.dart';
-import '../../component/button_grey.dart';
+import '../../components/button_green.dart';
+import '../../components/button_grey.dart';
 
 import 'package:sikcal/screen/InputUserInformation/Input_username.dart';
 import 'package:sikcal/screen/InputUserInformation/input_userheight.dart';

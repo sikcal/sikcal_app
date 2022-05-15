@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../Component/button_green.dart';
+import '../../components/button_green.dart';
 
 import 'package:sikcal/screen/InputUserInformation/input_start.dart';
 

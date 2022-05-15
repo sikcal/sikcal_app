@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
 import '../../model/User.dart';
-import '../../component/textfield.dart';
-import '../../component/button_green.dart';
+import '../../components/textfield.dart';
+import '../../components/button_green.dart';
 
 import 'package:sikcal/screen/InputUserInformation/input_userbirth.dart';
 
