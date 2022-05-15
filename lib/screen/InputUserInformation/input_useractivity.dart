@@ -1,5 +1,11 @@
 import 'package:flutter/material.dart';
 
+import '../../components/button_green.dart';
+import '../../components/button_grey.dart';
+
+import 'package:sikcal/screen/InputUserInformation/Input_username.dart';
+
+
 class InputUserActivityScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -9,6 +15,9 @@ class InputUserActivityScreen extends StatelessWidget {
   }
 }
 class Body extends StatelessWidget {
+
+  String? useractivity;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -18,85 +27,45 @@ class Body extends StatelessWidget {
           child: Text('활동량이 어떻게 되나요?'),
         ),
         SizedBox(height: 50),
-        Container(
-          margin: EdgeInsets.all(5),
-          child: ElevatedButton(
-            onPressed: () {
-              null;
-            },
-            child: Text('가벼운 활동'),
-            style: ElevatedButton.styleFrom(
-              primary: Colors.grey,
-              padding: EdgeInsets.all(10.0),
-              textStyle: TextStyle(color: Colors.white),
-              minimumSize: Size(250, 50),
-            ),
-          ),
+        Button_Grey(
+            text: '가벼운 활동',
+            press: () {
+              useractivity = '가벼운 활동';
+            }
         ),
         SizedBox(height: 25),
-        Container(
-          margin: EdgeInsets.all(5),
-          child: ElevatedButton(
-            onPressed: () {
-              null;
-            },
-            child: Text('중증도 활동'),
-            style: ElevatedButton.styleFrom(
-              primary: Colors.grey,
-              padding: EdgeInsets.all(10.0),
-              textStyle: TextStyle(color: Colors.white),
-              minimumSize: Size(250, 50),
-            ),
-          ),
+        Button_Grey(
+            text: '중증도 활동',
+            press: () {
+              useractivity = '중증도 활동';
+            }
         ),
         SizedBox(height: 25),
-        Container(
-          margin: EdgeInsets.all(5),
-          child: ElevatedButton(
-            onPressed: () {
-              null;
-            },
-            child: Text('강한 활동'),
-            style: ElevatedButton.styleFrom(
-              primary: Colors.grey,
-              padding: EdgeInsets.all(10.0),
-              textStyle: TextStyle(color: Colors.white),
-              minimumSize: Size(250, 50),
-            ),
-          ),
+        Button_Grey(
+            text: '강한 활동',
+            press: () {
+              useractivity = '강한 활동';
+            }
         ),
         SizedBox(height: 25),
-        Container(
-          margin: EdgeInsets.all(5),
-          child: ElevatedButton(
-            onPressed: () {
-              null;
-            },
-            child: Text('아주 강한 활동'),
-            style: ElevatedButton.styleFrom(
-              primary: Colors.grey,
-              padding: EdgeInsets.all(10.0),
-              textStyle: TextStyle(color: Colors.white),
-              minimumSize: Size(250, 50),
-            ),
-          ),
+        Button_Grey(
+            text: '아주 강한 활동',
+            press: () {
+              useractivity = '아주 강한 활동';
+            }
         ),
         SizedBox(height: 25),
-        Container(
-          margin: EdgeInsets.all(5),
-          child: ElevatedButton(
-            onPressed: () {
+        Button_Green(
+            text: '다음',
+            press: () {
+              print(useractivity);
+              user.useractivity = useractivity;
+              print('username : ${user.username}, userbirth : ${user.userbirth}, usergoal :${user.usergoal}, '
+                  'usergender : ${user.usergender}, userheight: ${user.userheight}, userweight : ${user.userweight}, '
+                  'usertargetweight: ${user.usertargetweight}, useractivity: ${user.useractivity}');
               null; //메인페이지로 이동
-            },
-            child: Text('다음'),
-            style: ElevatedButton.styleFrom(
-              primary: Colors.green,
-              padding: EdgeInsets.all(10.0),
-              textStyle: TextStyle(color: Colors.white),
-              minimumSize: Size(250, 50),
-            ),
-          ),
-        ),
+            }
+        )
       ]
       ),
       ),

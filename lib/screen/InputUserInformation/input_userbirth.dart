@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:scroll_date_picker/scroll_date_picker.dart';
+
+import '../../components/button_green.dart';
+
+import 'package:sikcal/screen/InputUserInformation/Input_username.dart';
 import 'package:sikcal/screen/InputUserInformation/input_usergoal.dart';
+
 
 class InputUserBirthScreen extends StatelessWidget {
   @override
@@ -30,14 +35,6 @@ class Screen extends State<Body>{
         Column(
           children: [
             Container(
-              height: 100.0,
-              alignment: Alignment.center,
-              child: Text(
-                "$_selectedDate",
-                style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.w500),
-              ),
-            ),
-            Container(
               alignment: Alignment.centerRight,
               padding: const EdgeInsets.only(right: 48),
             ),
@@ -56,10 +53,11 @@ class Screen extends State<Body>{
           ],
         ),
         SizedBox(height: 25),
-        Container(
-          margin: EdgeInsets.all(5),
-          child: ElevatedButton(
-            onPressed: () {
+        Button_Green(
+            text: '다음',
+            press: () {
+              print(_selectedDate);
+              user.userbirth = _selectedDate;
               Navigator.push(
                 context,
                 MaterialPageRoute(
@@ -68,15 +66,7 @@ class Screen extends State<Body>{
                   },
                 ),
               );
-            },
-            child: Text('다음'),
-            style: ElevatedButton.styleFrom(
-              primary: Colors.green,
-              padding: EdgeInsets.all(10.0),
-              textStyle: TextStyle(color: Colors.white),
-              minimumSize: Size(250, 50),
-            ),
-          ),
+            }
         ),
       ]
       ),
