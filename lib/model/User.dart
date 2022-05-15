@@ -7,7 +7,6 @@ class User {
   String? usergender;
   String? userheight;
   String? userweight;
-  String? usertargetweight;
   String? useractivity;
 
   User(){
@@ -17,7 +16,6 @@ class User {
     this.usergender;
     this.userheight;
     this.userweight;
-    this.usertargetweight;
     this.useractivity;
   }
 }

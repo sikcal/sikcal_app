@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:sikcal/screen/InputUserInformation/input_useractivity.dart';
 
 import '../../components/textfield.dart';
 import '../../components/button_green.dart';
 
 import 'package:sikcal/screen/InputUserInformation/Input_username.dart';
-import 'package:sikcal/screen/InputUserInformation/input_usertargetweight.dart';
 
 
 class InputUserWeightScreen extends StatelessWidget {
@@ -42,7 +42,7 @@ class Body extends StatelessWidget {
                 context,
                 MaterialPageRoute(
                   builder: (context) {
-                    return InputUserTargetWeightScreen();
+                    return InputUserActivityScreen();
                   },
                 ),
               );
