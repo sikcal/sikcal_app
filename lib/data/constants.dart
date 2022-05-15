@@ -6,4 +6,6 @@ Color accentColor = const Color(0xffff9800);
 TextStyle defaultTextStyle = const TextStyle(
   fontSize: 15.0,
   fontWeight: FontWeight.bold,
+  decoration: TextDecoration.none,
+  color: Colors.black
 );

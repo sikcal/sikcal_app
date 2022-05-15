@@ -18,36 +18,33 @@ class _SearchMenuViewState extends State<SearchMenuView> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Hero(
-          tag: "appBar",
-          child: Row(
-            children: const [
-              Image(
-                image: AssetImage('images/fork.png'),
-                height: 25.0,
+        title: Row(
+          children: const [
+            Image(
+              image: AssetImage('images/fork.png'),
+              height: 25.0,
+            ),
+            SizedBox(
+              width: 10.0,
+            ),
+            Text(
+              "식칼",
+              style: TextStyle(
+                fontSize: 25.0,
+                color: Colors.white,
+                decoration: TextDecoration.none,
+                fontWeight: FontWeight.normal,
               ),
-              SizedBox(
-                width: 10.0,
-              ),
-              Text(
-                "식칼",
-                style: TextStyle(
-                  fontSize: 25.0,
-                  color: Colors.white,
-                  decoration: TextDecoration.none,
-                  fontWeight: FontWeight.normal,
-                ),
-              ),
-              SizedBox(
-                width: 10.0,
-              ),
-              Image(
-                image: AssetImage('images/knife.png'),
-                height: 25.0,
-              ),
-            ],
-            mainAxisSize: MainAxisSize.min,
-          ),
+            ),
+            SizedBox(
+              width: 10.0,
+            ),
+            Image(
+              image: AssetImage('images/knife.png'),
+              height: 25.0,
+            ),
+          ],
+          mainAxisSize: MainAxisSize.min,
         ),
         backgroundColor: primaryColor,
       ),
