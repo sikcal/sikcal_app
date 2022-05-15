@@ -62,7 +62,7 @@ class Body extends StatelessWidget {
               user.useractivity = useractivity;
               print('username : ${user.username}, userbirth : ${user.userbirth}, usergoal :${user.usergoal}, '
                   'usergender : ${user.usergender}, userheight: ${user.userheight}, userweight : ${user.userweight}, '
-                  'usertargetweight: ${user.usertargetweight}, useractivity: ${user.useractivity}');
+                  'useractivity: ${user.useractivity}');
               null; //메인페이지로 이동
             }
         )
