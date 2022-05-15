@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sikcal/screens/main_view.dart';
 
 import '../../components/button_green.dart';
 import '../../components/button_grey.dart';
@@ -63,7 +64,7 @@ class Body extends StatelessWidget {
               print('username : ${user.username}, userbirth : ${user.userbirth}, usergoal :${user.usergoal}, '
                   'usergender : ${user.usergender}, userheight: ${user.userheight}, userweight : ${user.userweight}, '
                   'useractivity: ${user.useractivity}');
-              null; //메인페이지로 이동
+              Navigator.push(context, MaterialPageRoute(builder: (context) => MainView()));
             }
         )
       ]

@@ -1,63 +1,64 @@
 import 'package:bottom_bar/bottom_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:liquid_progress_indicator/liquid_progress_indicator.dart';
 import 'package:sikcal/components/circular_progress.dart';
 import 'package:sikcal/data/constants.dart';
+import 'package:sikcal/data/provider.dart';
 import 'package:sikcal/screens/search_menu_view.dart';
 
-class MainView extends StatefulWidget {
+class MainView extends ConsumerStatefulWidget {
   const MainView({Key? key}) : super(key: key);
 
   @override
-  State<MainView> createState() => _MainViewState();
+  ConsumerState<MainView> createState() => _MainViewState();
 }
 
-class _MainViewState extends State<MainView> {
+class _MainViewState extends ConsumerState<MainView> {
   int _currentPage = 2; // 현재 페이지 (bottom nav bar 관련)
-
-  int gainedCarbohydrate = 50; // 현재 섭취한 탄, 단, 지
-  int gainedProtein = 30;
-  int gainedFat = 20;
-
-  int maxCarbohydrate = 180; // 하루 권장 섭취 탄, 단, 지
-  int maxProtein = 150;
-  int maxFat = 60;
 
   @override
   Widget build(BuildContext context) {
+    final user = ref.watch(userBasicProvider);
+
+    int gainedCarbohydrate = user.gainedCarbohydrate; // 현재 섭취한 탄, 단, 지
+    int gainedProtein = user.gainedProtein;
+    int gainedFat = user.gainedFat;
+
+    int maxCarbohydrate = user.carbohydrate; // 하루 권장 섭취 탄, 단, 지
+    int maxProtein = user.protein;
+    int maxFat = user.fat;
+
     return Scaffold(
       appBar: AppBar(
-        title: Hero(
-          tag: "appBar",
-          child: Row(
-            children: const [
-              Image(
-                image: AssetImage('images/fork.png'),
-                height: 25.0,
+        title: Row(
+          children: const [
+            Image(
+              image: AssetImage('images/fork.png'),
+              height: 25.0,
+            ),
+            SizedBox(
+              width: 10.0,
+            ),
+            Text(
+              "식칼",
+              style: TextStyle(
+                fontSize: 25.0,
+                color: Colors.white,
+                decoration: TextDecoration.none,
+                fontWeight: FontWeight.normal,
               ),
-              SizedBox(
-                width: 10.0,
-              ),
-              Text(
-                "식칼",
-                style: TextStyle(
-                  fontSize: 25.0,
-                  color: Colors.white,
-                  decoration: TextDecoration.none,
-                  fontWeight: FontWeight.normal,
-                ),
-              ),
-              SizedBox(
-                width: 10.0,
-              ),
-              Image(
-                image: AssetImage('images/knife.png'),
-                height: 25.0,
-              ),
-            ],
-            mainAxisSize: MainAxisSize.min,
-          ),
+            ),
+            SizedBox(
+              width: 10.0,
+            ),
+            Image(
+              image: AssetImage('images/knife.png'),
+              height: 25.0,
+            ),
+          ],
+          mainAxisSize: MainAxisSize.min,
         ),
         backgroundColor: primaryColor,
       ),
