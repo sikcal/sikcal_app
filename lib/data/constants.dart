@@ -5,7 +5,7 @@ Color accentColor = const Color(0xffff9800);
 
 TextStyle defaultTextStyle = const TextStyle(
   fontSize: 15.0,
-  fontWeight: FontWeight.bold,
+  fontWeight: FontWeight.normal,
   decoration: TextDecoration.none,
   color: Colors.black
 );

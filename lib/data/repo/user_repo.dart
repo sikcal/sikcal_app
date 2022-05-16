@@ -1,23 +1,24 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sikcal/data/provider.dart';
+import 'package:sikcal/model/user_basic.dart';
 
 class UserRepo {
   UserRepo(this.ref);
 
   Ref ref;
 
-  Future<void> setUser() {
-    final user = ref.watch(userBasicProvider);
+  Future<User> getUser() {
     final loadingState = ref.watch(loadingStateProvider.state);
 
     loadingState.state = true;
-
     // TODO : 서버에서 받아오기
     return Future.delayed(Duration(seconds: 1), () {
-      user.username = '안형진';
-      user.carbohydrate = 150;
-      user.protein = 120;
-      user.fat = 40;
+      return User(
+        username: 'hi-jin',
+        carbohydrate: 180,
+        protein: 150,
+        fat: 60,
+      );
     }).whenComplete(() => loadingState.state = false);
   }
 }

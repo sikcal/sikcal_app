@@ -1,3 +1,16 @@
+import 'package:flutter/cupertino.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:sikcal/model/meal.dart';
+
+class UserBasic extends StateNotifier<User> {
+  UserBasic() : super(User());
+
+  void setUser(User user) {
+    state = user;
+  }
+}
+
+@immutable
 class User {
   String? uid;
   String? username;
@@ -10,9 +23,6 @@ class User {
   int carbohydrate;
   int protein;
   int fat;
-  int gainedCarbohydrate = 0;
-  int gainedProtein = 0;
-  int gainedFat = 0;
 
   User({
     this.uid,
