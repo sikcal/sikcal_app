@@ -6,6 +6,10 @@ import 'package:liquid_progress_indicator/liquid_progress_indicator.dart';
 import 'package:sikcal/components/circular_progress.dart';
 import 'package:sikcal/data/constants.dart';
 import 'package:sikcal/data/provider.dart';
+import 'package:sikcal/model/food.dart';
+import 'package:sikcal/model/meal.dart';
+import 'package:sikcal/model/user_basic.dart';
+import 'package:sikcal/screens/meal_list_view.dart';
 import 'package:sikcal/screens/search_menu_view.dart';
 
 class MainView extends ConsumerStatefulWidget {
@@ -21,10 +25,13 @@ class _MainViewState extends ConsumerState<MainView> {
   @override
   Widget build(BuildContext context) {
     final user = ref.watch(userBasicProvider);
+    final mealList = ref.watch(currentMealListProvider);
+    final gainedCalories = ref.watch(gainedCaloriesProvider.state);
 
-    int gainedCarbohydrate = user.gainedCarbohydrate; // 현재 섭취한 탄, 단, 지
-    int gainedProtein = user.gainedProtein;
-    int gainedFat = user.gainedFat;
+    //TODO enum으로
+    int gainedCarbohydrate = gainedCalories.state['carbohydrate']!; // 현재 섭취한 탄, 단, 지
+    int gainedProtein = gainedCalories.state['protein']!;
+    int gainedFat = gainedCalories.state['fat']!;
 
     int maxCarbohydrate = user.carbohydrate; // 하루 권장 섭취 탄, 단, 지
     int maxProtein = user.protein;
@@ -178,11 +185,10 @@ class _MainViewState extends ConsumerState<MainView> {
 
               const SizedBox(height: 10.0),
 
+              // 끼니 목록
               Expanded(
-                  child: ListView(
-                // TODO : 식단 리스트 추가하기
-                children: [],
-              )),
+                child: MealListView(mealList: mealList),
+              ),
 
               const SizedBox(height: 10.0),
 
@@ -201,11 +207,14 @@ class _MainViewState extends ConsumerState<MainView> {
                     ),
                     FloatingActionButton(
                       child: const Icon(FontAwesomeIcons.plus),
-                      onPressed: () {
-                        Navigator.push(
+                      onPressed: () async {
+                        Meal? meal = await Navigator.push(
                             context,
                             MaterialPageRoute(
                                 builder: (context) => SearchMenuView()));
+                        if (meal != null) {
+                          ref.read(currentMealListProvider.notifier).set([meal, ...mealList]);
+                        }
                       },
                     ),
                   ],

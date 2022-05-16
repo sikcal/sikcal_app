@@ -20,8 +20,9 @@ class _WelcomeScreenState extends ConsumerState<WelcomeScreen> {
   void initState() {
     super.initState();
 
-    ref.read(userRepoProvider).setUser().whenComplete(() {
-      if (ref.read(userBasicProvider).username != null) {
+    ref.read(userRepoProvider).getUser().then((user) {
+      if (user.username != null) {
+        ref.read(userBasicProvider.notifier).setUser(user);
         Navigator.push(
             context,
             MaterialPageRoute(
@@ -32,10 +33,6 @@ class _WelcomeScreenState extends ConsumerState<WelcomeScreen> {
 
   @override
   Widget build(context) {
-    final userRepo = ref.watch(userRepoProvider);
-    final user = ref.watch(userBasicProvider);
-    final loadingState = ref.watch(loadingStateProvider.state);
-
     return Scaffold(
       body: Center(
         child: Column(children: <Widget>[
