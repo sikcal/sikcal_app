@@ -15,8 +15,8 @@ class UserRepo {
     return Future.delayed(Duration(seconds: 1), () {
       return User(
         username: 'hi-jin',
-        carbohydrate: 180,
-        protein: 150,
+        carbohydrate: 250,
+        protein: 180,
         fat: 60,
       );
     }).whenComplete(() => loadingState.state = false);

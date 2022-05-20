@@ -9,7 +9,9 @@ import 'package:sikcal/screens/food_list_view.dart';
 import '../data/constants.dart';
 
 class SearchMenuView extends StatefulWidget {
-  const SearchMenuView({Key? key}) : super(key: key);
+  SearchMenuView({Key? key, this.meal}) : super(key: key);
+
+  Meal? meal;
 
   @override
   State<SearchMenuView> createState() => _SearchMenuViewState();
@@ -18,6 +20,14 @@ class SearchMenuView extends StatefulWidget {
 class _SearchMenuViewState extends State<SearchMenuView> {
   int _currentPage = 2;
 
+  late Meal meal;
+
+  @override
+  void initState() {
+    meal = widget.meal ?? Meal();
+  }
+
+  // TODO : 서버에서 받아오기
   List<Food> currentFoodList = [
     Food(
         hashId: 1,
@@ -37,9 +47,13 @@ class _SearchMenuViewState extends State<SearchMenuView> {
         carbohydrate: 68,
         protein: 5,
         fat: 1),
+    Food(
+        hashId: 4,
+        name: '닭 가슴살 (100g)당',
+        carbohydrate: 1,
+        protein: 31,
+        fat: 4),
   ];
-
-  Meal meal = Meal();
 
   @override
   Widget build(BuildContext context) {

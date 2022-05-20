@@ -23,7 +23,7 @@ class _MyAppState extends State<MyApp> {
     return ProviderScope(
       child: MaterialApp(
         theme: ThemeData(
-
+            scaffoldBackgroundColor: Colors.white,
             floatingActionButtonTheme: FloatingActionButtonThemeData(
               backgroundColor: primaryColor,
             ),
