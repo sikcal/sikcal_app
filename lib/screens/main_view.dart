@@ -28,7 +28,6 @@ class _MainViewState extends ConsumerState<MainView> {
     final mealList = ref.watch(currentMealListProvider);
     final gainedCalories = ref.watch(gainedCaloriesProvider.state);
 
-    //TODO enum으로
     int gainedCarbohydrate = gainedCalories.state['carbohydrate']!; // 현재 섭취한 탄, 단, 지
     int gainedProtein = gainedCalories.state['protein']!;
     int gainedFat = gainedCalories.state['fat']!;
@@ -167,20 +166,28 @@ class _MainViewState extends ConsumerState<MainView> {
                 ),
               ),
 
-              const SizedBox(height: 10.0),
+              Container(
+                color: Colors.white,
+                width: double.infinity,
+                child: Column(
+                  children: [
+                    const SizedBox(height: 10.0),
 
-              Text(
-                "현재 섭취 칼로리 : ${gainedCarbohydrate * 4 + gainedProtein * 4 + gainedFat * 9}kcal",
-              ),
-              Text(
-                "목표 섭취 칼로리 : ${maxCarbohydrate * 4 + maxProtein * 4 + maxFat * 9}kcal",
-              ),
+                    Text(
+                      "현재 섭취 칼로리 : ${gainedCarbohydrate * 4 + gainedProtein * 4 + gainedFat * 9}kcal",
+                    ),
+                    Text(
+                      "목표 섭취 칼로리 : ${maxCarbohydrate * 4 + maxProtein * 4 + maxFat * 9}kcal",
+                    ),
 
-              const SizedBox(height: 5.0),
+                    const SizedBox(height: 5.0),
 
-              Divider(
-                thickness: 1.5,
-                color: primaryColor,
+                    Divider(
+                      thickness: 1.5,
+                      color: primaryColor,
+                    ),
+                  ],
+                ),
               ),
 
               const SizedBox(height: 10.0),
@@ -190,32 +197,35 @@ class _MainViewState extends ConsumerState<MainView> {
                 child: MealListView(mealList: mealList),
               ),
 
-              const SizedBox(height: 10.0),
-
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              Container(
+                color: Colors.white,
+                width: double.infinity,
+                child: Column(
                   children: [
-                    TextButton(
-                      onPressed: () {}, // TODO : 카메라 켜서 사진 찍는 라이브러리 추가
-                      child: Icon(
-                        Icons.camera_alt_outlined,
-                        size: 65.0,
-                        color: primaryColor,
-                      ),
-                    ),
-                    FloatingActionButton(
-                      child: const Icon(FontAwesomeIcons.plus),
-                      onPressed: () async {
-                        Meal? meal = await Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => SearchMenuView()));
-                        if (meal != null) {
-                          ref.read(currentMealListProvider.notifier).set([meal, ...mealList]);
-                        }
-                      },
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        TextButton(
+                          onPressed: () {}, // TODO : 카메라 켜서 사진 찍는 라이브러리 추가
+                          child: Icon(
+                            Icons.camera_alt_outlined,
+                            size: 65.0,
+                            color: primaryColor,
+                          ),
+                        ),
+                        FloatingActionButton(
+                          child: const Icon(FontAwesomeIcons.plus),
+                          onPressed: () async {
+                            Meal? meal = await Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => SearchMenuView()));
+                            if (meal != null) {
+                              ref.read(currentMealListProvider.notifier).set([meal, ...mealList]);
+                            }
+                          },
+                        ),
+                      ],
                     ),
                   ],
                 ),
@@ -225,45 +235,45 @@ class _MainViewState extends ConsumerState<MainView> {
         ),
       ),
       bottomNavigationBar: BottomBar(
-        itemPadding: EdgeInsets.fromLTRB(10.0, 10.0, 10.0, 20.0),
+        itemPadding: const EdgeInsets.fromLTRB(10.0, 10.0, 10.0, 20.0),
         backgroundColor: primaryColor,
         items: [
           BottomBarItem(
-              icon: Icon(
+              icon: const Icon(
                 Icons.feed,
                 color: Colors.white,
               ),
-              title: Text("피드"),
+              title: const Text("피드"),
               activeColor: Colors.white),
           BottomBarItem(
-              icon: Icon(
+              icon: const Icon(
                 Icons.chat_bubble_outline,
                 color: Colors.white,
               ),
-              title: Text("그룹 채팅"),
+              title: const Text("그룹 채팅"),
               activeColor: Colors.white),
           BottomBarItem(
-              icon: Icon(
+              icon: const Icon(
                 Icons.home_outlined,
                 size: 30.0,
                 color: Colors.white,
               ),
-              title: Text("홈 화면"),
+              title: const Text("홈 화면"),
               activeColor: Colors.white),
           BottomBarItem(
-              icon: Icon(
+              icon: const Icon(
                 Icons.star_outline,
                 size: 30.0,
                 color: Colors.white,
               ),
-              title: Text("나의 식단"),
+              title: const Text("나의 식단"),
               activeColor: Colors.white),
           BottomBarItem(
-              icon: Icon(
+              icon: const Icon(
                 Icons.person,
                 color: Colors.white,
               ),
-              title: Text("마이페이지"),
+              title: const Text("마이페이지"),
               activeColor: Colors.white),
         ],
         onTap: (int value) {
