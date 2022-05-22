@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../model/User.dart';
+import '../../model/user_basic.dart';
 import '../../components/mytextformfield.dart';
 import '../../components/button_green.dart';
 

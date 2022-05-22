@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'package:sikcal/screen/welcome/welcome_screen.dart';
 import 'package:sikcal/data/constants.dart';
+import 'package:sikcal/screens/loading_screen.dart';
 import 'package:sikcal/screens/main_view.dart';
 
 void main() {
@@ -18,16 +20,23 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      theme: ThemeData(
-
-          floatingActionButtonTheme: FloatingActionButtonThemeData(
-            backgroundColor: primaryColor,
-          ),
-          textTheme: TextTheme(
-            bodyText2: defaultTextStyle,
-          )),
-      home: WelcomeScreen(),
+    return ProviderScope(
+      child: MaterialApp(
+        theme: ThemeData(
+            scaffoldBackgroundColor: Colors.white,
+            floatingActionButtonTheme: FloatingActionButtonThemeData(
+              backgroundColor: primaryColor,
+            ),
+            textTheme: TextTheme(
+              bodyText2: defaultTextStyle,
+            )),
+        home: Stack(
+          children: [
+            WelcomeScreen(),
+            LoadingScreen(),
+          ],
+        ),
+      ),
     );
   }
 }
