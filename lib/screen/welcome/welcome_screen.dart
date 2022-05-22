@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+
+import '../../components/button_green.dart';
+
 import 'package:sikcal/screen/InputUserInformation/input_start.dart';
 
 
@@ -30,10 +33,9 @@ class Body extends StatelessWidget {
             child: Text('적절하고 건강한 양의 식단을 섭취하는데 도움을 드립니다.'),
           ),
           SizedBox(height: 50),
-          Container(
-            margin: EdgeInsets.all(5),
-            child: ElevatedButton(
-              onPressed: () {
+          Button_Green(
+              text: '구글 계정으로 시작하기',
+              press: () {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
@@ -42,30 +44,13 @@ class Body extends StatelessWidget {
                     },
                   ),
                 );
-              },
-              child: Text('구글 계정으로 시작하기'),
-              style: ElevatedButton.styleFrom(
-                primary: Colors.green,
-                padding: EdgeInsets.all(10.0),
-                textStyle: TextStyle(color: Colors.white),
-                minimumSize: Size(250, 50),
-              ),
-            ),
+              }
           ),
-          Container(
-            margin: EdgeInsets.all(5),
-            child: ElevatedButton(
-              onPressed: () {
-               //계정이 이미 있는 경우 로그인후 바로 홈페이지로 이동
-              },
-              child: Text('계정이 이미 있어요'),
-              style: ElevatedButton.styleFrom(
-                primary: Colors.green,
-                padding: EdgeInsets.all(10.0),
-                textStyle: TextStyle(color: Colors.white),
-                minimumSize: Size(250, 50),
-              ),
-            ),
+          Button_Green(
+              text: '계정이 이미 있어요',
+              press: () {
+                //계정이 이미 있는 경우 로그인후 바로 홈페이지로 이동
+              }
           ),
         ]
         ),

@@ -1,15 +1,21 @@
 import 'package:flutter/material.dart';
+
+import '../../components/mytextformfield.dart';
+import '../../components/textfield.dart';
+import '../../components/button_green.dart';
+
+import 'package:sikcal/screen/InputUserInformation/Input_username.dart';
 import 'package:sikcal/screen/InputUserInformation/input_userweight.dart';
 
-class InputUserHeightScreen extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: Body(),
-    );
-  }
+
+class InputUserHeightScreen extends StatefulWidget {
+  _FormScreenStateHeight createState() => _FormScreenStateHeight();
 }
-class Body extends StatelessWidget {
+class _FormScreenStateHeight extends State<InputUserHeightScreen> {
+
+  final userheightcontroller = TextEditingController();
+  final _formkey = GlobalKey<FormState>();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -19,37 +25,46 @@ class Body extends StatelessWidget {
           child: Text('키가 얼마인가요?'),
         ),
         SizedBox(height: 50),
-        Container(
-            width: 250,
-            child: TextField(
-                decoration: InputDecoration(
-                    border: OutlineInputBorder(),
-                    labelText: '키를 입력해주세요.'
-                )
-            )
+        Form(
+          key: _formkey,
+          child: MyTextFormField(
+            controller: userheightcontroller,
+            label: '키를 입력해주세요',
+            onSaved: (value) {
+              setState(() {});
+            },
+            validator: (value) {
+              if(value.length < 1) {
+                return '키는 필수사항입니다.';
+              }
+              if (!RegExp('[0-9]').hasMatch(value)) {
+                return '숫자를 입력해주세요';
+              }
+
+            },
+          ),
         ),
         SizedBox(height: 25),
-        Container(
-          margin: EdgeInsets.all(5),
-          child: ElevatedButton(
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) {
-                    return InputUserWeightScreen();
-                  },
-                ),
-              );
-            },
-            child: Text('다음'),
-            style: ElevatedButton.styleFrom(
-              primary: Colors.green,
-              padding: EdgeInsets.all(10.0),
-              textStyle: TextStyle(color: Colors.white),
-              minimumSize: Size(250, 50),
-            ),
-          ),
+        Button_Green(
+            text: '다음',
+            press: () {
+              final form = _formkey.currentState;
+              if (form != null && !form.validate()) {
+              }
+              else {
+                print(userheightcontroller.text);
+                user.userheight = userheightcontroller.text;
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) {
+                      return InputUserWeightScreen();
+                    },
+                  ),
+                );
+                return;
+              }
+            }
         ),
       ]
       ),

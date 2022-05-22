@@ -1,5 +1,11 @@
 import 'package:flutter/material.dart';
+
+import '../../components/button_green.dart';
+import '../../components/button_grey.dart';
+
+import 'package:sikcal/screen/InputUserInformation/Input_username.dart';
 import 'package:sikcal/screen/InputUserInformation/input_usergender.dart';
+
 
 class InputUserGoalScreen extends StatelessWidget {
   @override
@@ -10,6 +16,9 @@ class InputUserGoalScreen extends StatelessWidget {
   }
 }
 class Body extends StatelessWidget {
+
+  String? usergoal;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -19,75 +28,46 @@ class Body extends StatelessWidget {
           child: Text('식단을 관리하는 목표는 무엇인가요?'),
         ),
         SizedBox(height: 50),
-        Container(
-          margin: EdgeInsets.all(5),
-          child: ElevatedButton(
-            onPressed: () {
-              null;
-            },
-            child: Text('현재 체중 유지하기'),
-            style: ElevatedButton.styleFrom(
-              primary: Colors.grey,
-              padding: EdgeInsets.all(10.0),
-              textStyle: TextStyle(color: Colors.white),
-              minimumSize: Size(250, 50),
-            ),
-          ),
+        Button_Grey(
+            text: '현재 체중 유지하기',
+            press: () {
+              usergoal = '현재 체중 유지하기';
+            }
         ),
         SizedBox(height: 25),
-        Container(
-          margin: EdgeInsets.all(5),
-          child: ElevatedButton(
-            onPressed: () {
-              null;
-            },
-            child: Text('체중 감량하기'),
-            style: ElevatedButton.styleFrom(
-              primary: Colors.grey,
-              padding: EdgeInsets.all(10.0),
-              textStyle: TextStyle(color: Colors.white),
-              minimumSize: Size(250, 50),
-            ),
-          ),
+        Button_Grey(
+            text: '체중 감량하기',
+            press: () {
+              usergoal = '체중 감량하기';
+            }
         ),
         SizedBox(height: 25),
-        Container(
-          margin: EdgeInsets.all(5),
-          child: ElevatedButton(
-            onPressed: () {
-              null;
-            },
-            child: Text('체중 상관없이 식단 관리하기'),
-            style: ElevatedButton.styleFrom(
-              primary: Colors.grey,
-              padding: EdgeInsets.all(10.0),
-              textStyle: TextStyle(color: Colors.white),
-              minimumSize: Size(250, 50),
-            ),
-          ),
+        Button_Grey(
+            text: '체중 상관없이 식단 관리하기',
+            press: () {
+              usergoal = '체중 상관없이 식단 관리하기';
+            }
         ),
         SizedBox(height: 25),
-        Container(
-          margin: EdgeInsets.all(5),
-          child: ElevatedButton(
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) {
-                    return InputUserGenderScreen();
-                  },
-                ),
-              );
-            },
-            child: Text('다음'),
-            style: ElevatedButton.styleFrom(
-              primary: Colors.green,
-              padding: EdgeInsets.all(10.0),
-              textStyle: TextStyle(color: Colors.white),
-              minimumSize: Size(250, 50),
-            ),
-          ),
+        Button_Green(
+            text: '다음',
+            press: () {
+              if (usergoal == null) {
+
+              }
+              else {
+                print(usergoal);
+                user.usergoal = usergoal;
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) {
+                      return InputUserGenderScreen();
+                    },
+                  ),
+                );
+              }
+            }
         ),
       ]
       ),
