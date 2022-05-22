@@ -2,13 +2,11 @@ import 'package:bottom_bar/bottom_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:liquid_progress_indicator/liquid_progress_indicator.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:sikcal/components/circular_progress.dart';
 import 'package:sikcal/data/constants.dart';
 import 'package:sikcal/data/provider.dart';
-import 'package:sikcal/model/food.dart';
 import 'package:sikcal/model/meal.dart';
-import 'package:sikcal/model/user_basic.dart';
 import 'package:sikcal/screens/meal_list_view.dart';
 import 'package:sikcal/screens/search_menu_view.dart';
 
@@ -28,7 +26,8 @@ class _MainViewState extends ConsumerState<MainView> {
     final mealList = ref.watch(currentMealListProvider);
     final gainedCalories = ref.watch(gainedCaloriesProvider.state);
 
-    int gainedCarbohydrate = gainedCalories.state['carbohydrate']!; // 현재 섭취한 탄, 단, 지
+    int gainedCarbohydrate =
+        gainedCalories.state['carbohydrate']!; // 현재 섭취한 탄, 단, 지
     int gainedProtein = gainedCalories.state['protein']!;
     int gainedFat = gainedCalories.state['fat']!;
 
@@ -172,16 +171,13 @@ class _MainViewState extends ConsumerState<MainView> {
                 child: Column(
                   children: [
                     const SizedBox(height: 10.0),
-
                     Text(
                       "현재 섭취 칼로리 : ${gainedCarbohydrate * 4 + gainedProtein * 4 + gainedFat * 9}kcal",
                     ),
                     Text(
                       "목표 섭취 칼로리 : ${maxCarbohydrate * 4 + maxProtein * 4 + maxFat * 9}kcal",
                     ),
-
                     const SizedBox(height: 5.0),
-
                     Divider(
                       thickness: 1.5,
                       color: primaryColor,
@@ -206,7 +202,12 @@ class _MainViewState extends ConsumerState<MainView> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         TextButton(
-                          onPressed: () {}, // TODO : 카메라 켜서 사진 찍는 라이브러리 추가
+                          onPressed: () async {
+                            showModalBottomSheet(
+                              context: context,
+                              builder: (context) => _BottomPopup(),
+                            );
+                          },
                           child: Icon(
                             Icons.camera_alt_outlined,
                             size: 65.0,
@@ -221,7 +222,9 @@ class _MainViewState extends ConsumerState<MainView> {
                                 MaterialPageRoute(
                                     builder: (context) => SearchMenuView()));
                             if (meal != null) {
-                              ref.read(currentMealListProvider.notifier).set([meal, ...mealList]);
+                              ref
+                                  .read(currentMealListProvider.notifier)
+                                  .set([meal, ...mealList]);
                             }
                           },
                         ),
@@ -282,6 +285,54 @@ class _MainViewState extends ConsumerState<MainView> {
           });
         },
         selectedIndex: _currentPage,
+      ),
+    );
+  }
+}
+
+class _BottomPopup extends StatelessWidget {
+  const _BottomPopup({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    final ImagePicker _picker = ImagePicker();
+
+    return SafeArea(
+      child: Padding(
+        padding: const EdgeInsets.all(5.0),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            TextButton(
+              onPressed: () async {
+                final image =
+                    await _picker.pickImage(source: ImageSource.gallery);
+                // TODO image 다른 화면으로 보내기
+                Navigator.pop(context);
+              },
+              child: Text(
+                '갤러리에서 눈바디 사진 찾기',
+                style: defaultTextStyle,
+                textAlign: TextAlign.start,
+              ),
+            ),
+            const SizedBox(height: 5),
+            TextButton(
+              onPressed: () async {
+                final image =
+                    await _picker.pickImage(source: ImageSource.camera);
+                // TODO image 다른 화면으로 보내기
+                Navigator.pop(context);
+              },
+              child: Text(
+                '카메라로 촬영하기',
+                style: defaultTextStyle,
+                textAlign: TextAlign.start,
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
