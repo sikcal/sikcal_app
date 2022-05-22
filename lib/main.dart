@@ -32,7 +32,6 @@ class _MyAppState extends State<MyApp> {
             )),
         home: Stack(
           children: [
-            WelcomeScreen(),
             LoadingScreen(),
           ],
         ),

@@ -6,9 +6,6 @@ import '../../components/button_green.dart';
 
 import 'package:sikcal/screen/InputUserInformation/Input_username.dart';
 
-import 'input_useractivity.dart';
-
-
 class InputUserWeightScreen extends StatefulWidget {
   _FormScreenStateWeight createState() => _FormScreenStateWeight();
 }
@@ -65,7 +62,6 @@ class _FormScreenStateWeight extends State<InputUserWeightScreen> {
                 );
                 return;
               }
-
             }
         ),
       ]
