@@ -45,16 +45,21 @@ class Body extends StatelessWidget {
         Button_Green(
             text: '다음',
             press: () {
-              print(usergender);
-              user.usergender = usergender;
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) {
-                    return InputUserHeightScreen();
-                  },
-                ),
-              );
+              if (usergender == null) {
+
+              }
+              else {
+                print(usergender);
+                user.usergender = usergender;
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) {
+                      return InputUserHeightScreen();
+                    },
+                  ),
+                );
+              }
             }
         ),
       ]

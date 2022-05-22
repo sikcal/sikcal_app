@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../model/user_basic.dart';
-import '../../components/textfield.dart';
+import '../../components/mytextformfield.dart';
 import '../../components/button_green.dart';
 
 import 'package:sikcal/screen/InputUserInformation/input_userbirth.dart';
@@ -9,18 +9,14 @@ import 'package:sikcal/screen/InputUserInformation/input_userbirth.dart';
 
 User user = User();
 
-class InputUserNameScreen extends StatelessWidget {
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: Body(),
-    );
-  }
+class InputUserNameScreen extends StatefulWidget {
+  _FormScreenState createState() => _FormScreenState();
 }
-class Body extends StatelessWidget {
+
+class _FormScreenState extends State<InputUserNameScreen> {
 
   final usernamecontroller = TextEditingController();
+  final _formkey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -31,24 +27,41 @@ class Body extends StatelessWidget {
           child: Text('이름이 무엇인가요?'),
         ),
         SizedBox(height: 50),
-        PlainTextField(
-          controller: usernamecontroller,
-          text: '이름을 입력해주세요'
+        Form(
+          key: _formkey,
+          child: MyTextFormField(
+            controller: usernamecontroller,
+            label: '이름을 입력해주세요',
+            onSaved: (value) {
+              setState(() {});
+            },
+            validator: (value) {
+              if(value.length < 1) {
+                return '이름은 필수사항입니다.';
+              }
+            },
+          ),
         ),
         SizedBox(height: 25),
         Button_Green(
             text: '다음',
             press: () {
-              print(usernamecontroller.text);
-              user.username = usernamecontroller.text;
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) {
-                    return InputUserBirthScreen();
-                  },
-                ),
-              );
+              final form = _formkey.currentState;
+              if (form != null && !form.validate()) {
+              }
+              else {
+                print(usernamecontroller.text);
+                user.username = usernamecontroller.text;
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) {
+                      return InputUserBirthScreen();
+                    },
+                  ),
+                );
+                return;
+              }
             }
         ),
       ]
