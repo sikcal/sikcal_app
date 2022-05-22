@@ -27,7 +27,7 @@ class _MyAppState extends State<MyApp> {
           textTheme: TextTheme(
             bodyText2: defaultTextStyle,
           )),
-      home: MainView(),
+      home: WelcomeScreen(),
     );
   }
 }

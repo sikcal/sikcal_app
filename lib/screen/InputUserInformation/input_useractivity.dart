@@ -58,12 +58,20 @@ class Body extends StatelessWidget {
         Button_Green(
             text: '다음',
             press: () {
-              print(useractivity);
-              user.useractivity = useractivity;
-              print('username : ${user.username}, userbirth : ${user.userbirth}, usergoal :${user.usergoal}, '
-                  'usergender : ${user.usergender}, userheight: ${user.userheight}, userweight : ${user.userweight}, '
-                  'usertargetweight: ${user.usertargetweight}, useractivity: ${user.useractivity}');
-              null; //메인페이지로 이동
+              if (useractivity == null) {
+
+              }
+              else {
+                print(useractivity);
+                user.useractivity = useractivity;
+                print('username : ${user.username}, userbirth : ${user
+                    .userbirth}, usergoal :${user.usergoal}, '
+                    'usergender : ${user.usergender}, userheight: ${user
+                    .userheight}, userweight : ${user.userweight}, '
+                    'usertargetweight: ${user
+                    .usertargetweight}, useractivity: ${user.useractivity}');
+                null; //메인페이지로 이동
+              }
             }
         )
       ]
