@@ -32,7 +32,8 @@ class _MyAppState extends State<MyApp> {
             )),
         home: Stack(
           children: [
-            LoadingScreen(),
+            WelcomeScreen(),
+            LoadingScreen(), // loading state provider의 값이 loading이면 모든 화면에서 로딩 창을 띄웁니다.
           ],
         ),
       ),
