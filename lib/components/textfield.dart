@@ -14,13 +14,13 @@ class PlainTextField extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
         width: 250,
-        child: TextField(
+        child: TextFormField(
           controller: controller,
           decoration: InputDecoration(
               border: OutlineInputBorder(),
               labelText: text
           ),
-        )
+        ),
     );
   }
 }
