@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sikcal/screens/main_view.dart';
 
 import '../../components/button_green.dart';
 import '../../components/button_grey.dart';
@@ -58,6 +59,7 @@ class Body extends StatelessWidget {
         Button_Green(
             text: '다음',
             press: () {
+<<<<<<< HEAD
               if (useractivity == null) {
 
               }
@@ -72,6 +74,14 @@ class Body extends StatelessWidget {
                     .usertargetweight}, useractivity: ${user.useractivity}');
                 null; //메인페이지로 이동
               }
+=======
+              print(useractivity);
+              user.useractivity = useractivity;
+              print('username : ${user.username}, userbirth : ${user.userbirth}, usergoal :${user.usergoal}, '
+                  'usergender : ${user.usergender}, userheight: ${user.userheight}, userweight : ${user.userweight}, '
+                  'useractivity: ${user.useractivity}');
+              Navigator.push(context, MaterialPageRoute(builder: (context) => MainView()));
+>>>>>>> b70eed5b39227867065e0a90ea26c11bd7124630
             }
         )
       ]

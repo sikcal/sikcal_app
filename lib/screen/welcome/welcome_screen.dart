@@ -1,38 +1,56 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:sikcal/data/provider.dart';
+import 'package:sikcal/screens/loading_screen.dart';
+import 'package:sikcal/screens/main_view.dart';
 
 import '../../components/button_green.dart';
 
 import 'package:sikcal/screen/InputUserInformation/input_start.dart';
 
+class WelcomeScreen extends ConsumerStatefulWidget {
+  const WelcomeScreen({Key? key}) : super(key: key);
 
-class WelcomeScreen extends StatelessWidget {
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: Body(),
-    );
-  }
+  ConsumerState<WelcomeScreen> createState() => _WelcomeScreenState();
 }
-class Body extends StatelessWidget {
+
+class _WelcomeScreenState extends ConsumerState<WelcomeScreen> {
   @override
-  Widget build(BuildContext context) {
+  void initState() {
+    super.initState();
+
+    ref.read(userRepoProvider).getUser().then((user) {
+      if (user.username != null) {
+        ref.read(userBasicProvider.notifier).setUser(user);
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => const MainView())); // TODO 뒤로가기 버튼 없애기
+      }
+    });
+  }
+
+  @override
+  Widget build(context) {
     return Scaffold(
-        body: Center(child: Column(children: <Widget>[
-          SizedBox(height: 100),
-          Container(
-            child: Icon(Icons.restaurant,
-                        color: Colors.grey,
-                        size: 200,)
+      body: Center(
+        child: Column(children: <Widget>[
+          const SizedBox(height: 100),
+          const Icon(
+            Icons.restaurant,
+            color: Colors.grey,
+            size: 200,
           ),
-          SizedBox(height: 50),
+          const SizedBox(height: 50),
           Container(
-            child: Text('건강하고 즐거운 식단관리'),
+            child: const Text('건강하고 즐거운 식단관리'),
           ),
-          SizedBox(height: 25),
+          const SizedBox(height: 25),
           Container(
-            child: Text('적절하고 건강한 양의 식단을 섭취하는데 도움을 드립니다.'),
+            child: const Text('적절하고 건강한 양의 식단을 섭취하는데 도움을 드립니다.'),
           ),
-          SizedBox(height: 50),
+          const SizedBox(height: 50),
           Button_Green(
               text: '구글 계정으로 시작하기',
               press: () {
@@ -44,17 +62,14 @@ class Body extends StatelessWidget {
                     },
                   ),
                 );
-              }
-          ),
+              }),
           Button_Green(
               text: '계정이 이미 있어요',
               press: () {
                 //계정이 이미 있는 경우 로그인후 바로 홈페이지로 이동
-              }
-          ),
-        ]
-        ),
-        ),
+              }),
+        ]),
+      ),
     );
   }
 }

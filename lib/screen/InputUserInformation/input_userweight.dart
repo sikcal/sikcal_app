@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:sikcal/screen/InputUserInformation/input_useractivity.dart';
 
 import '../../components/mytextformfield.dart';
 import '../../components/button_green.dart';
 
 import 'package:sikcal/screen/InputUserInformation/Input_username.dart';
-
-import 'input_useractivity.dart';
-
 
 class InputUserWeightScreen extends StatefulWidget {
   _FormScreenStateWeight createState() => _FormScreenStateWeight();

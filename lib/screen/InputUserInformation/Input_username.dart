@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 
-import '../../model/User.dart';
-import '../../components/mytextformfield.dart';
 import '../../components/button_green.dart';
 
 import 'package:sikcal/screen/InputUserInformation/input_userbirth.dart';
+
+import '../../components/mytextformfield.dart';
+import '../../model/user_basic.dart';
 
 
 User user = User();
