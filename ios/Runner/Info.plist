@@ -45,5 +45,9 @@
 	<false/>
 	<key>CADisableMinimumFrameDurationOnPhone</key>
 	<true/>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>눈바디 사진 조회를 위해 사진 권한을 요청합니다.</string>
+	<key>NSCameraUsageDescription</key>
+	<string>눈바디 사진 촬영을 위해 카메라 권한을 요청합니다.</string>
 </dict>
 </plist>
