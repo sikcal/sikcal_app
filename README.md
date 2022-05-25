@@ -1,16 +1,22 @@
-# sikcal
+# 앱개봄 (앱 개발자에게도 봄이 올까요?)
 
-sikcal app dev project
+팀장 : 안형진
 
-## Getting Started
+팀원 : 길형준, 김승우, 김유진, 송치훈, 유정훈
 
-This project is a starting point for a Flutter application.
+# 식칼 🍴 - **식**단을 **칼**같이
+### 💪식단 관리 보조 APP
 
-A few resources to get you started if this is your first Flutter project:
+MZ세대의 트렌드로 자리잡은 헬스케어
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+운동도 중요하지만, 적절한 영양 섭취를 위한 식단 또한 큰 축을 차지합니다!
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+### 닭가슴살🐔 고구마🍠 샐러드🥗는 질리는데...
+
+식단 관리는 닭가슴살과 고구마, 샐러드로만 이루어지는 것이 아니에요!
+
+**좋아하는 음식**을 먹으면서도 **적절한 양의 영양소와 칼로리**를 채울 수 있다면,
+그것 또한 건강한 식단이라고 할 수 있습니다!
+
+**저희 앱은 식단을 강제하는 것이 아닌, 
+적절한, 건강한 양을 섭취하는 데 도움을 드리는 것이 목표입니다!**
