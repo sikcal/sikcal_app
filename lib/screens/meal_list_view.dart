@@ -19,14 +19,82 @@ class MealListView extends ConsumerWidget {
         Meal meal = mealList.elementAt(idx);
         return Dismissible(
           key: UniqueKey(),
-          direction: DismissDirection.endToStart,
-          onDismissed: (direction) {
-            // TODO : 삭제 할지 묻는 거 필요
-            mealList.removeAt(idx);
-            ref.read(currentMealListProvider.notifier).set([...mealList]);
+          background: Container(
+            color: Colors.grey.shade400,
+            height: double.infinity,
+            padding: const EdgeInsets.only(left: 20),
+            child: const Align(
+              alignment: Alignment.centerLeft,
+              child: Icon(FontAwesomeIcons.pen, color: Colors.white),
+            ),
+          ),
+          secondaryBackground: Container(
+            color: Colors.red.shade400,
+            height: double.infinity,
+            padding: const EdgeInsets.only(right: 20),
+            child: const Align(
+              alignment: Alignment.centerRight,
+              child: Icon(FontAwesomeIcons.trash, color: Colors.white),
+            ),
+          ),
+          confirmDismiss: (direction) async {
+            if (direction == DismissDirection.endToStart) {
+              return showDialog(
+                context: context,
+                builder: (context) => AlertDialog(
+                  title: const Text('잠시만요!'),
+                  content: const Text('정말 삭제하시겠어요?\n되돌릴 수 없습니다.'),
+                  actions: [
+                    TextButton(
+                      onPressed: () {
+                        Navigator.pop(context, true);
+                      },
+                      child: const Text(
+                        '네!',
+                        style: TextStyle(color: Colors.red),
+                      ),
+                    ),
+                    TextButton(
+                      onPressed: () {
+                        Navigator.pop(context, false);
+                      },
+                      child: Text(
+                        '아니요!',
+                        style: TextStyle(color: primaryColor),
+                      ),
+                    ),
+                  ],
+                ),
+              );
+            } else if (direction == DismissDirection.startToEnd) {
+              Meal? meal = await Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => SearchMenuView(
+                    meal: mealList.elementAt(idx),
+                  ),
+                ),
+              );
+              if (meal != null) {
+                mealList.removeAt(idx);
+                mealList.insert(idx, meal);
+                ref.read(currentMealListProvider.notifier).set([...mealList]);
+              }
+            }
+            return Future.value(false);
+          },
+          dismissThresholds: const {
+            DismissDirection.startToEnd: 0.5,
+            DismissDirection.endToStart: 0.5,
+          },
+          onDismissed: (direction) async {
+            if (direction == DismissDirection.endToStart) {
+              mealList.removeAt(idx);
+              ref.read(currentMealListProvider.notifier).set([...mealList]);
+            }
           },
           child: ListTile(
-            tileColor: (idx % 2 == 0) ? primaryColor.withOpacity(0.1): Colors.white,
+            tileColor: (idx % 2 == 0) ? primaryColor.withOpacity(0.1) : Colors.white,
             title: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -42,8 +110,7 @@ class MealListView extends ConsumerWidget {
                               fontWeight: FontWeight.bold,
                             ),
                           ),
-                          Icon(FontAwesomeIcons.xmark,
-                              size: 13, color: accentColor),
+                          Icon(FontAwesomeIcons.xmark, size: 13, color: accentColor),
                           Text(
                             meal.foodList[food].toString(),
                             style: defaultTextStyle.copyWith(
@@ -55,37 +122,14 @@ class MealListView extends ConsumerWidget {
                       )
                   ],
                 ),
-                Column(
-                  children: [
-                    InkWell(
-                      onTap: () async {
-                        Meal? meal = await Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => SearchMenuView(
-                                      meal: mealList.elementAt(idx),
-                                    )));
-                        if (meal != null) {
-                          mealList.removeAt(idx);
-                          mealList.insert(idx, meal);
-                          ref.read(currentMealListProvider.notifier).set([...mealList]);
-                        }
-                      },
-                      child: const Icon(
-                        FontAwesomeIcons.pen,
-                        color: Colors.black54,
-                      ),
-                    ),
-                    InkWell(
-                      onTap: () {
-                        // TODO : share to community
-                      },
-                      child: const Icon(
-                        FontAwesomeIcons.shareNodes,
-                        color: Colors.black54,
-                      ),
-                    ),
-                  ],
+                InkWell(
+                  onTap: () {
+                    // TODO : share to community
+                  },
+                  child: const Icon(
+                    FontAwesomeIcons.shareNodes,
+                    color: Colors.black54,
+                  ),
                 ),
               ],
             ),
