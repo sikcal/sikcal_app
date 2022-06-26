@@ -7,18 +7,14 @@ import 'package:sikcal/screen/InputUserInformation/Input_username.dart';
 import 'package:sikcal/screen/InputUserInformation/input_usergender.dart';
 
 
-class InputUserGoalScreen extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: Body(),
-    );
-  }
+class InputUserGoalScreen extends StatefulWidget {
+  _InputUserGoalScreen createState() => _InputUserGoalScreen();
 }
 
-class Body extends StatelessWidget {
+class _InputUserGoalScreen extends State<InputUserGoalScreen> {
 
   String? usergoal;
+  List<Color> SelectedList =  [Colors.grey, Colors.grey, Colors.grey];
 
   @override
   Widget build(BuildContext context) {
@@ -33,21 +29,27 @@ class Body extends StatelessWidget {
             text: '현재 체중 유지하기',
             press: () {
               usergoal = '현재 체중 유지하기';
-            }
+              changeButtonColor(0);
+            },
+            color: SelectedList[0]
         ),
         SizedBox(height: 25),
         Button_Grey(
             text: '체중 감량하기',
             press: () {
               usergoal = '체중 감량하기';
-            }
+              changeButtonColor(1);
+            },
+            color: SelectedList[1]
         ),
         SizedBox(height: 25),
         Button_Grey(
             text: '체중 상관없이 식단 관리하기',
             press: () {
               usergoal = '체중 상관없이 식단 관리하기';
-            }
+              changeButtonColor(2);
+            },
+            color: SelectedList[2]
         ),
         SizedBox(height: 25),
         Button_Green(
@@ -74,5 +76,16 @@ class Body extends StatelessWidget {
       ),
       ),
     );
+  }
+  void changeButtonColor(value){
+    setState(() {
+      for(int i = 0; i < SelectedList.length; i++) {
+        if(i == value) {
+          SelectedList[i] = Color(0xffff9800);
+        }else {
+          SelectedList[i] = Colors.grey;
+        }
+      }
+    });
   }
 }
