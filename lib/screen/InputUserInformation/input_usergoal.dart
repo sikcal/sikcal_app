@@ -15,6 +15,7 @@ class InputUserGoalScreen extends StatelessWidget {
     );
   }
 }
+
 class Body extends StatelessWidget {
 
   String? usergoal;
