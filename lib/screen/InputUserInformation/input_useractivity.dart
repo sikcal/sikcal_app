@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:sikcal/screens/main_view.dart';
 
-import '../../components/button_green.dart';
-import '../../components/button_grey.dart';
+import '../../components/RoundedButton.dart';
 
 import 'package:sikcal/screen/InputUserInformation/Input_username.dart';
 
@@ -26,46 +25,46 @@ class _InputUserActivityScreen extends State<InputUserActivityScreen> {
           child: Text('활동량이 어떻게 되나요?'),
         ),
         SizedBox(height: 50),
-        Button_Grey(
+        RoundedButton(
             text: '가벼운 활동',
+            color: SelectedList[0],
             press: () {
               useractivity = '가벼운 활동';
               changeButtonColor(0);
             },
-            color: SelectedList[0]
         ),
         SizedBox(height: 25),
-        Button_Grey(
+        RoundedButton(
             text: '중증도 활동',
+            color: SelectedList[1],
             press: () {
               useractivity = '중증도 활동';
               changeButtonColor(1);
             },
-            color: SelectedList[1]
         ),
         SizedBox(height: 25),
-        Button_Grey(
+        RoundedButton(
             text: '강한 활동',
+            color: SelectedList[2],
             press: () {
               useractivity = '강한 활동';
               changeButtonColor(2);
             },
-            color: SelectedList[2]
         ),
         SizedBox(height: 25),
-        Button_Grey(
+        RoundedButton(
             text: '아주 강한 활동',
+            color: SelectedList[3],
             press: () {
               useractivity = '아주 강한 활동';
               changeButtonColor(3);
             },
-            color: SelectedList[3]
         ),
         SizedBox(height: 25),
-        Button_Green(
+        RoundedButton(
             text: '다음',
+            color: Color(0xff8BC34A),
             press: () {
-
               if (useractivity == null) {
 
               }

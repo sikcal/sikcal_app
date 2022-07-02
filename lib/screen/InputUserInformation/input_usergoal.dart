@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-
-import '../../components/button_green.dart';
-import '../../components/button_grey.dart';
+import '../../components/RoundedButton.dart';
 
 import 'package:sikcal/screen/InputUserInformation/Input_username.dart';
 import 'package:sikcal/screen/InputUserInformation/input_usergender.dart';
@@ -25,35 +23,36 @@ class _InputUserGoalScreen extends State<InputUserGoalScreen> {
           child: Text('식단을 관리하는 목표는 무엇인가요?'),
         ),
         SizedBox(height: 50),
-        Button_Grey(
+        RoundedButton(
             text: '현재 체중 유지하기',
+            color: SelectedList[0],
             press: () {
               usergoal = '현재 체중 유지하기';
               changeButtonColor(0);
             },
-            color: SelectedList[0]
         ),
         SizedBox(height: 25),
-        Button_Grey(
+        RoundedButton(
             text: '체중 감량하기',
+            color: SelectedList[1],
             press: () {
               usergoal = '체중 감량하기';
               changeButtonColor(1);
             },
-            color: SelectedList[1]
         ),
         SizedBox(height: 25),
-        Button_Grey(
+        RoundedButton(
             text: '체중 상관없이 식단 관리하기',
+            color: SelectedList[2],
             press: () {
               usergoal = '체중 상관없이 식단 관리하기';
               changeButtonColor(2);
             },
-            color: SelectedList[2]
         ),
         SizedBox(height: 25),
-        Button_Green(
+        RoundedButton(
             text: '다음',
+            color: Color(0xff8BC34A),
             press: () {
               if (usergoal == null) {
 

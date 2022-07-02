@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-
-import 'package:sikcal/components/button_green.dart';
+import 'package:sikcal/components/RoundedButton.dart';
 
 import 'package:sikcal/screen/InputUserInformation/Input_username.dart';
 
@@ -37,8 +36,9 @@ class Body extends StatelessWidget {
           child: Text('반갑습니다! 앱의 사용에 앞서 필요한\n 개인정보와 권장섭취량 측정을 위한\n 정보를 수집합니다.'),
         ),
         SizedBox(height: 25),
-        Button_Green(
+        RoundedButton(
           text: '알겠습니다',
+          color: Color(0xff8BC34A),
           press: () {
             Navigator.push(
               context,

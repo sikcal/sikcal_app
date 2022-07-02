@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-
+import 'package:sikcal/components/RoundedButton.dart';
 import '../../components/mytextformfield.dart';
-import '../../components/textfield.dart';
-import '../../components/button_green.dart';
 
 import 'package:sikcal/screen/InputUserInformation/Input_username.dart';
 import 'package:sikcal/screen/InputUserInformation/input_userweight.dart';
@@ -45,8 +43,9 @@ class _FormScreenStateHeight extends State<InputUserHeightScreen> {
           ),
         ),
         SizedBox(height: 25),
-        Button_Green(
+        RoundedButton(
             text: '다음',
+            color: Color(0xff8BC34A),
             press: () {
               final form = _formkey.currentState;
               if (form != null && !form.validate()) {

@@ -1,17 +1,16 @@
 import 'package:flutter/material.dart';
 
-class Button_Green extends StatelessWidget {
+class RoundedButton extends StatelessWidget {
 
   String? text;
-  Color? color, textColor;
+  Color? color;
   void Function()? press;
 
-  Button_Green({
+  RoundedButton({
     this.text,
-    this.press,
-    this.color = Colors.green,
-    this.textColor = Colors.white});
-
+    this.color,
+    this.press
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +20,7 @@ class Button_Green extends StatelessWidget {
         onPressed: press,
         child: Text(text!),
         style: ElevatedButton.styleFrom(
-          primary: Colors.green,
+          primary: color,
           padding: EdgeInsets.all(10.0),
           textStyle: TextStyle(color: Colors.white),
           minimumSize: Size(250, 50),
