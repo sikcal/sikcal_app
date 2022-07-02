@@ -1,7 +1,6 @@
 import 'package:bottom_bar/bottom_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:sikcal/components/button_green.dart';
 import 'package:sikcal/model/food.dart';
 import 'package:sikcal/model/meal.dart';
 import 'package:sikcal/screens/food_list_view.dart';
