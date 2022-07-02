@@ -13,8 +13,6 @@ class Diet {
       diet_carbohydrate = map['diet_carbohydrate'],
       diet_fat = map['diet_fat'],
       diet_total_kcal = map['diet_total_kcal'];
-
-  @override
-  String toString() => "Diet<$diet_title:$diet_image>";
-
+  
+  //TODO : DB 연결
 }

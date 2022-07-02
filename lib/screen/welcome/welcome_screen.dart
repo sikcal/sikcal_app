@@ -4,7 +4,7 @@ import 'package:sikcal/data/provider.dart';
 import 'package:sikcal/screens/loading_screen.dart';
 import 'package:sikcal/screens/main_view.dart';
 
-import '../../components/button_green.dart';
+import '../../components/RoundedButton.dart';
 
 import 'package:sikcal/screen/InputUserInformation/input_start.dart';
 
@@ -51,8 +51,9 @@ class _WelcomeScreenState extends ConsumerState<WelcomeScreen> {
             child: const Text('적절하고 건강한 양의 식단을 섭취하는데 도움을 드립니다.'),
           ),
           const SizedBox(height: 50),
-          Button_Green(
+          RoundedButton(
               text: '구글 계정으로 시작하기',
+              color: Color(0xff8BC34A),
               press: () {
                 Navigator.push(
                   context,
@@ -63,8 +64,9 @@ class _WelcomeScreenState extends ConsumerState<WelcomeScreen> {
                   ),
                 );
               }),
-          Button_Green(
+          RoundedButton(
               text: '계정이 이미 있어요',
+              color: Color(0xff8BC34A),
               press: () {
                 //계정이 이미 있는 경우 로그인후 바로 홈페이지로 이동
               }),

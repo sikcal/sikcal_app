@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:scroll_date_picker/scroll_date_picker.dart';
-
-import '../../components/button_green.dart';
+import '../../components/RoundedButton.dart';
 
 import 'package:sikcal/screen/InputUserInformation/Input_username.dart';
 import 'package:sikcal/screen/InputUserInformation/input_usergoal.dart';
@@ -53,8 +52,9 @@ class Screen extends State<Body>{
           ],
         ),
         SizedBox(height: 25),
-        Button_Green(
+        RoundedButton(
             text: '다음',
+            color: Color(0xff8BC34A),
             press: () {
               print(_selectedDate);
               user.userbirth = _selectedDate;

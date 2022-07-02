@@ -6,9 +6,6 @@ import 'package:sikcal/data/constants.dart';
 import 'package:sikcal/screens/loading_screen.dart';
 import 'package:sikcal/screens/main_view.dart';
 
-//CHANGE
-import 'package:sikcal/screen/mydiet/mydiet_main_view.dart';
-
 void main() {
   runApp(const MyApp());
 }
@@ -35,8 +32,8 @@ class _MyAppState extends State<MyApp> {
             )),
         home: Stack(
           children: [
-            //CHANGE
-            MyDietMainView(), // loading state provider의 값이 loading이면 모든 화면에서 로딩 창을 띄웁니다.
+            WelcomeScreen(),
+            LoadingScreen(), // loading state provider의 값이 loading이면 모든 화면에서 로딩 창을 띄웁니다.
           ],
         ),
       ),

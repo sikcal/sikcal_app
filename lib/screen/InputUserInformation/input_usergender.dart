@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-
-import '../../components/button_green.dart';
-import '../../components/button_grey.dart';
+import '../../components/RoundedButton.dart';
 
 import 'package:sikcal/screen/InputUserInformation/Input_username.dart';
 import 'package:sikcal/screen/InputUserInformation/input_userheight.dart';
@@ -24,26 +22,27 @@ class _InputUserGenderScreen extends State<InputUserGenderScreen> {
           child: Text('성별을 선택해 주세요.'),
         ),
         SizedBox(height: 50),
-        Button_Grey(
+        RoundedButton(
             text: '여자',
+            color: SelectedList[0],
             press: () {
               usergender = '여자';
               changeButtonColor(0);
             },
-            color: SelectedList[0]
         ),
         SizedBox(height: 25),
-        Button_Grey(
+        RoundedButton(
             text: '남자',
+            color: SelectedList[1],
             press: () {
               usergender = '남자';
               changeButtonColor(1);
             },
-            color: SelectedList[1]
         ),
         SizedBox(height: 25),
-        Button_Green(
+        RoundedButton(
             text: '다음',
+            color: Color(0xff8BC34A),
             press: () {
               if (usergender == null) {
 
