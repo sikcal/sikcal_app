@@ -1,15 +1,9 @@
 import 'package:bottom_bar/bottom_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:sikcal/components/circular_progress.dart';
 import 'package:sikcal/data/constants.dart';
-import 'package:sikcal/data/provider.dart';
-import 'package:sikcal/model/meal.dart';
 import 'package:sikcal/screens/home_view.dart';
-import 'package:sikcal/screens/meal_list_view.dart';
-import 'package:sikcal/screens/search_menu_view.dart';
 
 class MainView extends ConsumerStatefulWidget {
   const MainView({Key? key}) : super(key: key);
