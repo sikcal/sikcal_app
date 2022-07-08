@@ -52,7 +52,7 @@ class _WelcomeScreenState extends ConsumerState<WelcomeScreen> {
           ),
           const SizedBox(height: 50),
           RoundedButton(
-              text: '구글 계정으로 시작하기',
+              text: '시작하기',
               color: Color(0xff8BC34A),
               press: () {
                 Navigator.push(

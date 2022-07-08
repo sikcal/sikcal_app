@@ -5,7 +5,6 @@ import '../../components/RoundedButton.dart';
 import 'package:sikcal/screen/InputUserInformation/Input_username.dart';
 import 'package:sikcal/screen/InputUserInformation/input_usergoal.dart';
 
-
 class InputUserBirthScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {

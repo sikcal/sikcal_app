@@ -4,18 +4,18 @@ import '../../components/mytextformfield.dart';
 
 import 'package:sikcal/screen/InputUserInformation/input_userbirth.dart';
 
-import '../../model/user_basic.dart';
+import 'Input_username.dart';
 
-User user = User();
 
-class InputUserNameScreen extends StatefulWidget {
+class InputUserIdScreen extends StatefulWidget {
   _FormScreenState createState() => _FormScreenState();
 }
 
-class _FormScreenState extends State<InputUserNameScreen> {
+class _FormScreenState extends State<InputUserIdScreen> {
 
-  final usernamecontroller = TextEditingController();
+  final useridcontroller = TextEditingController();
   final _formkey = GlobalKey<FormState>();
+  String userid = "";
 
   @override
   Widget build(BuildContext context) {
@@ -23,20 +23,22 @@ class _FormScreenState extends State<InputUserNameScreen> {
       body: Center(child: Column(children: <Widget>[
         SizedBox(height: 200),
         Container(
-          child: Text('이름이 무엇인가요?'),
+          child: Text('사용할 아이디를 입력해주세요.'),
         ),
         SizedBox(height: 50),
         Form(
           key: _formkey,
           child: MyTextFormField(
-            controller: usernamecontroller,
-            label: '이름을 입력해주세요',
+            controller: useridcontroller,
+            label: '아이디를 입력해주세요',
             onSaved: (value) {
               setState(() {});
             },
             validator: (value) {
               if(value.length < 1) {
-                return '이름은 필수사항입니다.';
+                return 'id는 필수사항입니다.';
+              }else if (!isIdValid(value)) {
+                return "중복된 id입니다.";
               }
             },
           ),
@@ -50,13 +52,14 @@ class _FormScreenState extends State<InputUserNameScreen> {
               if (form != null && !form.validate()) {
               }
               else {
-                print(usernamecontroller.text);
-                user.username = usernamecontroller.text;
+                print(useridcontroller.text);
+                userid = useridcontroller.text;
+
                 Navigator.push(
                   context,
                   MaterialPageRoute(
                     builder: (context) {
-                      return InputUserBirthScreen();
+                      return InputUserNameScreen();
                     },
                   ),
                 );
@@ -68,5 +71,11 @@ class _FormScreenState extends State<InputUserNameScreen> {
       ),
       ),
     );
+  }
+
+  bool isIdValid(value) {
+    //id 중복 확인
+    //중복일 경우 false return
+    return true;
   }
 }

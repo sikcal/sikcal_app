@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:sikcal/components/RoundedButton.dart';
 
-import 'package:sikcal/screen/InputUserInformation/Input_username.dart';
-
+import 'input_userid.dart';
 
 class InputStartScreen extends StatelessWidget {
   @override
@@ -44,7 +43,7 @@ class Body extends StatelessWidget {
               context,
               MaterialPageRoute(
                 builder: (context) {
-                  return InputUserNameScreen();
+                  return InputUserIdScreen();
                 },
               ),
             );

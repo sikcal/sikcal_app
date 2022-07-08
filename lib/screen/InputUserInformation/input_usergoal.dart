@@ -4,7 +4,6 @@ import '../../components/RoundedButton.dart';
 import 'package:sikcal/screen/InputUserInformation/Input_username.dart';
 import 'package:sikcal/screen/InputUserInformation/input_usergender.dart';
 
-
 class InputUserGoalScreen extends StatefulWidget {
   _InputUserGoalScreen createState() => _InputUserGoalScreen();
 }

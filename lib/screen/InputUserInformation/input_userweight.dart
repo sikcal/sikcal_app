@@ -5,7 +5,6 @@ import '../../components/mytextformfield.dart';
 import 'package:sikcal/screen/InputUserInformation/Input_username.dart';
 import 'package:sikcal/screen/InputUserInformation/input_useractivity.dart';
 
-
 class InputUserWeightScreen extends StatefulWidget {
   _FormScreenStateWeight createState() => _FormScreenStateWeight();
 }

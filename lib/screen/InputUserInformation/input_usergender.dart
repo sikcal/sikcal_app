@@ -4,7 +4,6 @@ import '../../components/RoundedButton.dart';
 import 'package:sikcal/screen/InputUserInformation/Input_username.dart';
 import 'package:sikcal/screen/InputUserInformation/input_userheight.dart';
 
-
 class InputUserGenderScreen extends StatefulWidget {
     _InputUserGenderScreen createState() => _InputUserGenderScreen();
 }
