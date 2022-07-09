@@ -1,15 +1,17 @@
 import 'package:flutter/material.dart';
-
-import '../../model/User.dart';
+import '../../components/RoundedButton.dart';
 import '../../components/mytextformfield.dart';
-import '../../components/button_green.dart';
 
 import 'package:sikcal/screen/InputUserInformation/input_userbirth.dart';
 
+import '../../model/user_basic.dart';
 
 User user = User();
 
 class InputUserNameScreen extends StatefulWidget {
+  const InputUserNameScreen({Key? key}) : super(key: key);
+
+  @override
   _FormScreenState createState() => _FormScreenState();
 }
 
@@ -22,14 +24,13 @@ class _FormScreenState extends State<InputUserNameScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(child: Column(children: <Widget>[
-        SizedBox(height: 200),
-        Container(
-          child: Text('이름이 무엇인가요?'),
-        ),
-        SizedBox(height: 50),
+        const SizedBox(height: 200),
+        const Text('이름이 무엇인가요?'),
+        const SizedBox(height: 50),
         Form(
           key: _formkey,
           child: MyTextFormField(
+            obscureText: false,
             controller: usernamecontroller,
             label: '이름을 입력해주세요',
             onSaved: (value) {
@@ -42,9 +43,10 @@ class _FormScreenState extends State<InputUserNameScreen> {
             },
           ),
         ),
-        SizedBox(height: 25),
-        Button_Green(
+        const SizedBox(height: 25),
+        RoundedButton(
             text: '다음',
+            color: const Color(0xff8BC34A),
             press: () {
               final form = _formkey.currentState;
               if (form != null && !form.validate()) {

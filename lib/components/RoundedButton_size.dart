@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 
-class Button_Grey extends StatelessWidget {
+class Button_Grey_Size extends StatelessWidget {
 
   String? text;
   void Function()? press;
   Color? color;
 
-  Button_Grey({
+
+  Button_Grey_Size({
     this.text,
     this.press,
     this.color
@@ -24,7 +25,7 @@ class Button_Grey extends StatelessWidget {
           primary: color,
           padding: EdgeInsets.all(10.0),
           textStyle: TextStyle(color: Colors.white),
-          minimumSize: Size(250, 50),
+          minimumSize: Size(50, 50),
         ),
         // style : ButtonStyle(
         //   padding: MaterialStateProperty.all(const EdgeInsets.all(10.0)),

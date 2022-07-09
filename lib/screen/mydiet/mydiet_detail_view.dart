@@ -1,34 +1,36 @@
 import 'package:bottom_bar/bottom_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:image_picker/image_picker.dart';
-import 'package:sikcal/data/constants.dart';
-import 'package:sikcal/screens/home_view.dart';
 
-class MainView extends ConsumerStatefulWidget {
-  const MainView({Key? key}) : super(key: key);
+import '../../components/button_add_mydiet.dart';
+import '../../data/constants.dart';
+import '../../model/diet.dart';
+import 'check_upload_mydiet.dart';
+
+
+class MyDietDetailView extends ConsumerStatefulWidget {
+  late final Diet diet;
+  MyDietDetailView({required this.diet});
 
   @override
-  ConsumerState<MainView> createState() => _MainViewState();
+  ConsumerState<MyDietDetailView> createState() => _MyDietDetailView();
 }
 
-class _MainViewState extends ConsumerState<MainView> {
-  int _currentPage = 2; // 현재 페이지 (bottom nav bar 관련)
+class _MyDietDetailView extends ConsumerState<MyDietDetailView> {
 
-  List<Widget> pages = [
-    Container(),
-    Container(),
-    const HomeView(),
-    Container(),
-    Container(),
-  ];
+  int _currentPage = 3; // 현재 페이지 (bottom nav bar 관련)
 
   @override
   Widget build(BuildContext context) {
 
+    String diet_total_kcal = widget.diet.diet_total_kcal.toString();
+    String diet_carbohydrate = widget.diet.diet_carbohydrate.toString();
+    String diet_protein = widget.diet.diet_protein.toString();
+    String diet_fat = widget.diet.diet_fat.toString();
+
     return Scaffold(
       appBar: AppBar(
-        title: Row(
+        title: Center( child : Row(
           children: const [
             Image(
               image: AssetImage('images/fork.png'),
@@ -38,7 +40,7 @@ class _MainViewState extends ConsumerState<MainView> {
               width: 10.0,
             ),
             Text(
-              "식칼",
+              "나의 식단",
               style: TextStyle(
                 fontSize: 25.0,
                 color: Colors.white,
@@ -55,10 +57,43 @@ class _MainViewState extends ConsumerState<MainView> {
             ),
           ],
           mainAxisSize: MainAxisSize.min,
-        ),
+        ),),
         backgroundColor: primaryColor,
       ),
-      body: pages.elementAt(_currentPage),
+      body: Container(
+        padding: EdgeInsets.all(8.0),
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Image.asset('images/'+widget.diet.diet_image, height: 250, width: 200),
+              Text(widget.diet.diet_title),
+              Text('총 $diet_total_kcal kcal 탄수화물 : $diet_carbohydrate, 단백질 : $diet_protein, 지방 : $diet_fat'),
+              Button_Add_MyDiet(
+                press: () {
+                  Navigator.of(context).push(MaterialPageRoute<Null>(
+                      fullscreenDialog: true,
+                      builder: (BuildContext context) {
+                        return CheckUploadMyDiet(
+                          diet: widget.diet,
+                        );
+                      }
+                  )
+                  );
+                },
+              ),
+              Text('식단 정보'),
+              Text('영양 성분'),
+              //TODO : 영양 성분 출력
+              Text('준비 재료'),
+              //TODO : 준비 재료 출력
+              Text('조리 순서')
+              //TODO : 조리 순서 출력
+          ],
+        ))
+
+      ),
       bottomNavigationBar: BottomBar(
         itemPadding: const EdgeInsets.fromLTRB(10.0, 10.0, 10.0, 20.0),
         backgroundColor: primaryColor,
@@ -107,54 +142,6 @@ class _MainViewState extends ConsumerState<MainView> {
           });
         },
         selectedIndex: _currentPage,
-      ),
-    );
-  }
-}
-
-class _BottomPopup extends StatelessWidget {
-  const _BottomPopup({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    final ImagePicker _picker = ImagePicker();
-
-    return SafeArea(
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 5),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            TextButton(
-              onPressed: () async {
-                final image =
-                    await _picker.pickImage(source: ImageSource.gallery);
-                // TODO image 다른 화면으로 보내기
-                Navigator.pop(context);
-              },
-              child: Text(
-                '갤러리에서 눈바디 사진 찾기',
-                style: defaultTextStyle,
-                textAlign: TextAlign.start,
-              ),
-            ),
-            const SizedBox(height: 5),
-            TextButton(
-              onPressed: () async {
-                final image =
-                    await _picker.pickImage(source: ImageSource.camera);
-                // TODO image 다른 화면으로 보내기
-                Navigator.pop(context);
-              },
-              child: Text(
-                '카메라로 촬영하기',
-                style: defaultTextStyle,
-                textAlign: TextAlign.start,
-              ),
-            ),
-          ],
-        ),
       ),
     );
   }

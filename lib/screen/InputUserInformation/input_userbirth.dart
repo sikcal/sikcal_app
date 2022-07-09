@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:scroll_date_picker/scroll_date_picker.dart';
-
-import '../../components/button_green.dart';
+import '../../components/RoundedButton.dart';
 
 import 'package:sikcal/screen/InputUserInformation/Input_username.dart';
 import 'package:sikcal/screen/InputUserInformation/input_usergoal.dart';
 
-
 class InputUserBirthScreen extends StatelessWidget {
+  const InputUserBirthScreen({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -17,6 +17,9 @@ class InputUserBirthScreen extends StatelessWidget {
 }
 
 class Body extends StatefulWidget {
+  const Body({Key? key}) : super(key: key);
+
+  @override
   Screen createState() => Screen();
 }
 
@@ -27,11 +30,9 @@ class Screen extends State<Body>{
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(child: Column(children: <Widget>[
-        SizedBox(height: 200),
-        Container(
-          child: Text('생일이 언제인가요?'),
-        ),
-        SizedBox(height: 25),
+        const SizedBox(height: 200),
+        const Text('생일이 언제인가요?'),
+        const SizedBox(height: 25),
         Column(
           children: [
             Container(
@@ -52,9 +53,10 @@ class Screen extends State<Body>{
             ),
           ],
         ),
-        SizedBox(height: 25),
-        Button_Green(
+        const SizedBox(height: 25),
+        RoundedButton(
             text: '다음',
+            color: const Color(0xff8BC34A),
             press: () {
               print(_selectedDate);
               user.userbirth = _selectedDate;

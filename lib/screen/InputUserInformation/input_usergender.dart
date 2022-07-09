@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
-
-import '../../components/button_green.dart';
-import '../../components/button_grey.dart';
+import '../../components/RoundedButton.dart';
 
 import 'package:sikcal/screen/InputUserInformation/Input_username.dart';
 import 'package:sikcal/screen/InputUserInformation/input_userheight.dart';
 
-
 class InputUserGenderScreen extends StatefulWidget {
-    _InputUserGenderScreen createState() => _InputUserGenderScreen();
+  const InputUserGenderScreen({Key? key}) : super(key: key);
+
+    @override
+  _InputUserGenderScreen createState() => _InputUserGenderScreen();
 }
 class _InputUserGenderScreen extends State<InputUserGenderScreen> {
 
@@ -19,31 +19,30 @@ class _InputUserGenderScreen extends State<InputUserGenderScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(child: Column(children: <Widget>[
-        SizedBox(height: 200),
-        Container(
-          child: Text('성별을 선택해 주세요.'),
-        ),
-        SizedBox(height: 50),
-        Button_Grey(
+        const SizedBox(height: 200),
+        const Text('성별을 선택해 주세요.'),
+        const SizedBox(height: 50),
+        RoundedButton(
             text: '여자',
+            color: SelectedList[0],
             press: () {
               usergender = '여자';
               changeButtonColor(0);
             },
-            color: SelectedList[0]
         ),
-        SizedBox(height: 25),
-        Button_Grey(
+        const SizedBox(height: 25),
+        RoundedButton(
             text: '남자',
+            color: SelectedList[1],
             press: () {
               usergender = '남자';
               changeButtonColor(1);
             },
-            color: SelectedList[1]
         ),
-        SizedBox(height: 25),
-        Button_Green(
+        const SizedBox(height: 25),
+        RoundedButton(
             text: '다음',
+            color: const Color(0xff8BC34A),
             press: () {
               if (usergender == null) {
 
@@ -71,7 +70,7 @@ class _InputUserGenderScreen extends State<InputUserGenderScreen> {
     setState(() {
       for(int i = 0; i < SelectedList.length; i++) {
         if(i == value) {
-          SelectedList[i] = Color(0xffff9800);
+          SelectedList[i] = const Color(0xffff9800);
         }else {
           SelectedList[i] = Colors.grey;
         }
