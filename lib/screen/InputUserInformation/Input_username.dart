@@ -29,6 +29,7 @@ class _FormScreenState extends State<InputUserNameScreen> {
         Form(
           key: _formkey,
           child: MyTextFormField(
+            obscureText: false,
             controller: usernamecontroller,
             label: '이름을 입력해주세요',
             onSaved: (value) {

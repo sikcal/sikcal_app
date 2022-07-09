@@ -25,6 +25,7 @@ class _FormScreenStateWeight extends State<InputUserWeightScreen> {
         Form(
           key: _formkey,
           child: MyTextFormField(
+            obscureText: false,
             controller: userweightcontroller,
             label: '현재 체중을 입력해주세요',
             onSaved: (value) {

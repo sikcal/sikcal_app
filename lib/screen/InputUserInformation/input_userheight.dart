@@ -25,6 +25,7 @@ class _FormScreenStateHeight extends State<InputUserHeightScreen> {
         Form(
           key: _formkey,
           child: MyTextFormField(
+            obscureText: false,
             controller: userheightcontroller,
             label: '키를 입력해주세요',
             onSaved: (value) {

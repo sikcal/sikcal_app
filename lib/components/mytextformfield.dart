@@ -6,12 +6,14 @@ class MyTextFormField extends StatelessWidget {
   FormFieldSetter? onSaved;
   FormFieldValidator? validator;
   TextEditingController? controller;
+  bool obscureText;
 
   MyTextFormField({
     this.label,
     this.onSaved,
     this.validator,
-    this.controller
+    this.controller,
+    required this.obscureText
   });
 
   @override
@@ -19,6 +21,7 @@ class MyTextFormField extends StatelessWidget {
     return Container(
       width: 250,
       child: TextFormField(
+        obscureText: obscureText,
         controller: controller,
         onSaved: onSaved,
         validator: validator,
