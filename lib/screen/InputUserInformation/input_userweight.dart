@@ -6,6 +6,9 @@ import 'package:sikcal/screen/InputUserInformation/Input_username.dart';
 import 'package:sikcal/screen/InputUserInformation/input_useractivity.dart';
 
 class InputUserWeightScreen extends StatefulWidget {
+  const InputUserWeightScreen({Key? key}) : super(key: key);
+
+  @override
   _FormScreenStateWeight createState() => _FormScreenStateWeight();
 }
 class _FormScreenStateWeight extends State<InputUserWeightScreen> {
@@ -17,11 +20,9 @@ class _FormScreenStateWeight extends State<InputUserWeightScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(child: Column(children: <Widget>[
-        SizedBox(height: 200),
-        Container(
-          child: Text('현재 체중은 얼마인가요?'),
-        ),
-        SizedBox(height: 50),
+        const SizedBox(height: 200),
+        const Text('현재 체중은 얼마인가요?'),
+        const SizedBox(height: 50),
         Form(
           key: _formkey,
           child: MyTextFormField(
@@ -42,16 +43,17 @@ class _FormScreenStateWeight extends State<InputUserWeightScreen> {
             },
           ),
         ),
-        SizedBox(height: 25),
+        const SizedBox(height: 25),
         RoundedButton(
             text: '다음',
-            color: Color(0xff8BC34A),
+            color: const Color(0xff8BC34A),
             press: () {
               final form = _formkey.currentState;
               if (form != null && !form.validate()) {
               }
               else {
                 print(userweightcontroller.text);
+
                 user.userweight = userweightcontroller.text;
                 Navigator.push(
                   context,

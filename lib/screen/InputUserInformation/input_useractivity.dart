@@ -7,6 +7,9 @@ import 'package:sikcal/screen/InputUserInformation/Input_username.dart';
 
 
 class InputUserActivityScreen extends StatefulWidget {
+  const InputUserActivityScreen({Key? key}) : super(key: key);
+
+  @override
   _InputUserActivityScreen createState() => _InputUserActivityScreen();
 }
 
@@ -20,11 +23,9 @@ class _InputUserActivityScreen extends State<InputUserActivityScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(child: Column(children: <Widget>[
-        SizedBox(height: 200),
-        Container(
-          child: Text('활동량이 어떻게 되나요?'),
-        ),
-        SizedBox(height: 50),
+        const SizedBox(height: 200),
+        const Text('활동량이 어떻게 되나요?'),
+        const SizedBox(height: 50),
         RoundedButton(
             text: '가벼운 활동',
             color: SelectedList[0],
@@ -33,7 +34,7 @@ class _InputUserActivityScreen extends State<InputUserActivityScreen> {
               changeButtonColor(0);
             },
         ),
-        SizedBox(height: 25),
+        const SizedBox(height: 25),
         RoundedButton(
             text: '중증도 활동',
             color: SelectedList[1],
@@ -42,7 +43,7 @@ class _InputUserActivityScreen extends State<InputUserActivityScreen> {
               changeButtonColor(1);
             },
         ),
-        SizedBox(height: 25),
+        const SizedBox(height: 25),
         RoundedButton(
             text: '강한 활동',
             color: SelectedList[2],
@@ -51,7 +52,7 @@ class _InputUserActivityScreen extends State<InputUserActivityScreen> {
               changeButtonColor(2);
             },
         ),
-        SizedBox(height: 25),
+        const SizedBox(height: 25),
         RoundedButton(
             text: '아주 강한 활동',
             color: SelectedList[3],
@@ -60,7 +61,7 @@ class _InputUserActivityScreen extends State<InputUserActivityScreen> {
               changeButtonColor(3);
             },
         ),
-        SizedBox(height: 25),
+        const SizedBox(height: 25),
         RoundedButton(
             text: '다음',
             color: Color(0xff8BC34A),
@@ -88,7 +89,7 @@ class _InputUserActivityScreen extends State<InputUserActivityScreen> {
     setState(() {
       for(int i = 0; i < SelectedList.length; i++) {
         if(i == value) {
-          SelectedList[i] = Color(0xffff9800);
+          SelectedList[i] = const Color(0xffff9800);
         }else {
           SelectedList[i] = Colors.grey;
         }

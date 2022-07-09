@@ -8,6 +8,8 @@ import '../../components/RoundedButton.dart';
 
 import 'package:sikcal/screen/InputUserInformation/input_start.dart';
 
+import '../login/login.dart';
+
 class WelcomeScreen extends ConsumerStatefulWidget {
   const WelcomeScreen({Key? key}) : super(key: key);
 
@@ -43,17 +45,13 @@ class _WelcomeScreenState extends ConsumerState<WelcomeScreen> {
             size: 200,
           ),
           const SizedBox(height: 50),
-          Container(
-            child: const Text('건강하고 즐거운 식단관리'),
-          ),
+          const Text('건강하고 즐거운 식단관리'),
           const SizedBox(height: 25),
-          Container(
-            child: const Text('적절하고 건강한 양의 식단을 섭취하는데 도움을 드립니다.'),
-          ),
+          const Text('적절하고 건강한 양의 식단을 섭취하는데 도움을 드립니다.'),
           const SizedBox(height: 50),
           RoundedButton(
               text: '시작하기',
-              color: Color(0xff8BC34A),
+              color: const Color(0xff8BC34A),
               press: () {
                 Navigator.push(
                   context,
@@ -66,9 +64,16 @@ class _WelcomeScreenState extends ConsumerState<WelcomeScreen> {
               }),
           RoundedButton(
               text: '계정이 이미 있어요',
-              color: Color(0xff8BC34A),
+              color: const Color(0xff8BC34A),
               press: () {
-                //계정이 이미 있는 경우 로그인후 바로 홈페이지로 이동
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) {
+                      return LoginScreen();
+                    },
+                  ),
+                );
               }),
         ]),
       ),
