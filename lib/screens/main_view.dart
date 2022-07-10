@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:sikcal/data/constants.dart';
+import 'package:sikcal/screen/mypage/mypage_main_view.dart';
 import 'package:sikcal/screens/home_view.dart';
 import 'package:sikcal/screen/mydiet/mydiet_main_view.dart';
 
@@ -21,7 +22,7 @@ class _MainViewState extends ConsumerState<MainView> {
     Container(),
     const HomeView(),
     const MyDietMainView(),
-    Container(),
+    const MyPageMainView(),
   ];
 
   @override

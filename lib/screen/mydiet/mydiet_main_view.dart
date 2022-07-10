@@ -4,7 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../data/constants.dart';
 import '../../model/diet.dart';
-import '../../widget/box_slider.dart';
+import '../../components/box_slider.dart';
 
 class MyDietMainView extends ConsumerStatefulWidget {
   const MyDietMainView({Key? key}) : super(key: key);
