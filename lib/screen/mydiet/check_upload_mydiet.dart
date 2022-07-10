@@ -17,8 +17,6 @@ class CheckUploadMyDiet extends ConsumerStatefulWidget {
 
 class _CheckUploadMyDiet extends ConsumerState<CheckUploadMyDiet> {
 
-  int _currentPage = 3; // 현재 페이지 (bottom nav bar 관련)
-
   List<Color> SelectedList =  [Color(0xff8BC34A), Color(0xff8BC34A), Color(0xff8BC34A)];
 
   String? MealTime;
@@ -27,152 +25,72 @@ class _CheckUploadMyDiet extends ConsumerState<CheckUploadMyDiet> {
   Widget build(BuildContext context) {
 
     return Scaffold(
-      appBar: AppBar(
-        title: Center( child : Row(
-          children: const [
-            Image(
-              image: AssetImage('images/fork.png'),
-              height: 25.0,
-            ),
-            SizedBox(
-              width: 10.0,
-            ),
-            Text(
-              "나의 식단",
-              style: TextStyle(
-                fontSize: 25.0,
-                color: Colors.white,
-                decoration: TextDecoration.none,
-                fontWeight: FontWeight.normal,
-              ),
-            ),
-            SizedBox(
-              width: 10.0,
-            ),
-            Image(
-              image: AssetImage('images/knife.png'),
-              height: 25.0,
-            ),
-          ],
-          mainAxisSize: MainAxisSize.min,
-        ),),
-        backgroundColor: primaryColor,
-      ),
-      body: Container(
-        padding: EdgeInsets.all(8.0),
-        child: Center(
-          child: Column(
-            children: [
-              SizedBox(height: 50),
-              const Text("제외하고 싶은 식단 성분이 있나요?\n자유롭게 선택해 주세요!",
-              style: TextStyle(
-                fontSize: 18.0,
-                color: Color(0xff41631A),
-                fontWeight: FontWeight.bold,
-              ),
-              ),
-              // showDietIngredients(),
-              SizedBox(height: 200), //제외할 식단 성분 선택하는 부분 들어갈 곳
-              const Text("어느끼니로 추가할까요?",
-                style: TextStyle(
-                  fontSize: 18.0,
-                  color: Color(0xff41631A),
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              Column(
+      body : Container(
+          padding: EdgeInsets.all(8.0),
+          child: Center(
+              child: Column(
                 children: [
-                  Container(
-                    padding: EdgeInsets.all(8.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
+                  SizedBox(height: 50),
+                  const Text("제외하고 싶은 식단 성분이 있나요?\n자유롭게 선택해 주세요!",
+                    style: TextStyle(
+                      fontSize: 18.0,
+                      color: Color(0xff41631A),
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  // showDietIngredients(),
+                  SizedBox(height: 200), //제외할 식단 성분 선택하는 부분 들어갈 곳
+                  const Text("어느끼니로 추가할까요?",
+                    style: TextStyle(
+                      fontSize: 18.0,
+                      color: Color(0xff41631A),
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  Column(
                       children: [
-                        Button_Grey_Size(
-                          text: '아침',
-                          color: SelectedList[0],
+                        Container(
+                            padding: EdgeInsets.all(8.0),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Button_Grey_Size(
+                                  text: '아침',
+                                  color: SelectedList[0],
+                                  press: () {
+                                    MealTime = '아침';
+                                    changeButtonColor(0);
+                                  },
+                                ),
+                                Button_Grey_Size(
+                                  text: '점심',
+                                  color: SelectedList[1],
+                                  press: () {
+                                    MealTime = '점심';
+                                    changeButtonColor(1);
+                                  },
+                                ),
+                                Button_Grey_Size(
+                                  text: '저녁',
+                                  color: SelectedList[2],
+                                  press: () {
+                                    MealTime = '저녁';
+                                    changeButtonColor(2);
+                                  },
+                                ),
+                              ],
+                            )
+                        ),
+                        Button_Add_MyDiet(
                           press: () {
-                            MealTime = '아침';
-                            changeButtonColor(0);
+                            popDialog(context);
                           },
                         ),
-                        Button_Grey_Size(
-                          text: '점심',
-                          color: SelectedList[1],
-                          press: () {
-                            MealTime = '점심';
-                            changeButtonColor(1);
-                          },
-                        ),
-                        Button_Grey_Size(
-                          text: '저녁',
-                          color: SelectedList[2],
-                          press: () {
-                            MealTime = '저녁';
-                            changeButtonColor(2);
-                          },
-                        ),
-                  ],
-                )
-                  ),
-                  Button_Add_MyDiet(
-                    press: () {
-                      popDialog(context);
-                    },
-                  ),
-                ]
-            )
-          ],
-        ))
-      ),
-      bottomNavigationBar: BottomBar(
-        itemPadding: const EdgeInsets.fromLTRB(10.0, 10.0, 10.0, 20.0),
-        backgroundColor: primaryColor,
-        items: [
-          BottomBarItem(
-              icon: const Icon(
-                Icons.feed,
-                color: Colors.white,
-              ),
-              title: const Text("피드"),
-              activeColor: Colors.white),
-          BottomBarItem(
-              icon: const Icon(
-                Icons.chat_bubble_outline,
-                color: Colors.white,
-              ),
-              title: const Text("그룹 채팅"),
-              activeColor: Colors.white),
-          BottomBarItem(
-              icon: const Icon(
-                Icons.home_outlined,
-                size: 30.0,
-                color: Colors.white,
-              ),
-              title: const Text("홈 화면"),
-              activeColor: Colors.white),
-          BottomBarItem(
-              icon: const Icon(
-                Icons.star_outline,
-                size: 30.0,
-                color: Colors.white,
-              ),
-              title: const Text("나의 식단"),
-              activeColor: Colors.white),
-          BottomBarItem(
-              icon: const Icon(
-                Icons.person,
-                color: Colors.white,
-              ),
-              title: const Text("마이페이지"),
-              activeColor: Colors.white),
-        ],
-        onTap: (int value) {
-          setState(() {
-            _currentPage = value;
-          });
-        },
-        selectedIndex: _currentPage,
-      ),
+                      ]
+                  )
+                ],
+              ))
+      )
     );
   }
 
