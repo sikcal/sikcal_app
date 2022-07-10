@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sikcal/data/provider.dart';
-import 'package:sikcal/screens/loading_screen.dart';
+import 'package:sikcal/components/loading_widget.dart';
 import 'package:sikcal/screens/main_view.dart';
 
 import '../../components/RoundedButton.dart';

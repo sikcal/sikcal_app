@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:sikcal/model/food.dart';
 import 'package:sikcal/model/meal.dart';
-import 'package:sikcal/screens/food_list_view.dart';
+import 'package:sikcal/screens/components/food_list_view.dart';
 
-import '../data/constants.dart';
+import '../../data/constants.dart';
 
 class SearchMenuView extends StatefulWidget {
   SearchMenuView({Key? key, this.meal}) : super(key: key);
