@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:sikcal/data/constants.dart';
+import 'package:sikcal/screen/mypage/mypage_main_view.dart';
 import 'package:sikcal/screens/home_view.dart';
+import 'package:sikcal/screen/mydiet/mydiet_main_view.dart';
 
 class MainView extends ConsumerStatefulWidget {
   const MainView({Key? key}) : super(key: key);
@@ -19,8 +21,8 @@ class _MainViewState extends ConsumerState<MainView> {
     Container(),
     Container(),
     const HomeView(),
-    Container(),
-    Container(),
+    const MyDietMainView(),
+    const MyPageMainView(),
   ];
 
   @override
