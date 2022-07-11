@@ -2,7 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:sikcal/data/constants.dart';
 
 class SearchField extends StatelessWidget {
-  const SearchField({Key? key}) : super(key: key);
+  const SearchField({Key? key, required this.controller, required this.onSubmit}) : super(key: key);
+
+  final TextEditingController controller;
+  final Function onSubmit;
 
   @override
   Widget build(BuildContext context) {
@@ -10,6 +13,7 @@ class SearchField extends StatelessWidget {
       elevation: 5,
       borderRadius: const BorderRadius.all(Radius.circular(20)),
       child: TextField(
+        controller: controller,
         decoration: InputDecoration(
           border: const OutlineInputBorder(
             borderSide: BorderSide.none,
@@ -23,6 +27,7 @@ class SearchField extends StatelessWidget {
           filled: true,
           hintStyle: const TextStyle(color: Colors.white),
           hoverColor: Colors.white,
+          suffixIcon: IconButton(onPressed: () => onSubmit(), icon: const Icon(Icons.send, color: Colors.white)),
         ),
         style: const TextStyle(color: Colors.white),
       ),
