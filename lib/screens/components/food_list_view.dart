@@ -27,7 +27,7 @@ class FoodListView extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text('${foodList.elementAt(idx).name} - ${kcal}kcal'),
+                Text('${foodList.elementAt(idx).foodName} - ${kcal}kcal'),
                 Text('탄수화물 : ${foodList.elementAt(idx).carbohydrate}'),
                 Text('단백질 : ${foodList.elementAt(idx).protein}'),
                 Text('지방 : ${foodList.elementAt(idx).fat}'),
@@ -36,7 +36,7 @@ class FoodListView extends StatelessWidget {
           ),
         );
         return ListTile(
-          title: Text('${foodList.elementAt(idx).name} - ${kcal}kcal'),
+          title: Text('${foodList.elementAt(idx).foodName} - ${kcal}kcal'),
           subtitle: Column(
             children: [
               Text('탄수화물 : ${foodList.elementAt(idx).carbohydrate}'),

@@ -104,7 +104,7 @@ class MealListView extends ConsumerWidget {
                       Row(
                         children: [
                           Text(
-                            food.name,
+                            food.foodName,
                             style: defaultTextStyle.copyWith(
                               color: primaryColor,
                               fontWeight: FontWeight.bold,

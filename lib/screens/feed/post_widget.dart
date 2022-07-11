@@ -35,7 +35,7 @@ class PostWidget extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    '총 ${post.foodList.map((e) => e.totalKcal).reduce((a, b) => a + b)}kcal',
+                    '총 ${post.foodList.map((e) => e.total_kcal).reduce((a, b) => a + b)}kcal',
                     style: TextStyle(color: darkPrimaryColor, fontSize: 16),
                   ),
                   Text(
@@ -56,7 +56,7 @@ class PostWidget extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   ...post.foodList.map((e) => Text(
-                        '${e.name} : ${e.totalKcal}kcal',
+                        '${e.foodName} : ${e.total_kcal}kcal',
                         style: TextStyle(color: darkPrimaryColor, fontSize: 16),
                       )),
                 ],
