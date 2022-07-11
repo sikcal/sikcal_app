@@ -1,9 +1,15 @@
+import 'package:json_annotation/json_annotation.dart';
+
+part 'food.g.dart';
+
+@JsonSerializable()
 class Food implements Comparable {
   final int hashId;
   final String name;
   final int carbohydrate;
   final int protein;
   final int fat;
+  final int totalKcal;
 
   Food({
     required this.hashId,
@@ -11,6 +17,7 @@ class Food implements Comparable {
     required this.carbohydrate,
     required this.protein,
     required this.fat,
+    required this.totalKcal
   });
 
   @override
@@ -27,5 +34,6 @@ class Food implements Comparable {
     return name;
   }
 
-  // TODO : json parse 추가
+  factory Food.fromJson(Map<String, dynamic> json) => _$FoodFromJson(json);
+  Map<String, dynamic> toJson() => _$FoodToJson(this);
 }

@@ -6,8 +6,8 @@ import 'package:sikcal/components/circular_progress.dart';
 import 'package:sikcal/data/constants.dart';
 import 'package:sikcal/data/provider.dart';
 import 'package:sikcal/model/meal.dart';
-import 'package:sikcal/screens/meal_list_view.dart';
-import 'package:sikcal/screens/search_menu_view.dart';
+import 'package:sikcal/screens/components/meal_list_view.dart';
+import 'package:sikcal/screens/home/search_menu_view.dart';
 
 class HomeView extends ConsumerStatefulWidget {
   const HomeView({Key? key}) : super(key: key);

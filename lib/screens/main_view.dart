@@ -4,8 +4,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:sikcal/data/constants.dart';
 import 'package:sikcal/screen/mypage/mypage_main_view.dart';
-import 'package:sikcal/screens/home_view.dart';
 import 'package:sikcal/screen/mydiet/mydiet_main_view.dart';
+import 'package:sikcal/screens/feed/feed_view.dart';
+import 'package:sikcal/screens/home/home_view.dart';
 
 class MainView extends ConsumerStatefulWidget {
   const MainView({Key? key}) : super(key: key);
@@ -18,7 +19,7 @@ class _MainViewState extends ConsumerState<MainView> {
   int _currentPage = 2; // 현재 페이지 (bottom nav bar 관련)
 
   List<Widget> pages = [
-    Container(),
+    FeedView(),
     Container(),
     const HomeView(),
     const MyDietMainView(),
@@ -40,7 +41,7 @@ class _MainViewState extends ConsumerState<MainView> {
               width: 10.0,
             ),
             Text(
-              "식칼",
+              "식칼", // FIXME 화면 별로 title 변경
               style: TextStyle(
                 fontSize: 25.0,
                 color: Colors.white,
