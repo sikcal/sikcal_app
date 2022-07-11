@@ -6,6 +6,7 @@ import 'package:sikcal/data/provider.dart';
 import 'package:sikcal/model/food.dart';
 import 'package:sikcal/model/meal.dart';
 import 'package:sikcal/screens/components/food_list_view.dart';
+import 'package:sikcal/screens/components/search_field.dart';
 
 import '../../data/constants.dart';
 
@@ -78,12 +79,14 @@ class _SearchMenuViewState extends ConsumerState<SearchMenuView> {
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
         child: Column(
           children: [
-            const TextField(
-              decoration: InputDecoration(
-                prefixIcon: Icon(
-                  FontAwesomeIcons.magnifyingGlass,
-                ),
-              ),
+            SearchField(
+              controller: controller,
+              onSubmit: () async {
+                if (controller.text.isEmpty) return;
+
+                currentFoodList = await foodRepo.searchFood(controller.text);
+                setState(() {});
+              },
             ),
             const SizedBox(height: 20),
             Expanded(
