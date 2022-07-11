@@ -4,26 +4,24 @@ part 'food.g.dart';
 
 @JsonSerializable()
 class Food implements Comparable {
-  final int hashId;
-  final String name;
+  final String foodName;
   final int carbohydrate;
   final int protein;
   final int fat;
-  final int totalKcal;
+  final int total_kcal;
 
   Food({
-    required this.hashId,
-    required this.name,
+    required this.foodName,
     required this.carbohydrate,
     required this.protein,
     required this.fat,
-    required this.totalKcal
+    required this.total_kcal
   });
 
   @override
   int compareTo(other) {
     Food o = other as Food;
-    return hashId - o.hashId;
+    return foodName.hashCode - o.foodName.hashCode;
   }
 
   int getCalorie() {
@@ -31,7 +29,7 @@ class Food implements Comparable {
   }
 
   String toString() {
-    return name;
+    return foodName;
   }
 
   factory Food.fromJson(Map<String, dynamic> json) => _$FoodFromJson(json);

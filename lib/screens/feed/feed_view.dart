@@ -12,8 +12,11 @@ class FeedView extends StatefulWidget {
 }
 
 class _FeedViewState extends State<FeedView> {
+  TextEditingController controller = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
+
     return SafeArea(
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -21,7 +24,7 @@ class _FeedViewState extends State<FeedView> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const SizedBox(height: 10),
-            SearchField(),
+            SearchField(controller: controller, onSubmit: () {}), // TODO
             const SizedBox(height: 25),
             Text('오늘의 추천 식단', style: TextStyle(color: darkPrimaryColor, fontSize: 20, fontWeight: FontWeight.bold)),
             const SizedBox(height: 10),

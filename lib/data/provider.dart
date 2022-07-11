@@ -1,4 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:sikcal/data/repo/food_repo.dart';
 import 'package:sikcal/data/repo/user_repo.dart';
 import 'package:sikcal/model/meal.dart';
 import 'package:sikcal/model/meal_list_model.dart';
@@ -13,3 +14,4 @@ final gainedCaloriesProvider = StateProvider<Map<String, int>>((ref) => {
   'fat': 0,
 });
 final loadingStateProvider = StateProvider((ref) => true);
+final foodRepoProvider = Provider((ref) => FoodRepo());
