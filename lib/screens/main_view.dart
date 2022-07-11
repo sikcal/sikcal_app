@@ -41,7 +41,7 @@ class _MainViewState extends ConsumerState<MainView> {
               width: 10.0,
             ),
             Text(
-              "식칼",
+              "식칼", // FIXME 화면 별로 title 변경
               style: TextStyle(
                 fontSize: 25.0,
                 color: Colors.white,
