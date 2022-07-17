@@ -2,13 +2,12 @@ import 'package:bottom_bar/bottom_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:sikcal/data/constants.dart';
 import 'package:sikcal/data/provider.dart';
 import 'package:sikcal/model/food.dart';
 import 'package:sikcal/model/meal.dart';
 import 'package:sikcal/screens/components/food_list_view.dart';
 import 'package:sikcal/screens/components/search_field.dart';
-
-import '../../data/constants.dart';
 
 class SearchMenuView extends ConsumerStatefulWidget {
   SearchMenuView({Key? key, this.meal}) : super(key: key);
@@ -124,14 +123,14 @@ class _SearchMenuViewState extends ConsumerState<SearchMenuView> {
                                     children: [
                                       Text(
                                         '${meal.foodList.keys.elementAt(idx)}',
-                                        style: defaultTextStyle.copyWith(
+                                        style: kDefaultTextStyle.copyWith(
                                           color: primaryColor,
                                           fontWeight: FontWeight.bold,
                                         ),
                                       ),
                                       Text(
                                         ' * $count',
-                                        style: defaultTextStyle.copyWith(
+                                        style: kDefaultTextStyle.copyWith(
                                           color: accentColor,
                                           fontWeight: FontWeight.bold,
                                         ),
@@ -197,7 +196,7 @@ class _SearchMenuViewState extends ConsumerState<SearchMenuView> {
                               ),
                               child: Text(
                                 '식단에 추가하기',
-                                style: defaultTextStyle.copyWith(
+                                style: kDefaultTextStyle.copyWith(
                                   color: Colors.white,
                                   fontWeight: FontWeight.bold,
                                 ),

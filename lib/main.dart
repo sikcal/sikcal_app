@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:sikcal/components/loading_widget.dart';
-
 import 'package:sikcal/screen/welcome/welcome_screen.dart';
 import 'package:sikcal/data/constants.dart';
-import 'package:sikcal/screens/main_view.dart';
 
 void main() {
   runApp(const MyApp());
@@ -28,12 +25,11 @@ class _MyAppState extends State<MyApp> {
               backgroundColor: primaryColor,
             ),
             textTheme: TextTheme(
-              bodyText2: defaultTextStyle,
+              bodyText2: kDefaultTextStyle,
             )),
         home: Stack(
           children: [
-            WelcomeScreen(),
-            LoadingScreen(), // loading state provider의 값이 loading이면 모든 화면에서 로딩 창을 띄웁니다.
+            WelcomeScreen(), // TODO auth gate
           ],
         ),
       ),

@@ -105,7 +105,7 @@ class MealListView extends ConsumerWidget {
                         children: [
                           Text(
                             food.foodName,
-                            style: defaultTextStyle.copyWith(
+                            style: kDefaultTextStyle.copyWith(
                               color: primaryColor,
                               fontWeight: FontWeight.bold,
                             ),
@@ -113,7 +113,7 @@ class MealListView extends ConsumerWidget {
                           Icon(FontAwesomeIcons.xmark, size: 13, color: accentColor),
                           Text(
                             meal.foodList[food].toString(),
-                            style: defaultTextStyle.copyWith(
+                            style: kDefaultTextStyle.copyWith(
                               color: accentColor,
                               fontWeight: FontWeight.bold,
                             ),

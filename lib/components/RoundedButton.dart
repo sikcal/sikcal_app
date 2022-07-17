@@ -15,15 +15,15 @@ class RoundedButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.all(5),
+      margin: const EdgeInsets.all(5),
       child: ElevatedButton(
         onPressed: press,
         child: Text(text!),
         style: ElevatedButton.styleFrom(
           primary: color,
-          padding: EdgeInsets.all(10.0),
-          textStyle: TextStyle(color: Colors.white),
-          minimumSize: Size(250, 50),
+          padding: const EdgeInsets.all(10.0),
+          textStyle: const TextStyle(color: Colors.white),
+          minimumSize: Size(MediaQuery.of(context).size.width * 0.8, 50),
         ),
       ),
     );

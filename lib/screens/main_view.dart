@@ -138,7 +138,7 @@ class _BottomPopup extends StatelessWidget {
               },
               child: Text(
                 '갤러리에서 눈바디 사진 찾기',
-                style: defaultTextStyle,
+                style: kDefaultTextStyle,
                 textAlign: TextAlign.start,
               ),
             ),
@@ -152,7 +152,7 @@ class _BottomPopup extends StatelessWidget {
               },
               child: Text(
                 '카메라로 촬영하기',
-                style: defaultTextStyle,
+                style: kDefaultTextStyle,
                 textAlign: TextAlign.start,
               ),
             ),

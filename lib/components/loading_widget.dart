@@ -22,7 +22,7 @@ class LoadingScreen extends ConsumerWidget {
             color: Colors.white,
             child: Text(
               '로딩중입니다...',
-              style: defaultTextStyle.copyWith(fontSize: 30),
+              style: kDefaultTextStyle.copyWith(fontSize: 30),
             ),
           ),
         ),
