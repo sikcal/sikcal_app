@@ -59,9 +59,10 @@ class Screen extends ConsumerState<Body> {
   late DateTime _selectedDate;
 
   @override
-  void initState(){
+  void initState() {
     super.initState();
-    _selectedDate = ref.read(registerInfoUserProvider).birth ?? DateTime.now();
+    final birth = ref.read(registerInfoUserProvider).birth;
+    _selectedDate = birth ?? DateTime.now();
   }
 
   @override
