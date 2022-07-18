@@ -19,7 +19,7 @@ class HomeView extends ConsumerStatefulWidget {
 class _HomeViewState extends ConsumerState<HomeView> {
   @override
   Widget build(BuildContext context) {
-    final user = ref.watch(userBasicProvider);
+    final user = null; // FIXME
     final mealList = ref.watch(currentMealListProvider);
     final gainedCalories = ref.watch(gainedCaloriesProvider.state);
 
@@ -73,17 +73,17 @@ class _HomeViewState extends ConsumerState<HomeView> {
                       children: [
                         Text(
                           "탄수화물",
-                          style: defaultTextStyle.copyWith(color: Colors.red),
+                          style: kDefaultTextStyle.copyWith(color: Colors.red),
                         ),
                         Text(
                           "권장 섭취량",
                           style:
-                          defaultTextStyle.copyWith(color: Colors.white),
+                          kDefaultTextStyle.copyWith(color: Colors.white),
                         ),
                         Text(
                           ": ${maxCarbohydrate}g",
                           style:
-                          defaultTextStyle.copyWith(color: Colors.white),
+                          kDefaultTextStyle.copyWith(color: Colors.white),
                         ),
                       ],
                     ),
@@ -91,18 +91,18 @@ class _HomeViewState extends ConsumerState<HomeView> {
                       children: [
                         Text(
                           "단백질",
-                          style: defaultTextStyle.copyWith(
+                          style: kDefaultTextStyle.copyWith(
                               color: Colors.blueAccent),
                         ),
                         Text(
                           "권장 섭취량",
                           style:
-                          defaultTextStyle.copyWith(color: Colors.white),
+                          kDefaultTextStyle.copyWith(color: Colors.white),
                         ),
                         Text(
                           ": ${maxProtein}g",
                           style:
-                          defaultTextStyle.copyWith(color: Colors.white),
+                          kDefaultTextStyle.copyWith(color: Colors.white),
                         ),
                       ],
                     ),
@@ -111,17 +111,17 @@ class _HomeViewState extends ConsumerState<HomeView> {
                         Text(
                           "지방",
                           style:
-                          defaultTextStyle.copyWith(color: Colors.amber),
+                          kDefaultTextStyle.copyWith(color: Colors.amber),
                         ),
                         Text(
                           "권장 섭취량",
                           style:
-                          defaultTextStyle.copyWith(color: Colors.white),
+                          kDefaultTextStyle.copyWith(color: Colors.white),
                         ),
                         Text(
                           ": ${maxFat}g",
                           style:
-                          defaultTextStyle.copyWith(color: Colors.white),
+                          kDefaultTextStyle.copyWith(color: Colors.white),
                         ),
                       ],
                     ),
@@ -228,7 +228,7 @@ class _BottomPopup extends StatelessWidget {
               },
               child: Text(
                 '갤러리에서 눈바디 사진 찾기',
-                style: defaultTextStyle,
+                style: kDefaultTextStyle,
                 textAlign: TextAlign.start,
               ),
             ),
@@ -242,7 +242,7 @@ class _BottomPopup extends StatelessWidget {
               },
               child: Text(
                 '카메라로 촬영하기',
-                style: defaultTextStyle,
+                style: kDefaultTextStyle,
                 textAlign: TextAlign.start,
               ),
             ),
