@@ -1,6 +1,7 @@
 import 'package:bottom_bar/bottom_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:sikcal/components/RoundedButton.dart';
 import 'package:sikcal/components/RoundedButton_size.dart';
 import '../../components/button_add_mydiet.dart';
 import '../../data/constants.dart';
@@ -22,10 +23,12 @@ class CheckUploadMyDiet extends ConsumerStatefulWidget {
 class _CheckUploadMyDiet extends ConsumerState<CheckUploadMyDiet> {
 
   List<Color> SelectedList =  [Color(0xff8BC34A), Color(0xff8BC34A), Color(0xff8BC34A)];
+  List DietIngredients = ['토마토', '계란', '마늘', '닭가슴살', '청양고추'];
 
   String? MealTime;
 
   int _currentPage = 3; // 현재 페이지 (bottom nav bar 관련)
+  var _isChecked = false;
 
   List<Widget> pages = [
     FeedView(),
@@ -83,7 +86,17 @@ class _CheckUploadMyDiet extends ConsumerState<CheckUploadMyDiet> {
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  // showDietIngredients(),
+                  Column(
+                    children: [
+                      for (num i = 1; i < DietIngredients.length; i++)
+                        Checkbox(value: _isChecked, onChanged: (_isChecked){
+                          setState(){
+                            _isChecked = _isChecked;
+                          }
+                        })
+
+                    ],
+                  ),
                   SizedBox(height: 200), //제외할 식단 성분 선택하는 부분 들어갈 곳
                   const Text("어느끼니로 추가할까요?",
                     style: TextStyle(
@@ -189,6 +202,13 @@ class _CheckUploadMyDiet extends ConsumerState<CheckUploadMyDiet> {
   }
 
   showDietIngredients() {
+    //TODO: db 연동(식단 성분 받아오기)
+    //dummy data
+    List DietIngredients = ['토마토', '계란', '마늘', '닭가슴살', '청양고추'];
+
+    for (String item in DietIngredients) {
+      Checkbox(value: false, onChanged: (bool? value) {  },);
+    }
 
   }
 
