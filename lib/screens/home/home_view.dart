@@ -19,14 +19,15 @@ class HomeView extends ConsumerStatefulWidget {
 class _HomeViewState extends ConsumerState<HomeView> {
   @override
   Widget build(BuildContext context) {
-    final user = null; // FIXME
-    final mealList = ref.watch(currentMealListProvider);
-    final gainedCalories = ref.watch(gainedCaloriesProvider.state);
+    final user = ref.watch(userProvider);
+    if (user == null) return Container();
 
-    int gainedCarbohydrate =
-    gainedCalories.state['carbohydrate']!; // 현재 섭취한 탄, 단, 지
-    int gainedProtein = gainedCalories.state['protein']!;
-    int gainedFat = gainedCalories.state['fat']!;
+    final mealList = ref.watch(currentMealListProvider);
+    final gainedCalories = ref.watch(gainedCaloriesProvider);
+
+    int gainedCarbohydrate = 0;
+    int gainedProtein = 0;
+    int gainedFat = 0;
 
     int maxCarbohydrate = user.carbohydrate; // 하루 권장 섭취 탄, 단, 지
     int maxProtein = user.protein;

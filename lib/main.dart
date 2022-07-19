@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sikcal/screen/welcome/welcome_screen.dart';
 import 'package:sikcal/data/constants.dart';
+import 'package:sikcal/screens/auth/auth_gate.dart';
+import 'package:sikcal/screens/main_view.dart';
 
 void main() {
   runApp(const MyApp());
@@ -27,12 +29,17 @@ class _MyAppState extends State<MyApp> {
             textTheme: TextTheme(
               bodyText2: kDefaultTextStyle,
             )),
-        home: Stack(
-          children: [
-            WelcomeScreen(), // TODO auth gate
-          ],
-        ),
+        home: Main(),
       ),
     );
+  }
+}
+
+class Main extends StatelessWidget {
+  const Main({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return AuthGate(child: MainView());
   }
 }

@@ -121,7 +121,16 @@ class _FormScreenState extends ConsumerState<InputUserIdScreen> {
                         registerInfoUser.password = userpwcontroller.text;
 
                         try {
-                          final user = await ref.read(userRepoProvider).signUp(registerInfoUser);
+                          await ref.read(userRepoProvider).signUp(registerInfoUser);
+
+                          final user = await ref.read(userRepoProvider).signIn(registerInfoUser.id!, registerInfoUser.password!);
+                          if (user == null) {
+                            ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('아이디, 비밀번호를 확인해주세요')));
+                            return;
+                          } else {
+                            Navigator.popUntil(context, (route) => route.isFirst);
+                          }
+
                         } on FormatException catch (e) {
                           ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(e.message)));
                         }
