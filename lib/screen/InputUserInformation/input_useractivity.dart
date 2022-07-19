@@ -20,10 +20,10 @@ class _InputUserActivityScreen extends ConsumerState<InputUserActivityScreen> {
   void initState() {
     super.initState();
     useractivity = ref.read(registerInfoUserProvider).activity;
-    if (useractivity == '가벼운 활동') changeButtonColor(0);
-    if (useractivity == '중증도 활동') changeButtonColor(1);
-    if (useractivity == '강한 활동') changeButtonColor(2);
-    if (useractivity == '아주 강한 활동') changeButtonColor(3);
+    if (useractivity == 'LIGHT') changeButtonColor(0);
+    if (useractivity == 'NORMAL') changeButtonColor(1);
+    if (useractivity == 'HARD') changeButtonColor(2);
+    if (useractivity == 'SUPER') changeButtonColor(3);
   }
 
   @override
@@ -74,7 +74,7 @@ class _InputUserActivityScreen extends ConsumerState<InputUserActivityScreen> {
                     text: '가벼운 활동',
                     color: SelectedList[0],
                     press: () {
-                      useractivity = '가벼운 활동';
+                      useractivity = 'LIGHT';
                       changeButtonColor(0);
                     },
                   ),
@@ -83,7 +83,7 @@ class _InputUserActivityScreen extends ConsumerState<InputUserActivityScreen> {
                     text: '중증도 활동',
                     color: SelectedList[1],
                     press: () {
-                      useractivity = '중증도 활동';
+                      useractivity = 'NORMAL';
                       changeButtonColor(1);
                     },
                   ),
@@ -92,7 +92,7 @@ class _InputUserActivityScreen extends ConsumerState<InputUserActivityScreen> {
                     text: '강한 활동',
                     color: SelectedList[2],
                     press: () {
-                      useractivity = '강한 활동';
+                      useractivity = 'HARD';
                       changeButtonColor(2);
                     },
                   ),
@@ -101,7 +101,7 @@ class _InputUserActivityScreen extends ConsumerState<InputUserActivityScreen> {
                     text: '아주 강한 활동',
                     color: SelectedList[3],
                     press: () {
-                      useractivity = '아주 강한 활동';
+                      useractivity = 'SUPER';
                       changeButtonColor(3);
                     },
                   ),
