@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sikcal/components/RoundedButton.dart';
 import 'package:sikcal/components/mytextformfield.dart';
 import 'package:sikcal/data/constants.dart';
-import 'package:sikcal/data/provider.dart';
+import 'package:sikcal/data/providers.dart';
 import 'package:sikcal/data/repo/user_repo.dart';
 import 'package:sikcal/screen/InputUserInformation/input_start.dart';
 
@@ -121,9 +121,11 @@ class _FormScreenState extends ConsumerState<InputUserIdScreen> {
                         registerInfoUser.password = userpwcontroller.text;
 
                         try {
-                          await ref.read(userRepoProvider).signUp(registerInfoUser);
+                          await ref.read(authRepoProvider).signUp(registerInfoUser);
 
-                          final user = await ref.read(userRepoProvider).signIn(registerInfoUser.id!, registerInfoUser.password!);
+                          await ref.read(authRepoProvider).signIn(registerInfoUser.id!, registerInfoUser.password!);
+
+                          final user = ref.read(userProvider);
                           if (user == null) {
                             ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('아이디, 비밀번호를 확인해주세요')));
                             return;
