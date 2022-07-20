@@ -5,6 +5,7 @@ import 'package:sikcal/screen/mypage/mypage_cal_view.dart';
 import '../../components/RoundedText.dart';
 import '../../components/RoundedTextButton.dart';
 import 'mypage_img_view.dart';
+import 'mypage_update_view.dart';
 
 class MyPageMainView extends ConsumerStatefulWidget {
   const MyPageMainView({Key? key}) : super(key: key);
@@ -54,6 +55,23 @@ class _MyPageMainView extends ConsumerState<MyPageMainView> {
                   fontSize: 20.0,
                 ),
               ),
+              TextButton(
+                  onPressed: () {
+                    Navigator.of(context).push(MaterialPageRoute<Null>(
+                        fullscreenDialog: true,
+                        builder: (BuildContext context) {
+                          return MyPageUpdateView(
+                            // diet: diets[i],
+                          );
+                        }
+                    )
+                    );
+                  },
+                  child: Text('현재 체중 변경하기',
+                        style : TextStyle(
+                          color: Color(0xff8BC34A),
+                        ))
+              ),
               RoundedText(
                 text: "목표 체중      $userTweight kg",
                 textStyle: TextStyle(
@@ -69,13 +87,13 @@ class _MyPageMainView extends ConsumerState<MyPageMainView> {
                 children: [
                   ElevatedButton(
                     onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) {
-                            return MyPageCalView();
-                          },
-                        ),
+                      Navigator.of(context).push(MaterialPageRoute<Null>(
+                          fullscreenDialog: true,
+                          builder: (BuildContext context) {
+                            return MyPageCalView(
+                            );
+                          }
+                      )
                       );
                     },
                     style: ElevatedButton.styleFrom(
@@ -96,13 +114,13 @@ class _MyPageMainView extends ConsumerState<MyPageMainView> {
                   SizedBox(width: 50.0,),
                   ElevatedButton(
                     onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) {
-                            return MyPageImgView();
-                          },
-                        ),
+                      Navigator.of(context).push(MaterialPageRoute<Null>(
+                          fullscreenDialog: true,
+                          builder: (BuildContext context) {
+                            return MyPageImgView(
+                            );
+                          }
+                      )
                       );
                     },
                     style: ElevatedButton.styleFrom(
@@ -111,7 +129,7 @@ class _MyPageMainView extends ConsumerState<MyPageMainView> {
                     ),
                     child: Column(
                       children: [
-                        Text('CAL'),
+                        Text('VIEW'),
                         Icon(
                           Icons.camera_alt_outlined,
                           color: Colors.white,

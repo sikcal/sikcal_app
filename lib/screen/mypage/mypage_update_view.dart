@@ -2,25 +2,28 @@ import 'package:bottom_bar/bottom_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../components/RoundedTextButton.dart';
+import '../../components/RoundedButton.dart';
+import '../../components/RoundedText.dart';
+import '../../components/mytextformfield.dart';
 import '../../data/constants.dart';
+import 'mypage_main_view.dart';
 
-class MyPageImgView extends ConsumerStatefulWidget {
-  const MyPageImgView({Key? key}) : super(key: key);
+class MyPageUpdateView extends ConsumerStatefulWidget {
+  const MyPageUpdateView({Key? key}) : super(key: key);
 
   @override
-  ConsumerState<MyPageImgView> createState() => _MyPageImgView();
+  _FormScreenStateWeight createState() => _FormScreenStateWeight();
 }
 
-class _MyPageImgView extends ConsumerState<MyPageImgView> {
+class _FormScreenStateWeight extends ConsumerState<MyPageUpdateView> {
+  final userweightcontroller = TextEditingController();
+  final _formkey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
-    String userimg = "images/profile.jpg";
-    String username ="김유진";
 
     int _currentPage = 5;
-
+    
     return Scaffold(
       appBar: AppBar(
         title: Row(
@@ -55,52 +58,49 @@ class _MyPageImgView extends ConsumerState<MyPageImgView> {
       ),
       body:Center(
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                ClipRRect(
-                  borderRadius: BorderRadius.circular(50.0),
-                  child: Image.asset(
-                    userimg,
-                    fit: BoxFit.cover,
-                    width: 100,
-                    height: 100,
-                  ),
-                ),
-                SizedBox(width: 100),
-                Text(username,
-                  style: TextStyle(
-                    color: Color(0xff8BC34A),
-                    fontSize: 25.0,
-                  ),
-                ),
-              ],
-            ),
-            SizedBox(height: 25.0),
-            RoundedTextButton(
-              color: const Color(0xff8BC34A),
-              text: "날짜로 사진 검색하기",
-              textStyle: TextStyle(
-                color: Colors.white,
-                fontWeight: FontWeight.bold,
-                fontSize: 20.0,
+            Text('체중을 입력해주세요.', style: kLargeTextStyle),
+            SizedBox(height: 50),
+            Form(
+              key: _formkey,
+              child: MyTextFormField(
+                obscureText: false,
+                controller: userweightcontroller,
+                label: '현재 체중을 입력해주세요',
+                onSaved: (value) {
+                  setState(() {});
+                },
+                validator: (value) {
+                  if (value.length < 1) {
+                    return '현재 체중은 필수사항입니다.';
+                  }
+                  if (!RegExp('[0-9]').hasMatch(value)) {
+                    return '숫자를 입력해주세요';
+                  }
+                },
               ),
-              size: const Size(250, 50),
-              press: (){},
             ),
-            RoundedTextButton(
-              color: const Color(0xff8BC34A),
-              text: "사진 추가하기",
-              textStyle: TextStyle(
-                color: Colors.white,
-                fontWeight: FontWeight.bold,
-                fontSize: 20.0,
-              ),
-              size: const Size(250, 50),
-              press: (){},
-            ),
+            SizedBox(height: 50),
+            RoundedButton(
+                text: '변경하기',
+                color: const Color(0xff8BC34A),
+                press: () {
+                  final form = _formkey.currentState;
+                  if (form != null && !form.validate()) {
+                  } else {
+
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) {
+                          return MyPageMainView();
+                        },
+                      ),
+                    );
+                    return;
+                  }
+                }),
           ],
         ),
       ),
