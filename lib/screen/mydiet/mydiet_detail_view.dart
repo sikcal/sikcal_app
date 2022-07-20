@@ -35,10 +35,10 @@ class _MyDietDetailView extends ConsumerState<MyDietDetailView> {
   @override
   Widget build(BuildContext context) {
 
-    String diet_total_kcal = widget.diet.diet_total_kcal.toString();
-    String diet_carbohydrate = widget.diet.diet_carbohydrate.toString();
-    String diet_protein = widget.diet.diet_protein.toString();
-    String diet_fat = widget.diet.diet_fat.toString();
+    String diet_total_kcal = widget.diet.totalkcal.toString();
+    // String diet_carbohydrate = widget.diet.diet_carbohydrate.toString();
+    // String diet_protein = widget.diet.diet_protein.toString();
+    // String diet_fat = widget.diet.diet_fat.toString();
 
     return Scaffold(
         appBar: AppBar(
@@ -79,11 +79,12 @@ class _MyDietDetailView extends ConsumerState<MyDietDetailView> {
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Image.asset('images/'+widget.diet.diet_image, height: 250, width: 200),
-                  Text(widget.diet.diet_title,
-                      style: TextStyle(color: Colors.black)
-                  ),
-                  Text('총 $diet_total_kcal kcal 탄수화물 : $diet_carbohydrate, 단백질 : $diet_protein, 지방 : $diet_fat'),
+                  Image.asset('images/'+widget.diet.pictureuri, height: 250, width: 200),
+                  // Text(widget.diet.diet_title,
+                  //     style: TextStyle(color: Colors.black)
+                  // ),
+                  // Text('총 $diet_total_kcal kcal 탄수화물 : $diet_carbohydrate, 단백질 : $diet_protein, 지방 : $diet_fat'),
+                  Text('총 $diet_total_kcal kcal 탄수화물'),
                   Button_Add_MyDiet(
                     press: () {
                       Navigator.of(context).push(MaterialPageRoute<Null>(
