@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:sikcal/screen/mypage/mypage_main_view.dart';
+import 'package:sikcal/screen/mypage/mypage_main_view.dart'; //이부분 지우기
 import 'package:sikcal/screen/welcome/welcome_screen.dart';
 import 'package:sikcal/data/constants.dart';
 import 'package:sikcal/screens/auth/auth_gate.dart';
@@ -30,7 +30,7 @@ class _MyAppState extends State<MyApp> {
             textTheme: TextTheme(
               bodyText2: kDefaultTextStyle,
             )),
-        home: Main(),
+        home: MyPageMainView(), //이부분 바꾸기 Main()
       ),
     );
   }
