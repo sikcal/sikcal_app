@@ -1,58 +1,40 @@
 import 'package:bottom_bar/bottom_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:sikcal/data/constants.dart';
+import 'package:sikcal/data/providers.dart';
 import 'package:sikcal/model/food.dart';
 import 'package:sikcal/model/meal.dart';
-import 'package:sikcal/screens/food_list_view.dart';
+import 'package:sikcal/screens/components/food_list_view.dart';
+import 'package:sikcal/screens/components/search_field.dart';
 
-import '../data/constants.dart';
-
-class SearchMenuView extends StatefulWidget {
+class SearchMenuView extends ConsumerStatefulWidget {
   SearchMenuView({Key? key, this.meal}) : super(key: key);
 
   Meal? meal;
 
   @override
-  State<SearchMenuView> createState() => _SearchMenuViewState();
+  ConsumerState<SearchMenuView> createState() => _SearchMenuViewState();
 }
 
-class _SearchMenuViewState extends State<SearchMenuView> {
-  int _currentPage = 2;
-
+class _SearchMenuViewState extends ConsumerState<SearchMenuView> {
   late Meal meal;
+
+  List<Food> currentFoodList = [];
+  late TextEditingController controller;
 
   @override
   void initState() {
     meal = widget.meal ?? Meal();
+    controller = TextEditingController();
   }
 
-  // TODO : 서버에서 받아오기
-  List<Food> currentFoodList = [
-    Food(
-        hashId: 1,
-        name: '햇반(CJ) 1팩 (200g)',
-        carbohydrate: 67,
-        protein: 5,
-        fat: 1),
-    Food(
-        hashId: 2,
-        name: '햇반(햇반) 1팩 (210g)',
-        carbohydrate: 70,
-        protein: 5,
-        fat: 1),
-    Food(
-        hashId: 3,
-        name: '햇반(오뚜기) 1인분 (200g)',
-        carbohydrate: 68,
-        protein: 5,
-        fat: 1),
-    Food(
-        hashId: 4,
-        name: '닭 가슴살 (100g)당',
-        carbohydrate: 1,
-        protein: 31,
-        fat: 4),
-  ];
+  @override
+  void dispose() {
+    controller.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -93,12 +75,14 @@ class _SearchMenuViewState extends State<SearchMenuView> {
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
         child: Column(
           children: [
-            const TextField(
-              decoration: InputDecoration(
-                prefixIcon: Icon(
-                  FontAwesomeIcons.magnifyingGlass,
-                ),
-              ),
+            SearchField(
+              controller: controller,
+              onSubmit: () async {
+                if (controller.text.isEmpty) return;
+
+                currentFoodList = await ref.read(foodRepoProvider)?.searchFood(controller.text) ?? [];
+                setState(() {});
+              },
             ),
             const SizedBox(height: 20),
             Expanded(
@@ -111,9 +95,9 @@ class _SearchMenuViewState extends State<SearchMenuView> {
                   print(meal);
                 },
               ),
-            ), // TODO 서버에서 받아오기
+            ),
             const Divider(thickness: 3),
-            if (meal.foodList.keys.length > 0) ...[
+            if (meal.foodList.keys.isNotEmpty) ...[
               Expanded(
                 child: Container(
                   decoration: BoxDecoration(
@@ -126,26 +110,24 @@ class _SearchMenuViewState extends State<SearchMenuView> {
                         child: ListView.builder(
                           itemCount: meal.foodList.keys.length,
                           itemBuilder: (context, idx) {
-                            int count = meal
-                                .foodList[meal.foodList.keys.elementAt(idx)]!;
+                            int count = meal.foodList[meal.foodList.keys.elementAt(idx)]!;
 
                             return ListTile(
                               title: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: [
                                   Row(
                                     children: [
                                       Text(
                                         '${meal.foodList.keys.elementAt(idx)}',
-                                        style: defaultTextStyle.copyWith(
+                                        style: kDefaultTextStyle.copyWith(
                                           color: primaryColor,
                                           fontWeight: FontWeight.bold,
                                         ),
                                       ),
                                       Text(
                                         ' * $count',
-                                        style: defaultTextStyle.copyWith(
+                                        style: kDefaultTextStyle.copyWith(
                                           color: accentColor,
                                           fontWeight: FontWeight.bold,
                                         ),
@@ -157,24 +139,19 @@ class _SearchMenuViewState extends State<SearchMenuView> {
                                       InkWell(
                                         onTap: () {
                                           setState(() {
-                                            meal.addFood(meal.foodList.keys
-                                                .elementAt(idx));
+                                            meal.addFood(meal.foodList.keys.elementAt(idx));
                                           });
                                         },
-                                        child: const Icon(FontAwesomeIcons.plus,
-                                            size: 20),
+                                        child: const Icon(FontAwesomeIcons.plus, size: 20),
                                       ),
                                       const SizedBox(width: 5),
                                       InkWell(
                                         onTap: () {
                                           setState(() {
-                                            meal.subFood(meal.foodList.keys
-                                                .elementAt(idx));
+                                            meal.subFood(meal.foodList.keys.elementAt(idx));
                                           });
                                         },
-                                        child: const Icon(
-                                            FontAwesomeIcons.minus,
-                                            size: 20),
+                                        child: const Icon(FontAwesomeIcons.minus, size: 20),
                                       ),
                                     ],
                                   ),
@@ -216,7 +193,7 @@ class _SearchMenuViewState extends State<SearchMenuView> {
                               ),
                               child: Text(
                                 '식단에 추가하기',
-                                style: defaultTextStyle.copyWith(
+                                style: kDefaultTextStyle.copyWith(
                                   color: Colors.white,
                                   fontWeight: FontWeight.bold,
                                 ),
@@ -232,55 +209,6 @@ class _SearchMenuViewState extends State<SearchMenuView> {
             ],
           ],
         ),
-      ),
-      bottomNavigationBar: BottomBar(
-        itemPadding: const EdgeInsets.fromLTRB(10.0, 10.0, 10.0, 20.0),
-        backgroundColor: primaryColor,
-        items: [
-          BottomBarItem(
-              icon: const Icon(
-                Icons.feed,
-                color: Colors.white,
-              ),
-              title: const Text("피드"),
-              activeColor: Colors.white),
-          BottomBarItem(
-              icon: const Icon(
-                Icons.chat_bubble_outline,
-                color: Colors.white,
-              ),
-              title: const Text("그룹 채팅"),
-              activeColor: Colors.white),
-          BottomBarItem(
-              icon: const Icon(
-                Icons.home_outlined,
-                size: 30.0,
-                color: Colors.white,
-              ),
-              title: const Text("홈 화면"),
-              activeColor: Colors.white),
-          BottomBarItem(
-              icon: const Icon(
-                Icons.star_outline,
-                size: 30.0,
-                color: Colors.white,
-              ),
-              title: const Text("나의 식단"),
-              activeColor: Colors.white),
-          BottomBarItem(
-              icon: const Icon(
-                Icons.person,
-                color: Colors.white,
-              ),
-              title: const Text("마이페이지"),
-              activeColor: Colors.white),
-        ],
-        onTap: (int value) {
-          setState(() {
-            _currentPage = value;
-          });
-        },
-        selectedIndex: _currentPage,
       ),
     );
   }

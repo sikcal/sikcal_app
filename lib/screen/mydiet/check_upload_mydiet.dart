@@ -1,10 +1,15 @@
 import 'package:bottom_bar/bottom_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:sikcal/components/RoundedButton.dart';
 import 'package:sikcal/components/RoundedButton_size.dart';
 import '../../components/button_add_mydiet.dart';
 import '../../data/constants.dart';
 import '../../model/diet.dart';
+import '../../screens/feed/feed_view.dart';
+import '../../screens/home/home_view.dart';
+import '../mypage/mypage_main_view.dart';
+import 'mydiet_main_view.dart';
 
 
 class CheckUploadMyDiet extends ConsumerStatefulWidget {
@@ -17,112 +22,149 @@ class CheckUploadMyDiet extends ConsumerStatefulWidget {
 
 class _CheckUploadMyDiet extends ConsumerState<CheckUploadMyDiet> {
 
-  int _currentPage = 3; // 현재 페이지 (bottom nav bar 관련)
-
   List<Color> SelectedList =  [Color(0xff8BC34A), Color(0xff8BC34A), Color(0xff8BC34A)];
+  List DietIngredients = ['토마토', '계란', '마늘', '닭가슴살', '청양고추'];
 
+  List<CheckBoxListTileModel> checkBoxListTileModel = CheckBoxListTileModel.getUsers();
   String? MealTime;
+
+  int _currentPage = 3; // 현재 페이지 (bottom nav bar 관련)
+  var _isChecked = false;
+
+  List<Widget> pages = [
+    FeedView(),
+    Container(),
+    const HomeView(),
+    const MyDietMainView(),
+    const MyPageMainView(),
+  ];
 
   @override
   Widget build(BuildContext context) {
 
     return Scaffold(
-      appBar: AppBar(
-        title: Center( child : Row(
-          children: const [
-            Image(
-              image: AssetImage('images/fork.png'),
-              height: 25.0,
-            ),
-            SizedBox(
-              width: 10.0,
-            ),
-            Text(
-              "나의 식단",
-              style: TextStyle(
-                fontSize: 25.0,
-                color: Colors.white,
-                decoration: TextDecoration.none,
-                fontWeight: FontWeight.normal,
+        appBar: AppBar(
+          title: Row(
+            children: const [
+              Image(
+                image: AssetImage('images/fork.png'),
+                height: 25.0,
               ),
-            ),
-            SizedBox(
-              width: 10.0,
-            ),
-            Image(
-              image: AssetImage('images/knife.png'),
-              height: 25.0,
-            ),
-          ],
-          mainAxisSize: MainAxisSize.min,
-        ),),
-        backgroundColor: primaryColor,
-      ),
-      body: Container(
-        padding: EdgeInsets.all(8.0),
-        child: Center(
-          child: Column(
-            children: [
-              SizedBox(height: 50),
-              const Text("제외하고 싶은 식단 성분이 있나요?\n자유롭게 선택해 주세요!",
-              style: TextStyle(
-                fontSize: 18.0,
-                color: Color(0xff41631A),
-                fontWeight: FontWeight.bold,
+              SizedBox(
+                width: 10.0,
               ),
-              ),
-              // showDietIngredients(),
-              SizedBox(height: 200), //제외할 식단 성분 선택하는 부분 들어갈 곳
-              const Text("어느끼니로 추가할까요?",
+              Text(
+                "식칼", // FIXME 화면 별로 title 변경
                 style: TextStyle(
-                  fontSize: 18.0,
-                  color: Color(0xff41631A),
-                  fontWeight: FontWeight.bold,
+                  fontSize: 25.0,
+                  color: Colors.white,
+                  decoration: TextDecoration.none,
+                  fontWeight: FontWeight.normal,
                 ),
               ),
-              Column(
+              SizedBox(
+                width: 10.0,
+              ),
+              Image(
+                image: AssetImage('images/knife.png'),
+                height: 25.0,
+              ),
+            ],
+            mainAxisSize: MainAxisSize.min,
+          ),
+          backgroundColor: primaryColor,
+        ),
+      body : Container(
+          padding: EdgeInsets.all(8.0),
+          child: Center(
+              child: Column(
                 children: [
-                  Container(
-                    padding: EdgeInsets.all(8.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
+                  SizedBox(height: 50),
+                  const Text("제외하고 싶은 식단 성분이 있나요?\n자유롭게 선택해 주세요!",
+                    style: TextStyle(
+                      fontSize: 18.0,
+                      color: Color(0xff41631A),
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  Column(
+                    // children: <Widget>[
+                    //   new CheckboxListTile(
+                    //       activeColor: Colors.pink[300],
+                    //       dense: true,
+                    //       //font change
+                    //       title: new Text(
+                    //         checkBoxListTileModel[index].title,
+                    //         style: TextStyle(
+                    //             fontSize: 14,
+                    //             fontWeight: FontWeight.w600,
+                    //             letterSpacing: 0.5),
+                    //       ),
+                    //       value: checkBoxListTileModel[index].isCheck,
+                    //       secondary: Container(
+                    //         height: 50,
+                    //         width: 50,
+                    //         child: Image.asset(
+                    //           checkBoxListTileModel[index].img,
+                    //           fit: BoxFit.cover,
+                    //         ),
+                    //       ),
+                    //       onChanged: (bool val) {
+                    //         itemChange(val, index);
+                    //       })
+                    // ],
+                  ),
+                  SizedBox(height: 50), //제외할 식단 성분 선택하는 부분 들어갈 곳
+                  const Text("어느끼니로 추가할까요?",
+                    style: TextStyle(
+                      fontSize: 18.0,
+                      color: Color(0xff41631A),
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  Column(
                       children: [
-                        Button_Grey_Size(
-                          text: '아침',
-                          color: SelectedList[0],
+                        Container(
+                            padding: EdgeInsets.all(8.0),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Button_Grey_Size(
+                                  text: '아침',
+                                  color: SelectedList[0],
+                                  press: () {
+                                    MealTime = '아침';
+                                    changeButtonColor(0);
+                                  },
+                                ),
+                                Button_Grey_Size(
+                                  text: '점심',
+                                  color: SelectedList[1],
+                                  press: () {
+                                    MealTime = '점심';
+                                    changeButtonColor(1);
+                                  },
+                                ),
+                                Button_Grey_Size(
+                                  text: '저녁',
+                                  color: SelectedList[2],
+                                  press: () {
+                                    MealTime = '저녁';
+                                    changeButtonColor(2);
+                                  },
+                                ),
+                              ],
+                            )
+                        ),
+                        Button_Add_MyDiet(
                           press: () {
-                            MealTime = '아침';
-                            changeButtonColor(0);
+                            popDialog(context);
                           },
                         ),
-                        Button_Grey_Size(
-                          text: '점심',
-                          color: SelectedList[1],
-                          press: () {
-                            MealTime = '점심';
-                            changeButtonColor(1);
-                          },
-                        ),
-                        Button_Grey_Size(
-                          text: '저녁',
-                          color: SelectedList[2],
-                          press: () {
-                            MealTime = '저녁';
-                            changeButtonColor(2);
-                          },
-                        ),
-                  ],
-                )
-                  ),
-                  Button_Add_MyDiet(
-                    press: () {
-                      popDialog(context);
-                    },
-                  ),
-                ]
-            )
-          ],
-        ))
+                      ]
+                  )
+                ],
+              ))
       ),
       bottomNavigationBar: BottomBar(
         itemPadding: const EdgeInsets.fromLTRB(10.0, 10.0, 10.0, 20.0),
@@ -175,11 +217,11 @@ class _CheckUploadMyDiet extends ConsumerState<CheckUploadMyDiet> {
       ),
     );
   }
-
-  showDietIngredients() {
-
+  void itemChange(bool val, int index) {
+    setState(() {
+      checkBoxListTileModel[index].isCheck = val;
+    });
   }
-
   void changeButtonColor(value){
     setState(() {
       for(int i = 0; i < SelectedList.length; i++) {
@@ -232,5 +274,44 @@ class _CheckUploadMyDiet extends ConsumerState<CheckUploadMyDiet> {
             ],
           );
         });
+  }
+}
+
+class CheckBoxListTileModel {
+  int userId;
+  String img;
+  String title;
+  bool isCheck;
+
+  CheckBoxListTileModel({required this.userId, required this.img, required this.title, required this.isCheck});
+
+  static List<CheckBoxListTileModel> getUsers() {
+    return <CheckBoxListTileModel>[
+      CheckBoxListTileModel(
+          userId: 1,
+          img: 'assets/images/android_img.png',
+          title: "Android",
+          isCheck: true),
+      CheckBoxListTileModel(
+          userId: 2,
+          img: 'assets/images/flutter.jpeg',
+          title: "Flutter",
+          isCheck: false),
+      CheckBoxListTileModel(
+          userId: 3,
+          img: 'assets/images/ios_img.webp',
+          title: "IOS",
+          isCheck: false),
+      CheckBoxListTileModel(
+          userId: 4,
+          img: 'assets/images/php_img.png',
+          title: "PHP",
+          isCheck: false),
+      CheckBoxListTileModel(
+          userId: 5,
+          img: 'assets/images/node_img.png',
+          title: "Node",
+          isCheck: false),
+    ];
   }
 }

@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-
 import 'package:sikcal/screen/welcome/welcome_screen.dart';
 import 'package:sikcal/data/constants.dart';
-import 'package:sikcal/screens/loading_screen.dart';
+import 'package:sikcal/screens/auth/auth_gate.dart';
 import 'package:sikcal/screens/main_view.dart';
 
 void main() {
@@ -28,15 +27,19 @@ class _MyAppState extends State<MyApp> {
               backgroundColor: primaryColor,
             ),
             textTheme: TextTheme(
-              bodyText2: defaultTextStyle,
+              bodyText2: kDefaultTextStyle,
             )),
-        home: Stack(
-          children: [
-            WelcomeScreen(),
-            LoadingScreen(), // loading state provider의 값이 loading이면 모든 화면에서 로딩 창을 띄웁니다.
-          ],
-        ),
+        home: Main(),
       ),
     );
+  }
+}
+
+class Main extends StatelessWidget {
+  const Main({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return AuthGate(child: MainView());
   }
 }

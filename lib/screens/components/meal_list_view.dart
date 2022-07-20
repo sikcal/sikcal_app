@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:sikcal/data/constants.dart';
-import 'package:sikcal/data/provider.dart';
+import 'package:sikcal/data/providers.dart';
 import 'package:sikcal/model/meal.dart';
-import 'package:sikcal/screens/search_menu_view.dart';
+import 'package:sikcal/screens/home/search_menu_view.dart';
 
 class MealListView extends ConsumerWidget {
   List<Meal> mealList;
@@ -104,8 +104,8 @@ class MealListView extends ConsumerWidget {
                       Row(
                         children: [
                           Text(
-                            food.name,
-                            style: defaultTextStyle.copyWith(
+                            food.foodName,
+                            style: kDefaultTextStyle.copyWith(
                               color: primaryColor,
                               fontWeight: FontWeight.bold,
                             ),
@@ -113,7 +113,7 @@ class MealListView extends ConsumerWidget {
                           Icon(FontAwesomeIcons.xmark, size: 13, color: accentColor),
                           Text(
                             meal.foodList[food].toString(),
-                            style: defaultTextStyle.copyWith(
+                            style: kDefaultTextStyle.copyWith(
                               color: accentColor,
                               fontWeight: FontWeight.bold,
                             ),

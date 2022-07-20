@@ -1,27 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:sikcal/components/RoundedButton.dart';
-import 'package:sikcal/components/mytextformfield.dart';
 import 'package:sikcal/data/constants.dart';
+import 'package:sikcal/data/providers.dart';
 import 'package:sikcal/screen/InputUserInformation/input_start.dart';
-import 'package:sikcal/screen/InputUserInformation/input_userweight.dart';
+import '../../components/RoundedButton.dart';
+import '../../components/mytextformfield.dart';
 
-class InputUserHeightScreen extends ConsumerStatefulWidget {
-  const InputUserHeightScreen({Key? key}) : super(key: key);
+class LoginScreen extends ConsumerStatefulWidget {
+  const LoginScreen({Key? key}) : super(key: key);
 
   @override
-  _FormScreenStateHeight createState() => _FormScreenStateHeight();
+  _FormScreenState createState() => _FormScreenState();
 }
 
-class _FormScreenStateHeight extends ConsumerState<InputUserHeightScreen> {
-  final userheightcontroller = TextEditingController();
-  final _formkey = GlobalKey<FormState>();
-
-  @override
-  void initState() {
-    super.initState();
-    userheightcontroller.text = ref.read(registerInfoUserProvider).height?.toString() ?? "";
-  }
+class _FormScreenState extends ConsumerState<LoginScreen> {
+  final useridcontroller = TextEditingController();
+  final userpwcontroller = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -65,24 +59,39 @@ class _FormScreenStateHeight extends ConsumerState<InputUserHeightScreen> {
               Column(
                 children: [
                   const SizedBox(height: 100),
-                  Text('키가 얼마인가요?', style: kLargeTextStyle),
+                  Text('아이디와 비밀번호를 입력해주세요.', style: kLargeTextStyle),
                   const SizedBox(height: 50),
                   Form(
-                    key: _formkey,
                     child: MyTextFormField(
                       obscureText: false,
-                      controller: userheightcontroller,
-                      label: '키를 입력해주세요',
+                      controller: useridcontroller,
+                      label: '아이디를 입력해주세요',
                       onSaved: (value) {
                         setState(() {});
                       },
                       validator: (value) {
                         if (value.length < 1) {
-                          return '키는 필수사항입니다.';
+                          return '아이디는 필수사항입니다.';
                         }
-                        if (!RegExp('[0-9]').hasMatch(value)) {
-                          return '숫자를 입력해주세요';
-                        }
+                      },
+                    ),
+                  ),
+                  const SizedBox(height: 25),
+                  Form(
+                    child: MyTextFormField(
+                      obscureText: true,
+                      controller: userpwcontroller,
+                      label: '비밀번호를 입력해주세요',
+                      onSaved: (value) {
+                        setState(() {});
+                      },
+                      validator: (value) {
+                        // TODO 서버 거랑 좀 다름..
+                        // String pattern = r"^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d\w\W]{8,15}$";
+                        // RegExp regExp = RegExp(pattern);
+                        // if (!regExp.hasMatch(value)) {
+                        //   return '문자와 숫자를 포함해 최소 8자에서 15자의 \n비밀번호를 입력해주세요.';
+                        // }
                       },
                     ),
                   ),
@@ -93,21 +102,15 @@ class _FormScreenStateHeight extends ConsumerState<InputUserHeightScreen> {
                   RoundedButton(
                     text: '다음',
                     color: const Color(0xff8BC34A),
-                    press: () {
-                      final form = _formkey.currentState;
-                      if (form != null && !form.validate()) {
-                      } else {
-                        print(userheightcontroller.text);
-                        ref.read(registerInfoUserProvider).height = int.parse(userheightcontroller.text);
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) {
-                              return InputUserWeightScreen();
-                            },
-                          ),
-                        );
+                    press: () async {
+                      // TODO validate
+                      await ref.read(authRepoProvider).signIn(useridcontroller.text, userpwcontroller.text);
+                      final user = ref.read(userProvider);
+                      if (user == null) {
+                        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('아이디, 비밀번호를 확인해주세요')));
                         return;
+                      } else {
+                        Navigator.popUntil(context, (route) => route.isFirst);
                       }
                     },
                   ),
