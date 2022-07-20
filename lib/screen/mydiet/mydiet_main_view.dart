@@ -3,8 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../data/constants.dart';
+import '../../data/providers.dart';
 import '../../model/diet.dart';
 import '../../components/box_slider.dart';
+
+import 'package:http/http.dart' as http;
 
 class MyDietMainView extends ConsumerStatefulWidget {
   const MyDietMainView({Key? key}) : super(key: key);

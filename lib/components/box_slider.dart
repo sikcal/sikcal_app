@@ -49,8 +49,8 @@ List<Widget> makeBoxImages(BuildContext context, List<Diet> diets) {
               alignment: Alignment.centerLeft,
               child: Column(
                 children: [
-                  Image.asset('images/' + diets[i].diet_image, width: 200, height: 100),
-                  Text(diets[i].diet_title)
+                  Image.asset('images/' + diets[i].pictureuri, width: 200, height: 100),
+                  // Text(diets[i].diet_title)
                 ],
               ),
             )
