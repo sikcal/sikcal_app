@@ -2,7 +2,7 @@
 
 팀장 : 안형진
 
-팀원 : 길형준, 김승우, 김유진, 송치훈, 유정훈
+팀원 : 김승우, 김유진, 송치훈, 유정훈
 
 # 식칼 🍴 - **식**단을 **칼**같이
 ### 💪식단 관리 보조 APP
@@ -10,7 +10,7 @@
 ## MileStones
 - [x] 아이디어 회의
 - [x] 디자인 프로토타입 (figma)
-- [ ] Auth / MainView / ProfileView 구현
+- [x] Auth / MainView / ProfileView 구현
 - [ ] 백엔드 연동
 - [ ] (언젠가) Community 기능 구현
 
