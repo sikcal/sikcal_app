@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:sikcal/data/constants.dart';
-import 'package:sikcal/data/provider.dart';
+import 'package:sikcal/data/providers.dart';
 import 'package:sikcal/model/meal.dart';
 import 'package:sikcal/screens/home/search_menu_view.dart';
 

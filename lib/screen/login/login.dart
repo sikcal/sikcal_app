@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sikcal/data/constants.dart';
-import 'package:sikcal/data/provider.dart';
+import 'package:sikcal/data/providers.dart';
 import 'package:sikcal/screen/InputUserInformation/input_start.dart';
 import '../../components/RoundedButton.dart';
 import '../../components/mytextformfield.dart';
@@ -104,7 +104,8 @@ class _FormScreenState extends ConsumerState<LoginScreen> {
                     color: const Color(0xff8BC34A),
                     press: () async {
                       // TODO validate
-                      final user = await ref.read(userRepoProvider).signIn(useridcontroller.text, userpwcontroller.text);
+                      await ref.read(authRepoProvider).signIn(useridcontroller.text, userpwcontroller.text);
+                      final user = ref.read(userProvider);
                       if (user == null) {
                         ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('아이디, 비밀번호를 확인해주세요')));
                         return;
