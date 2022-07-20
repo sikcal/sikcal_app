@@ -12,7 +12,7 @@ class RegisterInfoUser {
   String? activity;
   String? goal;
   String? id;
-  String? pw;
+  String? password;
   List roles = [];
 
   RegisterInfoUser();

@@ -4,7 +4,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:sikcal/components/circular_progress.dart';
 import 'package:sikcal/data/constants.dart';
-import 'package:sikcal/data/provider.dart';
+import 'package:sikcal/data/providers.dart';
 import 'package:sikcal/model/meal.dart';
 import 'package:sikcal/screens/components/meal_list_view.dart';
 import 'package:sikcal/screens/home/search_menu_view.dart';
@@ -19,14 +19,14 @@ class HomeView extends ConsumerStatefulWidget {
 class _HomeViewState extends ConsumerState<HomeView> {
   @override
   Widget build(BuildContext context) {
-    final user = null; // FIXME
-    final mealList = ref.watch(currentMealListProvider);
-    final gainedCalories = ref.watch(gainedCaloriesProvider.state);
+    final user = ref.watch(userProvider).value;
+    if (user == null) return Container();
 
-    int gainedCarbohydrate =
-    gainedCalories.state['carbohydrate']!; // 현재 섭취한 탄, 단, 지
-    int gainedProtein = gainedCalories.state['protein']!;
-    int gainedFat = gainedCalories.state['fat']!;
+    final mealList = ref.watch(currentMealListProvider);
+
+    int gainedCarbohydrate = 0;
+    int gainedProtein = 0;
+    int gainedFat = 0;
 
     int maxCarbohydrate = user.carbohydrate; // 하루 권장 섭취 탄, 단, 지
     int maxProtein = user.protein;
@@ -43,18 +43,9 @@ class _HomeViewState extends ConsumerState<HomeView> {
               mainAxisSize: MainAxisSize.max,
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                CircularProgress(
-                    data: gainedCarbohydrate,
-                    progress_value: gainedCarbohydrate / maxCarbohydrate,
-                    color: Colors.red),
-                CircularProgress(
-                    data: gainedProtein,
-                    progress_value: gainedProtein / maxProtein,
-                    color: Colors.blue),
-                CircularProgress(
-                    data: gainedFat,
-                    progress_value: gainedFat / maxFat,
-                    color: Colors.amber),
+                CircularProgress(data: gainedCarbohydrate, progress_value: gainedCarbohydrate / maxCarbohydrate, color: Colors.red),
+                CircularProgress(data: gainedProtein, progress_value: gainedProtein / maxProtein, color: Colors.blue),
+                CircularProgress(data: gainedFat, progress_value: gainedFat / maxFat, color: Colors.amber),
               ],
             ),
 
@@ -64,8 +55,7 @@ class _HomeViewState extends ConsumerState<HomeView> {
             Container(
               color: primaryColor,
               child: Padding(
-                padding: const EdgeInsets.symmetric(
-                    horizontal: 20.0, vertical: 8.0),
+                padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 8.0),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -77,13 +67,11 @@ class _HomeViewState extends ConsumerState<HomeView> {
                         ),
                         Text(
                           "권장 섭취량",
-                          style:
-                          kDefaultTextStyle.copyWith(color: Colors.white),
+                          style: kDefaultTextStyle.copyWith(color: Colors.white),
                         ),
                         Text(
                           ": ${maxCarbohydrate}g",
-                          style:
-                          kDefaultTextStyle.copyWith(color: Colors.white),
+                          style: kDefaultTextStyle.copyWith(color: Colors.white),
                         ),
                       ],
                     ),
@@ -91,18 +79,15 @@ class _HomeViewState extends ConsumerState<HomeView> {
                       children: [
                         Text(
                           "단백질",
-                          style: kDefaultTextStyle.copyWith(
-                              color: Colors.blueAccent),
+                          style: kDefaultTextStyle.copyWith(color: Colors.blueAccent),
                         ),
                         Text(
                           "권장 섭취량",
-                          style:
-                          kDefaultTextStyle.copyWith(color: Colors.white),
+                          style: kDefaultTextStyle.copyWith(color: Colors.white),
                         ),
                         Text(
                           ": ${maxProtein}g",
-                          style:
-                          kDefaultTextStyle.copyWith(color: Colors.white),
+                          style: kDefaultTextStyle.copyWith(color: Colors.white),
                         ),
                       ],
                     ),
@@ -110,18 +95,15 @@ class _HomeViewState extends ConsumerState<HomeView> {
                       children: [
                         Text(
                           "지방",
-                          style:
-                          kDefaultTextStyle.copyWith(color: Colors.amber),
+                          style: kDefaultTextStyle.copyWith(color: Colors.amber),
                         ),
                         Text(
                           "권장 섭취량",
-                          style:
-                          kDefaultTextStyle.copyWith(color: Colors.white),
+                          style: kDefaultTextStyle.copyWith(color: Colors.white),
                         ),
                         Text(
                           ": ${maxFat}g",
-                          style:
-                          kDefaultTextStyle.copyWith(color: Colors.white),
+                          style: kDefaultTextStyle.copyWith(color: Colors.white),
                         ),
                       ],
                     ),
@@ -182,14 +164,9 @@ class _HomeViewState extends ConsumerState<HomeView> {
                       FloatingActionButton(
                         child: const Icon(FontAwesomeIcons.plus),
                         onPressed: () async {
-                          Meal? meal = await Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => SearchMenuView()));
+                          Meal? meal = await Navigator.push(context, MaterialPageRoute(builder: (context) => SearchMenuView()));
                           if (meal != null) {
-                            ref
-                                .read(currentMealListProvider.notifier)
-                                .set([meal, ...mealList]);
+                            ref.read(currentMealListProvider.notifier).set([meal, ...mealList]);
                           }
                         },
                       ),
@@ -221,8 +198,7 @@ class _BottomPopup extends StatelessWidget {
           children: [
             TextButton(
               onPressed: () async {
-                final image =
-                await _picker.pickImage(source: ImageSource.gallery);
+                final image = await _picker.pickImage(source: ImageSource.gallery);
                 // TODO image 다른 화면으로 보내기
                 Navigator.pop(context);
               },
@@ -235,8 +211,7 @@ class _BottomPopup extends StatelessWidget {
             const SizedBox(height: 5),
             TextButton(
               onPressed: () async {
-                final image =
-                await _picker.pickImage(source: ImageSource.camera);
+                final image = await _picker.pickImage(source: ImageSource.camera);
                 // TODO image 다른 화면으로 보내기
                 Navigator.pop(context);
               },

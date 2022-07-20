@@ -55,22 +55,23 @@ class _MyPageMainView extends ConsumerState<MyPageMainView> {
                   fontSize: 20.0,
                 ),
               ),
-              TextButton(
-                  onPressed: () {
-                    Navigator.of(context).push(MaterialPageRoute<Null>(
-                        fullscreenDialog: true,
-                        builder: (BuildContext context) {
-                          return MyPageUploadView(
-                            // diet: diets[i],
-                          );
-                        }
-                    )
-                    );
-                  },
-                  child: Text('현재 체중 변경하기',
-                        style : TextStyle(
-                          color: Color(0xff8BC34A),
-                        ))),
+              // TextButton(
+              //     onPressed: () {
+              //       Navigator.of(context).push(MaterialPageRoute<Null>(
+              //           fullscreenDialog: true,
+              //           builder: (BuildContext context) {
+              //             return MyPageUploadView(
+              //               // diet: diets[i],
+              //             );
+              //           }
+              //       )
+              //       );
+              //     },
+              //     child: Text('현재 체중 변경하기',
+              //           style : TextStyle(
+              //             color: Color(0xff8BC34A),
+              //           ))
+              // ),
               RoundedText(
                 text: "목표 체중      $userTweight kg",
                 textStyle: TextStyle(

@@ -11,8 +11,11 @@ class User {
   final String sex;
   final String activity;
   final String goal;
+  final int carbohydrate;
+  final int protein;
+  final int fat;
 
-  User(this.name, this.height, this.weight, this.birth, this.sex, this.activity, this.goal);
+  User(this.name, this.height, this.weight, this.birth, this.sex, this.activity, this.goal, this.carbohydrate, this.protein, this.fat);
 
   factory User.fromJson(Map<String, dynamic> json) => _$UserFromJson(json);
 

@@ -8,14 +8,14 @@ class Food implements Comparable {
   final int carbohydrate;
   final int protein;
   final int fat;
-  final int total_kcal;
+  final int totalKcal;
 
   Food({
     required this.foodName,
     required this.carbohydrate,
     required this.protein,
     required this.fat,
-    required this.total_kcal
+    required this.totalKcal
   });
 
   @override

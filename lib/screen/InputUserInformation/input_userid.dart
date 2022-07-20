@@ -3,6 +3,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sikcal/components/RoundedButton.dart';
 import 'package:sikcal/components/mytextformfield.dart';
 import 'package:sikcal/data/constants.dart';
+import 'package:sikcal/data/providers.dart';
+import 'package:sikcal/data/repo/user_repo.dart';
 import 'package:sikcal/screen/InputUserInformation/input_start.dart';
 
 class InputUserIdScreen extends ConsumerStatefulWidget {
@@ -91,11 +93,12 @@ class _FormScreenState extends ConsumerState<InputUserIdScreen> {
                         setState(() {});
                       },
                       validator: (value) {
-                        String pattern = r"^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d\w\W]{8,15}$";
-                        RegExp regExp = RegExp(pattern);
-                        if (!regExp.hasMatch(value)) {
-                          return '문자와 숫자를 포함해 최소 8자에서 15자의 \n비밀번호를 입력해주세요.';
-                        }
+                        // TODO 서버 거랑 좀 다름..
+                        // String pattern = r"^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d\w\W]{8,15}$";
+                        // RegExp regExp = RegExp(pattern);
+                        // if (!regExp.hasMatch(value)) {
+                        //   return '문자와 숫자를 포함해 최소 8자에서 15자의 \n비밀번호를 입력해주세요.';
+                        // }
                       },
                     ),
                   ),
@@ -106,7 +109,7 @@ class _FormScreenState extends ConsumerState<InputUserIdScreen> {
                   RoundedButton(
                     text: '다음',
                     color: const Color(0xff8BC34A),
-                    press: () {
+                    press: () async {
                       final formId = _formkeyId.currentState;
                       final formPw = _formkeyPw.currentState;
 
@@ -115,11 +118,24 @@ class _FormScreenState extends ConsumerState<InputUserIdScreen> {
                       } else {
                         final registerInfoUser = ref.read(registerInfoUserProvider);
                         registerInfoUser.id = useridcontroller.text;
-                        registerInfoUser.pw = userpwcontroller.text;
+                        registerInfoUser.password = userpwcontroller.text;
 
-                        print(registerInfoUser.toJson());
+                        try {
+                          await ref.read(authRepoProvider).signUp(registerInfoUser);
 
-                        return; // TODO server
+                          await ref.read(authRepoProvider).signIn(registerInfoUser.id!, registerInfoUser.password!);
+
+                          final user = ref.read(userProvider);
+                          if (user == null) {
+                            ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('아이디, 비밀번호를 확인해주세요')));
+                            return;
+                          } else {
+                            Navigator.popUntil(context, (route) => route.isFirst);
+                          }
+
+                        } on FormatException catch (e) {
+                          ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(e.message)));
+                        }
                       }
                     },
                   ),
