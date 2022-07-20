@@ -105,6 +105,7 @@ class _FormScreenState extends ConsumerState<LoginScreen> {
                     press: () async {
                       // TODO validate
                       await ref.read(authRepoProvider).signIn(useridcontroller.text, userpwcontroller.text);
+                      await Future.delayed(const Duration(seconds: 2));
                       final user = ref.read(userProvider);
                       if (user == null) {
                         ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('아이디, 비밀번호를 확인해주세요')));
