@@ -88,31 +88,31 @@ class _CheckUploadMyDiet extends ConsumerState<CheckUploadMyDiet> {
                     ),
                   ),
                   Column(
-                    children: <Widget>[
-                      new CheckboxListTile(
-                          activeColor: Colors.pink[300],
-                          dense: true,
-                          //font change
-                          title: new Text(
-                            checkBoxListTileModel[index].title,
-                            style: TextStyle(
-                                fontSize: 14,
-                                fontWeight: FontWeight.w600,
-                                letterSpacing: 0.5),
-                          ),
-                          value: checkBoxListTileModel[index].isCheck,
-                          secondary: Container(
-                            height: 50,
-                            width: 50,
-                            child: Image.asset(
-                              checkBoxListTileModel[index].img,
-                              fit: BoxFit.cover,
-                            ),
-                          ),
-                          onChanged: (bool val) {
-                            itemChange(val, index);
-                          })
-                    ],
+                    // children: <Widget>[
+                    //   new CheckboxListTile(
+                    //       activeColor: Colors.pink[300],
+                    //       dense: true,
+                    //       //font change
+                    //       title: new Text(
+                    //         checkBoxListTileModel[index].title,
+                    //         style: TextStyle(
+                    //             fontSize: 14,
+                    //             fontWeight: FontWeight.w600,
+                    //             letterSpacing: 0.5),
+                    //       ),
+                    //       value: checkBoxListTileModel[index].isCheck,
+                    //       secondary: Container(
+                    //         height: 50,
+                    //         width: 50,
+                    //         child: Image.asset(
+                    //           checkBoxListTileModel[index].img,
+                    //           fit: BoxFit.cover,
+                    //         ),
+                    //       ),
+                    //       onChanged: (bool val) {
+                    //         itemChange(val, index);
+                    //       })
+                    // ],
                   ),
                   SizedBox(height: 50), //제외할 식단 성분 선택하는 부분 들어갈 곳
                   const Text("어느끼니로 추가할까요?",

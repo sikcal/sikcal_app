@@ -23,9 +23,9 @@ class _InputUserGoalScreen extends ConsumerState<InputUserGoalScreen> {
     usergoal = ref.read(registerInfoUserProvider).goal;
     if (usergoal != null) {
       SchedulerBinding.instance.addPostFrameCallback((_) {
-        if (usergoal == '현재 체중 유지하기') changeButtonColor(0); // TODO 서버 확인
-        if (usergoal == '체중 감량하기') changeButtonColor(1);
-        if (usergoal == '체중 상관없이 식단 관리하기') changeButtonColor(2);
+        if (usergoal == 'REMAIN') changeButtonColor(0);
+        if (usergoal == 'LOSE') changeButtonColor(1);
+        if (usergoal == 'GAIN') changeButtonColor(2);
       });
     }
   }
@@ -78,7 +78,7 @@ class _InputUserGoalScreen extends ConsumerState<InputUserGoalScreen> {
                     text: '현재 체중 유지하기',
                     color: SelectedList[0],
                     press: () {
-                      usergoal = '현재 체중 유지하기';
+                      usergoal = 'REMAIN';
                       changeButtonColor(0);
                     },
                   ),
@@ -87,16 +87,16 @@ class _InputUserGoalScreen extends ConsumerState<InputUserGoalScreen> {
                     text: '체중 감량하기',
                     color: SelectedList[1],
                     press: () {
-                      usergoal = '체중 감량하기';
+                      usergoal = 'LOSE';
                       changeButtonColor(1);
                     },
                   ),
                   const SizedBox(height: 25),
                   RoundedButton(
-                    text: '체중 상관없이 식단 관리하기',
+                    text: '체중 증량하기',
                     color: SelectedList[2],
                     press: () {
-                      usergoal = '체중 상관없이 식단 관리하기';
+                      usergoal = 'GAIN';
                       changeButtonColor(2);
                     },
                   ),

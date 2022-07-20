@@ -35,7 +35,8 @@ class _CircularProgressState extends State<CircularProgress> {
         center: CircleAvatar(
           child: Text(
             "${widget.data}g",
-            style: TextStyle(color: Colors.white),
+            style: TextStyle(color: Colors.white, fontSize: 12, fontWeight: FontWeight.bold
+            ),
           ),
           backgroundColor: widget.color,
         ),

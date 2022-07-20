@@ -20,8 +20,8 @@ class _InputUserGenderScreen extends ConsumerState<InputUserGenderScreen> {
   void initState() {
     super.initState();
     usergender = ref.read(registerInfoUserProvider).sex;
-    if (usergender == '여자') changeButtonColor(0);
-    if (usergender == '남자') changeButtonColor(1);
+    if (usergender == 'WOMAN') changeButtonColor(0);
+    if (usergender == 'MAN') changeButtonColor(1);
   }
 
   @override
@@ -72,7 +72,7 @@ class _InputUserGenderScreen extends ConsumerState<InputUserGenderScreen> {
                     text: '여자',
                     color: SelectedList[0],
                     press: () {
-                      usergender = '여자';
+                      usergender = 'WOMAN';
                       changeButtonColor(0);
                     },
                   ),
@@ -81,7 +81,7 @@ class _InputUserGenderScreen extends ConsumerState<InputUserGenderScreen> {
                     text: '남자',
                     color: SelectedList[1],
                     press: () {
-                      usergender = '남자';
+                      usergender = 'MAN';
                       changeButtonColor(1);
                     },
                   ),

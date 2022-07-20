@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sikcal/screen/mydiet/mydiet_main_view.dart';
-import 'package:sikcal/screen/welcome/welcome_screen.dart';
+import 'package:sikcal/screen/welcome/welcome_screen.dart'; //이 부분 지우기
 import 'package:sikcal/data/constants.dart';
+import 'package:sikcal/screens/auth/auth_gate.dart';
+import 'package:sikcal/screens/main_view.dart';
 
 void main() {
   runApp(const MyApp());
@@ -28,12 +30,17 @@ class _MyAppState extends State<MyApp> {
             textTheme: TextTheme(
               bodyText2: kDefaultTextStyle,
             )),
-        home: Stack(
-          children: [
-            MyDietMainView(), // TODO auth gate
-          ],
-        ),
+        home: MyDietMainView(), //이부분 바꾸기 : Main()
       ),
     );
+  }
+}
+
+class Main extends StatelessWidget {
+  const Main({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return AuthGate(child: MainView());
   }
 }

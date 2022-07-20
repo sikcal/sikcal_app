@@ -17,7 +17,7 @@ RegisterInfoUser _$RegisterInfoUserFromJson(Map<String, dynamic> json) =>
       ..activity = json['activity'] as String?
       ..goal = json['goal'] as String?
       ..id = json['id'] as String?
-      ..pw = json['pw'] as String?
+      ..password = json['password'] as String?
       ..roles = json['roles'] as List<dynamic>;
 
 Map<String, dynamic> _$RegisterInfoUserToJson(RegisterInfoUser instance) =>
@@ -30,6 +30,6 @@ Map<String, dynamic> _$RegisterInfoUserToJson(RegisterInfoUser instance) =>
       'activity': instance.activity,
       'goal': instance.goal,
       'id': instance.id,
-      'pw': instance.pw,
+      'password': instance.password,
       'roles': instance.roles,
     };
