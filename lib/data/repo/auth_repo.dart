@@ -1,7 +1,9 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sikcal/data/providers.dart';
+import 'package:sikcal/data/tokens.dart';
 import 'package:sikcal/model/register_info_user.dart';
 import 'package:http/http.dart' as http;
 
@@ -37,19 +39,42 @@ class AuthRepo {
     final url = Uri.http(host, '/api/login');
     final req = http.Request('POST', url);
 
-    req.headers['Content-Type'] = 'application/x-www-form-urlencoded';
+    req.headers[HttpHeaders.contentTypeHeader] = 'application/x-www-form-urlencoded';
     req.body = 'userid=$userid&password=$password';
 
     final res = await req.send();
 
+    print('signIn ${res.statusCode}');
     if (res.statusCode == 403) {
       return;
     }
 
     final Map<String, dynamic> response = jsonDecode(await res.stream.bytesToString());
 
-    // TODO local에 저장
-    ref.read(accessTokenProvider.state).update((state) => response['access_token']);
-    ref.read(refreshTokenProvider.state).update((state) => response['refresh_token']);
+    accessToken = response['access_token'];
+    refreshToken = response['refresh_token'];
+    prefs.setStringList('token', [accessToken!, refreshToken!]);
+
+    final user = await ref.read(userRepoProvider).getUserInfo();
+    ref.read(userProvider.state).update((state) => user);
+  }
+
+  Future<void> refresh() async {
+    print('refresh called');
+
+    final url = Uri.http(host, '/api/token/refresh');
+    final req = http.Request('GET', url);
+
+    req.headers[HttpHeaders.authorizationHeader] = 'Bearer $refreshToken';
+
+    final res = await req.send();
+
+    final Map<String, dynamic> response = jsonDecode(await res.stream.bytesToString());
+
+    if (response.containsKey('access_token')) {
+      accessToken = response['access_token'];
+      refreshToken = response['refresh_token'];
+      prefs.setStringList('token', [accessToken!, refreshToken!]);
+    }
   }
 }

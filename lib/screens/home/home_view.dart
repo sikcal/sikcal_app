@@ -19,7 +19,7 @@ class HomeView extends ConsumerStatefulWidget {
 class _HomeViewState extends ConsumerState<HomeView> {
   @override
   Widget build(BuildContext context) {
-    final user = ref.watch(userProvider).value;
+    final user = ref.watch(userProvider);
     if (user == null) return Container();
 
     final mealList = ref.watch(currentMealListProvider);

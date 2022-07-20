@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sikcal/data/providers.dart';
+import 'package:sikcal/data/tokens.dart';
+import 'package:sikcal/model/user.dart';
 import 'package:sikcal/screen/welcome/welcome_screen.dart';
 
 class AuthGate extends ConsumerWidget {
@@ -10,8 +12,19 @@ class AuthGate extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, ref) {
-    final user = ref.watch(userProvider).value;
+    User? user = ref.watch(userProvider);
+
+    if (user == null) {
+      autoLogin(ref);
+    }
 
     return user == null ? WelcomeScreen() : child;
+  }
+
+  void autoLogin(WidgetRef ref) async {
+    if (refreshToken != null) {
+      final user = await ref.read(userRepoProvider).getUserInfo();
+      ref.read(userProvider.state).update((state) => user);
+    }
   }
 }
