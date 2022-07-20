@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:sikcal/screen/mydiet/mydiet_main_view.dart';
 import 'package:sikcal/screen/welcome/welcome_screen.dart';
 import 'package:sikcal/data/constants.dart';
 
@@ -29,7 +30,7 @@ class _MyAppState extends State<MyApp> {
             )),
         home: Stack(
           children: [
-            WelcomeScreen(), // TODO auth gate
+            MyDietMainView(), // TODO auth gate
           ],
         ),
       ),

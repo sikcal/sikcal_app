@@ -25,6 +25,7 @@ class _CheckUploadMyDiet extends ConsumerState<CheckUploadMyDiet> {
   List<Color> SelectedList =  [Color(0xff8BC34A), Color(0xff8BC34A), Color(0xff8BC34A)];
   List DietIngredients = ['토마토', '계란', '마늘', '닭가슴살', '청양고추'];
 
+  List<CheckBoxListTileModel> checkBoxListTileModel = CheckBoxListTileModel.getUsers();
   String? MealTime;
 
   int _currentPage = 3; // 현재 페이지 (bottom nav bar 관련)
@@ -87,17 +88,33 @@ class _CheckUploadMyDiet extends ConsumerState<CheckUploadMyDiet> {
                     ),
                   ),
                   Column(
-                    children: [
-                      for (num i = 1; i < DietIngredients.length; i++)
-                        Checkbox(value: _isChecked, onChanged: (_isChecked){
-                          setState(){
-                            _isChecked = _isChecked;
-                          }
-                        })
-
+                    children: <Widget>[
+                      new CheckboxListTile(
+                          activeColor: Colors.pink[300],
+                          dense: true,
+                          //font change
+                          title: new Text(
+                            checkBoxListTileModel[index].title,
+                            style: TextStyle(
+                                fontSize: 14,
+                                fontWeight: FontWeight.w600,
+                                letterSpacing: 0.5),
+                          ),
+                          value: checkBoxListTileModel[index].isCheck,
+                          secondary: Container(
+                            height: 50,
+                            width: 50,
+                            child: Image.asset(
+                              checkBoxListTileModel[index].img,
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                          onChanged: (bool val) {
+                            itemChange(val, index);
+                          })
                     ],
                   ),
-                  SizedBox(height: 200), //제외할 식단 성분 선택하는 부분 들어갈 곳
+                  SizedBox(height: 50), //제외할 식단 성분 선택하는 부분 들어갈 곳
                   const Text("어느끼니로 추가할까요?",
                     style: TextStyle(
                       fontSize: 18.0,
@@ -200,18 +217,11 @@ class _CheckUploadMyDiet extends ConsumerState<CheckUploadMyDiet> {
       ),
     );
   }
-
-  showDietIngredients() {
-    //TODO: db 연동(식단 성분 받아오기)
-    //dummy data
-    List DietIngredients = ['토마토', '계란', '마늘', '닭가슴살', '청양고추'];
-
-    for (String item in DietIngredients) {
-      Checkbox(value: false, onChanged: (bool? value) {  },);
-    }
-
+  void itemChange(bool val, int index) {
+    setState(() {
+      checkBoxListTileModel[index].isCheck = val;
+    });
   }
-
   void changeButtonColor(value){
     setState(() {
       for(int i = 0; i < SelectedList.length; i++) {
@@ -264,5 +274,44 @@ class _CheckUploadMyDiet extends ConsumerState<CheckUploadMyDiet> {
             ],
           );
         });
+  }
+}
+
+class CheckBoxListTileModel {
+  int userId;
+  String img;
+  String title;
+  bool isCheck;
+
+  CheckBoxListTileModel({required this.userId, required this.img, required this.title, required this.isCheck});
+
+  static List<CheckBoxListTileModel> getUsers() {
+    return <CheckBoxListTileModel>[
+      CheckBoxListTileModel(
+          userId: 1,
+          img: 'assets/images/android_img.png',
+          title: "Android",
+          isCheck: true),
+      CheckBoxListTileModel(
+          userId: 2,
+          img: 'assets/images/flutter.jpeg',
+          title: "Flutter",
+          isCheck: false),
+      CheckBoxListTileModel(
+          userId: 3,
+          img: 'assets/images/ios_img.webp',
+          title: "IOS",
+          isCheck: false),
+      CheckBoxListTileModel(
+          userId: 4,
+          img: 'assets/images/php_img.png',
+          title: "PHP",
+          isCheck: false),
+      CheckBoxListTileModel(
+          userId: 5,
+          img: 'assets/images/node_img.png',
+          title: "Node",
+          isCheck: false),
+    ];
   }
 }
