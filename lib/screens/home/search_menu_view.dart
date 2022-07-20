@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:sikcal/data/constants.dart';
-import 'package:sikcal/data/provider.dart';
+import 'package:sikcal/data/providers.dart';
 import 'package:sikcal/model/food.dart';
 import 'package:sikcal/model/meal.dart';
 import 'package:sikcal/screens/components/food_list_view.dart';
@@ -19,7 +19,6 @@ class SearchMenuView extends ConsumerStatefulWidget {
 }
 
 class _SearchMenuViewState extends ConsumerState<SearchMenuView> {
-  int _currentPage = 2;
   late Meal meal;
 
   List<Food> currentFoodList = [];
@@ -39,8 +38,6 @@ class _SearchMenuViewState extends ConsumerState<SearchMenuView> {
 
   @override
   Widget build(BuildContext context) {
-    final foodRepo = ref.watch(foodRepoProvider);
-
     return Scaffold(
       backgroundColor: const Color(0xffeeeeee),
       appBar: AppBar(
@@ -83,7 +80,7 @@ class _SearchMenuViewState extends ConsumerState<SearchMenuView> {
               onSubmit: () async {
                 if (controller.text.isEmpty) return;
 
-                currentFoodList = await foodRepo.searchFood(controller.text);
+                currentFoodList = await ref.read(foodRepoProvider)?.searchFood(controller.text) ?? [];
                 setState(() {});
               },
             ),
@@ -98,9 +95,9 @@ class _SearchMenuViewState extends ConsumerState<SearchMenuView> {
                   print(meal);
                 },
               ),
-            ), // TODO 서버에서 받아오기
+            ),
             const Divider(thickness: 3),
-            if (meal.foodList.keys.length > 0) ...[
+            if (meal.foodList.keys.isNotEmpty) ...[
               Expanded(
                 child: Container(
                   decoration: BoxDecoration(
@@ -212,55 +209,6 @@ class _SearchMenuViewState extends ConsumerState<SearchMenuView> {
             ],
           ],
         ),
-      ),
-      bottomNavigationBar: BottomBar(
-        itemPadding: const EdgeInsets.fromLTRB(10.0, 10.0, 10.0, 20.0),
-        backgroundColor: primaryColor,
-        items: [
-          BottomBarItem(
-              icon: const Icon(
-                Icons.feed,
-                color: Colors.white,
-              ),
-              title: const Text("피드"),
-              activeColor: Colors.white),
-          BottomBarItem(
-              icon: const Icon(
-                Icons.chat_bubble_outline,
-                color: Colors.white,
-              ),
-              title: const Text("그룹 채팅"),
-              activeColor: Colors.white),
-          BottomBarItem(
-              icon: const Icon(
-                Icons.home_outlined,
-                size: 30.0,
-                color: Colors.white,
-              ),
-              title: const Text("홈 화면"),
-              activeColor: Colors.white),
-          BottomBarItem(
-              icon: const Icon(
-                Icons.star_outline,
-                size: 30.0,
-                color: Colors.white,
-              ),
-              title: const Text("나의 식단"),
-              activeColor: Colors.white),
-          BottomBarItem(
-              icon: const Icon(
-                Icons.person,
-                color: Colors.white,
-              ),
-              title: const Text("마이페이지"),
-              activeColor: Colors.white),
-        ],
-        onTap: (int value) {
-          setState(() {
-            _currentPage = value;
-          });
-        },
-        selectedIndex: _currentPage,
       ),
     );
   }
