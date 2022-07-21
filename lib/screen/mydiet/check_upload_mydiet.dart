@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sikcal/components/RoundedButton.dart';
 import 'package:sikcal/components/RoundedButton_size.dart';
+import 'package:sikcal/components/CheckboxWithText.dart';
 import '../../components/button_add_mydiet.dart';
 import '../../data/constants.dart';
 import '../../model/diet.dart';
@@ -25,11 +26,13 @@ class _CheckUploadMyDiet extends ConsumerState<CheckUploadMyDiet> {
   List<Color> SelectedList =  [Color(0xff8BC34A), Color(0xff8BC34A), Color(0xff8BC34A)];
   List DietIngredients = ['토마토', '계란', '마늘', '닭가슴살', '청양고추'];
 
-  List<CheckBoxListTileModel> checkBoxListTileModel = CheckBoxListTileModel.getUsers();
   String? MealTime;
 
   int _currentPage = 3; // 현재 페이지 (bottom nav bar 관련)
-  var _isChecked = false;
+
+
+  List _isSelected = [false, false, false];
+
 
   List<Widget> pages = [
     FeedView(),
@@ -87,31 +90,39 @@ class _CheckUploadMyDiet extends ConsumerState<CheckUploadMyDiet> {
                       fontWeight: FontWeight.bold,
                     ),
                   ),
+                  SizedBox(height:8),
                   Column(
-                    children: <Widget>[
-                      new CheckboxListTile(
-                          activeColor: Colors.pink[300],
-                          dense: true,
-                          //font change
-                          title: new Text(
-                            checkBoxListTileModel[index].title,
-                            style: TextStyle(
-                                fontSize: 14,
-                                fontWeight: FontWeight.w600,
-                                letterSpacing: 0.5),
-                          ),
-                          value: checkBoxListTileModel[index].isCheck,
-                          secondary: Container(
-                            height: 50,
-                            width: 50,
-                            child: Image.asset(
-                              checkBoxListTileModel[index].img,
-                              fit: BoxFit.cover,
-                            ),
-                          ),
-                          onChanged: (bool val) {
-                            itemChange(val, index);
-                          })
+                    children: [
+                      CheckboxWithText(
+                        label: '제외성분1',
+                        padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                        value: _isSelected[0],
+                        onChanged: (bool newValue) {
+                          setState(() {
+                            _isSelected[0] = newValue;
+                          });
+                        },
+                      ),
+                      CheckboxWithText(
+                        label: '제외성분2',
+                        padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                        value: _isSelected[1],
+                        onChanged: (bool newValue) {
+                          setState(() {
+                            _isSelected[1] = newValue;
+                          });
+                        },
+                      ),
+                      CheckboxWithText(
+                        label: '제외성분3',
+                        padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                        value: _isSelected[2],
+                        onChanged: (bool newValue) {
+                          setState(() {
+                            _isSelected[2] = newValue;
+                          });
+                        },
+                      )
                     ],
                   ),
                   SizedBox(height: 50), //제외할 식단 성분 선택하는 부분 들어갈 곳
@@ -217,11 +228,6 @@ class _CheckUploadMyDiet extends ConsumerState<CheckUploadMyDiet> {
       ),
     );
   }
-  void itemChange(bool val, int index) {
-    setState(() {
-      checkBoxListTileModel[index].isCheck = val;
-    });
-  }
   void changeButtonColor(value){
     setState(() {
       for(int i = 0; i < SelectedList.length; i++) {
@@ -274,44 +280,5 @@ class _CheckUploadMyDiet extends ConsumerState<CheckUploadMyDiet> {
             ],
           );
         });
-  }
-}
-
-class CheckBoxListTileModel {
-  int userId;
-  String img;
-  String title;
-  bool isCheck;
-
-  CheckBoxListTileModel({required this.userId, required this.img, required this.title, required this.isCheck});
-
-  static List<CheckBoxListTileModel> getUsers() {
-    return <CheckBoxListTileModel>[
-      CheckBoxListTileModel(
-          userId: 1,
-          img: 'assets/images/android_img.png',
-          title: "Android",
-          isCheck: true),
-      CheckBoxListTileModel(
-          userId: 2,
-          img: 'assets/images/flutter.jpeg',
-          title: "Flutter",
-          isCheck: false),
-      CheckBoxListTileModel(
-          userId: 3,
-          img: 'assets/images/ios_img.webp',
-          title: "IOS",
-          isCheck: false),
-      CheckBoxListTileModel(
-          userId: 4,
-          img: 'assets/images/php_img.png',
-          title: "PHP",
-          isCheck: false),
-      CheckBoxListTileModel(
-          userId: 5,
-          img: 'assets/images/node_img.png',
-          title: "Node",
-          isCheck: false),
-    ];
   }
 }
