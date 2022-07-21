@@ -50,7 +50,7 @@ List<Widget> makeBoxImages(BuildContext context, List<Diet> diets) {
               child: Column(
                 children: [
                   Image.asset('images/' + diets[i].pictureuri, width: 200, height: 100),
-                  // Text(diets[i].diet_title)
+                  Text(diets[i].menu)
                 ],
               ),
             )
