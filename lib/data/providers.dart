@@ -9,23 +9,10 @@ import 'package:sikcal/model/user.dart';
 const String host = '43.200.102.54:8080';
 
 final authRepoProvider = Provider((ref) => AuthRepo(ref, host));
-final userRepoProvider = Provider((ref) {
-  final token = ref.watch(accessTokenProvider);
-  return (token == null) ? null : UserRepo(host, token);
-});
-final foodRepoProvider = Provider.autoDispose((ref) {
-  final token = ref.watch(accessTokenProvider);
-  return (token == null) ? null : FoodRepo(host, token);
-});
+final userRepoProvider = Provider((ref) => UserRepo(host, ref.read(authRepoProvider).refresh));
+final foodRepoProvider = Provider((ref) => FoodRepo(host, ref.read(authRepoProvider).refresh));
 
-final userProvider = StreamProvider((ref) async* {
-  yield null;
-  final user = await ref.watch(userRepoProvider)?.getUserInfo();
-  yield user;
-});
-
-final accessTokenProvider = StateProvider<String?>((ref) => null);
-final refreshTokenProvider = StateProvider<String?>((ref) => null);
+final userProvider = StateProvider<User?>((ref) => null);
 
 final currentMealListProvider = StateNotifierProvider<MealList, List<Meal>>((ref) => MealList(ref));
 final gainedCaloriesProvider = StateProvider<Map<String, int>>((ref) => {

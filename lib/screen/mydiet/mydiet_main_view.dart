@@ -23,88 +23,86 @@ class _MyDietMainView extends ConsumerState<MyDietMainView> {
   //TODO : DB 연결
   List<Diet> diets = [
     Diet.fromMap({
-          'diet_image' : 'tomatoegg.jpg',
-          'diet_title' : '토마토계란볶음',
-          'diet_protein' : 0,
-          'diet_carbohydrate' : 0,
-          'diet_fat' : 0,
-          'diet_total_kcal' : 0
+          'member_id' : 0,
+          'totalkcal' : 000,
+          'menu' : '토마토계란볶음',
+          'requiredfood' : "00",
+          'recipe' : "00",
+          'pictureuri' : "tomatoegg.jpg"
     }),
     Diet.fromMap({
-      'diet_image' : 'dietfood.jpg',
-      'diet_title' : '샐러두',
-      'diet_protein' : 0,
-      'diet_carbohydrate' : 0,
-      'diet_fat' : 0,
-      'diet_total_kcal' : 0
+      'member_id' : 0,
+      'totalkcal' : 123,
+      'menu' : '토마토계란볶음',
+      'requiredfood' : "l",
+      'recipe' : "re",
+      'pictureuri' : "tomatoegg.jpg"
     }),
     Diet.fromMap({
-      'diet_image' : 'dietfood2.jpg',
-      'diet_title' : '당근당근당근',
-      'diet_protein' : 0,
-      'diet_carbohydrate' : 0,
-      'diet_fat' : 0,
-      'diet_total_kcal' : 0
+      'member_id' : 0,
+      'totalkcal' : 123,
+      'menu' : '토마토계란볶음',
+      'requiredfood' : "l",
+      'recipe' : "re",
+      'pictureuri' : "tomatoegg.jpg"
     })
   ];
 
   //추천 식단_채식 주의
   //dummy data
-  //TODO : DB 연결
   List<Diet> recomend_diets_planA = [
     Diet.fromMap({
-      'diet_image' : 'tomatoegg.jpg',
-      'diet_title' : '토마토계란볶음',
-      'diet_protein' : 0,
-      'diet_carbohydrate' : 0,
-      'diet_fat' : 0,
-      'diet_total_kcal' : 0
+      'member_id' : 0,
+      'totalkcal' : 123,
+      'menu' : '건강한 샐러드 무침',
+      'requiredfood' : "00",
+      'recipe' : "00",
+      'pictureuri' : "vegeD.jpg"
     }),
     Diet.fromMap({
-      'diet_image' : 'dietfood.jpg',
-      'diet_title' : '샐러두',
-      'diet_protein' : 0,
-      'diet_carbohydrate' : 0,
-      'diet_fat' : 0,
-      'diet_total_kcal' : 0
+      'member_id' : 0,
+      'totalkcal' : 123,
+      'menu' : '스크램블 샐러드',
+      'requiredfood' : "00",
+      'recipe' : "00",
+      'pictureuri' : "vegeE.jpg"
     }),
     Diet.fromMap({
-      'diet_image' : 'dietfood2.jpg',
-      'diet_title' : '당근당근당근',
-      'diet_protein' : 0,
-      'diet_carbohydrate' : 0,
-      'diet_fat' : 0,
-      'diet_total_kcal' : 0
+      'member_id' : 0,
+      'totalkcal' : 123,
+      'menu' : '아보카도 샐러드',
+      'requiredfood' : "00",
+      'recipe' : "00",
+      'pictureuri' : "vegeA.jpg"
     })
   ];
 
   //추천 식단_단백질 건강 식단
   //dummy data
-  //TODO : DB 연결
   List<Diet> recomend_diets_planB = [
     Diet.fromMap({
-      'diet_image' : 'tomatoegg.jpg',
-      'diet_title' : '토마토계란볶음',
-      'diet_protein' : 0,
-      'diet_carbohydrate' : 0,
-      'diet_fat' : 0,
-      'diet_total_kcal' : 0
+      'member_id' : 0,
+      'totalkcal' : 123,
+      'menu' : '단백질 고등어 조림',
+      'requiredfood' : "00",
+      'recipe' : "00",
+      'pictureuri' : "pdiet1.jpg"
     }),
     Diet.fromMap({
-      'diet_image' : 'dietfood.jpg',
-      'diet_title' : '샐러두',
-      'diet_protein' : 0,
-      'diet_carbohydrate' : 0,
-      'diet_fat' : 0,
-      'diet_total_kcal' : 0
+      'member_id' : 0,
+      'totalkcal' : 00,
+      'menu' : '갈치 구이',
+      'requiredfood' : "00",
+      'recipe' : "00",
+      'pictureuri' : "pdiet_2.jpg"
     }),
     Diet.fromMap({
-      'diet_image' : 'dietfood2.jpg',
-      'diet_title' : '당근당근당근',
-      'diet_protein' : 0,
-      'diet_carbohydrate' : 0,
-      'diet_fat' : 0,
-      'diet_total_kcal' : 0
+      'member_id' : 0,
+      'totalkcal' : 00,
+      'menu' : '닭가슴살 볶음',
+      'requiredfood' : "00",
+      'recipe' : "00",
+      'pictureuri' : "pdiet_3.jpg"
     })
   ];
 
@@ -117,39 +115,42 @@ class _MyDietMainView extends ConsumerState<MyDietMainView> {
         child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget> [
-              SizedBox(height: 10),
               const Text('식단 즐겨찾기',
                   style: TextStyle(
                     color: Color(0xff41631A),
                     fontWeight: FontWeight.bold,
                     fontSize: 20.0,
                   )),
-              SizedBox(height: 5),
-              BoxSlider(diets: diets),
+              Expanded(
+                flex: 1,
+                child: BoxSlider(diets: diets),
+              ),
               const Text('추천 식단',
                   style: TextStyle(
                     color: Color(0xff41631A),
                     fontWeight: FontWeight.bold,
                     fontSize: 20.0,
                   )),
-              SizedBox(height: 5),
               const Text('채식주의 식단',
                   style: TextStyle(
                     color: Color(0xff41631A),
                     fontWeight: FontWeight.bold,
                     fontSize: 15.0,
                   )),
-              SizedBox(height: 5),
-              BoxSlider(diets: recomend_diets_planA),
-              SizedBox(height: 5),
+              Expanded(
+                  flex: 1,
+                  child: BoxSlider(diets: recomend_diets_planA),
+              ),
               const Text('단백질 건강 식단',
                   style: TextStyle(
                     color: Color(0xff41631A),
                     fontWeight: FontWeight.bold,
                     fontSize: 15.0,
                   )),
-              SizedBox(height: 5),
-              BoxSlider(diets: recomend_diets_planB),
+              Expanded(
+                  flex: 1,
+                  child: BoxSlider(diets: recomend_diets_planB),
+              ),
             ]
         ),
       ),

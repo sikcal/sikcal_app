@@ -1,12 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:sikcal/screen/mypage/mypage_main_view.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:sikcal/data/tokens.dart';
 import 'package:sikcal/screen/welcome/welcome_screen.dart';
 import 'package:sikcal/data/constants.dart';
 import 'package:sikcal/screens/auth/auth_gate.dart';
 import 'package:sikcal/screens/main_view.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  prefs = await SharedPreferences.getInstance();
+  if (prefs.containsKey('token')) {
+    accessToken = prefs.getStringList('token')![0];
+    refreshToken = prefs.getStringList('token')![1];
+  }
+
   runApp(const MyApp());
 }
 
@@ -30,7 +38,7 @@ class _MyAppState extends State<MyApp> {
             textTheme: TextTheme(
               bodyText2: kDefaultTextStyle,
             )),
-        home: MyPageMainView(),
+        home: Main(),
       ),
     );
   }
