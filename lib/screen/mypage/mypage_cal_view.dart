@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../components/RoundedText.dart';
+import '../../components/mypage_calender.dart';
 import '../../data/constants.dart';
 
 class MyPageCalView extends ConsumerStatefulWidget {
@@ -16,10 +17,13 @@ class _MyPageCalView extends ConsumerState<MyPageCalView> {
 
   @override
   Widget build(BuildContext context) {
+
+    int _currentPage = 5;
     String userimg = "images/profile.jpg";
     String username ="김유진";
 
-    int _currentPage = 5;
+    List current = getCurrentdate();
+
     return Scaffold(
       appBar: AppBar(
         title: Row(
@@ -80,7 +84,7 @@ class _MyPageCalView extends ConsumerState<MyPageCalView> {
               ),
               // SizedBox(height: 5.0),
               RoundedText(
-                text: "YEAR     2022",
+                text: "YEAR     "+current[0].toString(),
                 textStyle: TextStyle(
                   color: Colors.white,
                   fontWeight: FontWeight.bold,
@@ -88,13 +92,19 @@ class _MyPageCalView extends ConsumerState<MyPageCalView> {
                 ),
               ),
               RoundedText(
-                text: "MONTH    07",
+                text: "MONTH    "+current[1].toString(),
                 textStyle: TextStyle(
                   color: Colors.white,
                   fontWeight: FontWeight.bold,
                   fontSize: 20.0,
                 ),
               ),
+              Expanded(
+                child: Container(
+                width: 300,
+                height: 300,
+                child: MyCalender(),
+              )),
             ],
           ),
       ),
@@ -148,5 +158,12 @@ class _MyPageCalView extends ConsumerState<MyPageCalView> {
         selectedIndex: _currentPage,
       ),
     );
+  }
+  List getCurrentdate () {
+    DateTime current = DateTime.now();
+    var currentYear = current.year;
+    var currentMonth = current.month;
+
+    return [currentYear, currentMonth];
   }
 }
