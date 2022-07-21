@@ -11,7 +11,7 @@ class UserRepo {
   final String host;
   final Function refresh;
 
-  Future<User> getUserInfo() async {
+  Future<User?> getUserInfo() async {
     final url = Uri.http(host, '/api/user');
     final req = http.Request('GET', url);
 
@@ -20,7 +20,9 @@ class UserRepo {
     final res = await req.send();
     print('getUserInfo ${res.statusCode}');
     if (res.statusCode == 403) {
-      await refresh();
+      if (!await refresh()) {
+        return null;
+      }
       return getUserInfo();
     }
 
@@ -29,14 +31,17 @@ class UserRepo {
     var date = DateTime(birth[0], birth[1], birth[2]);
     response['birth'] = date.toString();
 
-    response.addAll(await getRecommendedIntake());
+    final intake = await getRecommendedIntake();
+    if (intake == null) return null;
+
+    response.addAll(intake);
 
     final user = User.fromJson(response);
 
     return user;
   }
 
-  Future<Map<String, dynamic>> getRecommendedIntake() async {
+  Future<Map<String, dynamic>?> getRecommendedIntake() async {
     final url = Uri.http(host, '/api/user/info');
     final req = http.Request('GET', url);
 
@@ -45,7 +50,9 @@ class UserRepo {
     final res = await req.send();
     print('getRecommendedIntake ${res.statusCode}');
     if (res.statusCode == 403) {
-      await refresh();
+      if (!await refresh()) {
+        return null;
+      }
       return getRecommendedIntake();
     }
 

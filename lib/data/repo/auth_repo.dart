@@ -59,7 +59,7 @@ class AuthRepo {
     ref.read(userProvider.state).update((state) => user);
   }
 
-  Future<void> refresh() async {
+  Future<bool> refresh() async {
     print('refresh called');
 
     final url = Uri.http(host, '/api/token/refresh');
@@ -69,10 +69,12 @@ class AuthRepo {
 
     final res = await req.send();
 
+    print('refresh ${res.statusCode}');
     if (res.statusCode == 403) {
       accessToken = null;
       refreshToken = null;
-      return;
+      ref.read(userProvider.state).update((state) => null);
+      return false;
     }
 
     final Map<String, dynamic> response = jsonDecode(await res.stream.bytesToString());
@@ -82,5 +84,7 @@ class AuthRepo {
       refreshToken = response['refresh_token'];
       prefs.setStringList('token', [accessToken!, refreshToken!]);
     }
+
+    return true;
   }
 }

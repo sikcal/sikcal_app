@@ -11,7 +11,7 @@ class FoodRepo {
   final String host;
   final Function refresh;
 
-  Future<List<Food>> searchFood(String name) async {
+  Future<List<Food>?> searchFood(String name) async {
     var params = {
       'foodName': name,
     };
@@ -25,7 +25,9 @@ class FoodRepo {
 
     print('searchFood ${res.statusCode}');
     if (res.statusCode == 403) {
-      await refresh();
+      if (!await refresh()) {
+        return null;
+      }
       return searchFood(name);
     }
 
