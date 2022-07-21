@@ -69,6 +69,12 @@ class AuthRepo {
 
     final res = await req.send();
 
+    if (res.statusCode == 403) {
+      accessToken = null;
+      refreshToken = null;
+      return;
+    }
+
     final Map<String, dynamic> response = jsonDecode(await res.stream.bytesToString());
 
     if (response.containsKey('access_token')) {
