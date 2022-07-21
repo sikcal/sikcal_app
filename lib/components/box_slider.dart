@@ -16,7 +16,7 @@ class BoxSlider extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               Container(
-                  height: 130,
+                  height: 180,
                   child: ListView(
                     scrollDirection: Axis.horizontal,
                     children: makeBoxImages(context, diets),
@@ -49,7 +49,7 @@ List<Widget> makeBoxImages(BuildContext context, List<Diet> diets) {
               alignment: Alignment.centerLeft,
               child: Column(
                 children: [
-                  Image.asset('images/' + diets[i].pictureuri, width: 200, height: 100),
+                  Image.asset('images/' + diets[i].pictureuri, width: 200, height: 150),
                   Text(diets[i].menu)
                 ],
               ),

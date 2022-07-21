@@ -115,39 +115,42 @@ class _MyDietMainView extends ConsumerState<MyDietMainView> {
         child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget> [
-              SizedBox(height: 10),
               const Text('식단 즐겨찾기',
                   style: TextStyle(
                     color: Color(0xff41631A),
                     fontWeight: FontWeight.bold,
                     fontSize: 20.0,
                   )),
-              SizedBox(height: 5),
-              BoxSlider(diets: diets),
+              Expanded(
+                flex: 1,
+                child: BoxSlider(diets: diets),
+              ),
               const Text('추천 식단',
                   style: TextStyle(
                     color: Color(0xff41631A),
                     fontWeight: FontWeight.bold,
                     fontSize: 20.0,
                   )),
-              SizedBox(height: 5),
               const Text('채식주의 식단',
                   style: TextStyle(
                     color: Color(0xff41631A),
                     fontWeight: FontWeight.bold,
                     fontSize: 15.0,
                   )),
-              SizedBox(height: 5),
-              BoxSlider(diets: recomend_diets_planA),
-              SizedBox(height: 5),
+              Expanded(
+                  flex: 1,
+                  child: BoxSlider(diets: recomend_diets_planA),
+              ),
               const Text('단백질 건강 식단',
                   style: TextStyle(
                     color: Color(0xff41631A),
                     fontWeight: FontWeight.bold,
                     fontSize: 15.0,
                   )),
-              SizedBox(height: 5),
-              BoxSlider(diets: recomend_diets_planB),
+              Expanded(
+                  flex: 1,
+                  child: BoxSlider(diets: recomend_diets_planB),
+              ),
             ]
         ),
       ),
