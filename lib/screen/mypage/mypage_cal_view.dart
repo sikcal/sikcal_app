@@ -7,6 +7,8 @@ import '../../components/RoundedText.dart';
 import '../../components/mypage_calender.dart';
 import '../../data/constants.dart';
 
+import 'package:http/http.dart' as http;
+
 class MyPageCalView extends ConsumerStatefulWidget {
   const MyPageCalView({Key? key}) : super(key: key);
 
@@ -18,9 +20,11 @@ class _MyPageCalView extends ConsumerState<MyPageCalView> {
 
   @override
   Widget build(BuildContext context) {
+
+    int _currentPage = 5;
+
     final user = ref.watch(userProvider);
     String username = user?.name ?? "사용자";
-    int _currentPage = 5;
     String userimg = "images/profile.jpg";
 
     List current = getCurrentdate();
