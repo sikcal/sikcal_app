@@ -20,11 +20,9 @@ class _MyPageCalView extends ConsumerState<MyPageCalView> {
 
   @override
   Widget build(BuildContext context) {
-
-    int _currentPage = 5;
-
     final user = ref.watch(userProvider);
     String username = user?.name ?? "사용자";
+    int _currentPage = 5;
     String userimg = "images/profile.jpg";
 
     List current = getCurrentdate();
@@ -175,5 +173,17 @@ class _MyPageCalView extends ConsumerState<MyPageCalView> {
     var currentMonth = current.month;
 
     return [currentYear, currentMonth];
+  }
+  void _callAPI() async {
+
+    var uri = Uri(
+        scheme: 'http',
+        host: '43.200.102.54:8080',
+        path: 'getPublic',
+        queryParameters: {
+          'date' : 'date',
+        }
+    );
+    final response = await http.get(uri);
   }
 }
