@@ -4,6 +4,7 @@ part 'food.g.dart';
 
 @JsonSerializable()
 class Food implements Comparable {
+  final int foodId;
   final String foodName;
   final int carbohydrate;
   final int protein;
@@ -11,6 +12,7 @@ class Food implements Comparable {
   final int totalKcal;
 
   Food({
+    required this.foodId,
     required this.foodName,
     required this.carbohydrate,
     required this.protein,
@@ -21,7 +23,7 @@ class Food implements Comparable {
   @override
   int compareTo(other) {
     Food o = other as Food;
-    return foodName.hashCode - o.foodName.hashCode;
+    return foodId - o.foodId;
   }
 
   int getCalorie() {

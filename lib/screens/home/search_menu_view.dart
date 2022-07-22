@@ -116,23 +116,28 @@ class _SearchMenuViewState extends ConsumerState<SearchMenuView> {
                               title: Row(
                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: [
-                                  Row(
-                                    children: [
-                                      Text(
-                                        '${meal.foodList.keys.elementAt(idx)}',
-                                        style: kDefaultTextStyle.copyWith(
-                                          color: primaryColor,
-                                          fontWeight: FontWeight.bold,
+                                  Expanded(
+                                    child: Row(
+                                      children: [
+                                        Flexible(
+                                          child: Text(
+                                            '${meal.foodList.keys.elementAt(idx)}',
+                                            style: kDefaultTextStyle.copyWith(
+                                              color: primaryColor,
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                            overflow: TextOverflow.ellipsis,
+                                          ),
                                         ),
-                                      ),
-                                      Text(
-                                        ' * $count',
-                                        style: kDefaultTextStyle.copyWith(
-                                          color: accentColor,
-                                          fontWeight: FontWeight.bold,
+                                        Text(
+                                          '*$count',
+                                          style: kDefaultTextStyle.copyWith(
+                                            color: accentColor,
+                                            fontWeight: FontWeight.bold,
+                                          ),
                                         ),
-                                      ),
-                                    ],
+                                      ],
+                                    ),
                                   ),
                                   Row(
                                     children: [
