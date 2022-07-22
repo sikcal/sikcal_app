@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:sikcal/data/providers.dart';
 import 'package:sikcal/screen/mypage/mypage_cal_view.dart';
 
 import '../../components/RoundedText.dart';
@@ -16,12 +17,13 @@ class MyPageMainView extends ConsumerStatefulWidget {
 
 class _MyPageMainView extends ConsumerState<MyPageMainView> {
   String userimg = "images/profile.jpg";
-  String username ="김유진";
   String userweight = "00";
   String userTweight = "00";
 
   @override
   Widget build(BuildContext context) {
+    final user = ref.watch(userProvider);
+    String username = user?.name ?? "사용자";
 
     return Scaffold(
       body:Container(

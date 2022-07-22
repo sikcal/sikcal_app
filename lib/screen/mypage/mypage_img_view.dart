@@ -1,6 +1,7 @@
 import 'package:bottom_bar/bottom_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:sikcal/data/providers.dart';
 
 import '../../components/RoundedTextButton.dart';
 import '../../data/constants.dart';
@@ -16,8 +17,9 @@ class _MyPageImgView extends ConsumerState<MyPageImgView> {
 
   @override
   Widget build(BuildContext context) {
+    final user = ref.watch(userProvider);
+    String username = user?.name ?? "사용자";
     String userimg = "images/profile.jpg";
-    String username ="김유진";
 
     int _currentPage = 5;
 
