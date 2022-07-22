@@ -1,6 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sikcal/data/repo/auth_repo.dart';
 import 'package:sikcal/data/repo/food_repo.dart';
+import 'package:sikcal/data/repo/meal_repo.dart';
 import 'package:sikcal/data/repo/user_repo.dart';
 import 'package:sikcal/model/meal.dart';
 import 'package:sikcal/model/meal_list_model.dart';
@@ -11,6 +12,7 @@ const String host = '43.200.102.54:8080';
 final authRepoProvider = Provider((ref) => AuthRepo(ref, host));
 final userRepoProvider = Provider((ref) => UserRepo(host, ref.read(authRepoProvider).refresh));
 final foodRepoProvider = Provider((ref) => FoodRepo(host, ref.read(authRepoProvider).refresh));
+final mealRepoProvider = Provider((ref) => MealRepo(ref, host, ref.read(authRepoProvider).refresh));
 
 final userProvider = StateProvider<User?>((ref) => null);
 

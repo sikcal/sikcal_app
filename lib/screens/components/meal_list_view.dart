@@ -3,6 +3,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:sikcal/data/constants.dart';
 import 'package:sikcal/data/providers.dart';
+import 'package:sikcal/data/repo/meal_repo.dart';
+import 'package:sikcal/data/shared_preferences.dart';
 import 'package:sikcal/model/meal.dart';
 import 'package:sikcal/screens/home/search_menu_view.dart';
 
@@ -76,9 +78,20 @@ class MealListView extends ConsumerWidget {
                 ),
               );
               if (meal != null) {
-                mealList.removeAt(idx);
-                mealList.insert(idx, meal);
-                ref.read(currentMealListProvider.notifier).set([...mealList]);
+                int old = mealList.elementAt(idx).recordId;
+                await ref.read(mealRepoProvider).removeMeal(old);
+                MealResponse? result = await ref.read(mealRepoProvider).addMeal(meal);
+                if (result != null) {
+                  for (int i = 0; i < records.length; i++) {
+                    if (int.parse(records[i]) == old) {
+                      records[i] = result.recordId.toString();
+                      recordDates[i] = result.recordDate.toString();
+                      prefs.setStringList('records', records);
+                      prefs.setStringList('recordDates', recordDates);
+                    }
+                  }
+                }
+                await ref.read(mealRepoProvider).getMealList();
               }
             }
             return Future.value(false);
@@ -89,8 +102,18 @@ class MealListView extends ConsumerWidget {
           },
           onDismissed: (direction) async {
             if (direction == DismissDirection.endToStart) {
-              mealList.removeAt(idx);
-              ref.read(currentMealListProvider.notifier).set([...mealList]);
+              int old = mealList.elementAt(idx).recordId;
+              if (await ref.read(mealRepoProvider).removeMeal(old)) {
+                for (int i = 0; i < records.length; i++) {
+                  if (int.parse(records[i]) == old) {
+                    records.removeAt(i);
+                    recordDates.removeAt(i);
+                    prefs.setStringList('records', records);
+                    prefs.setStringList('recordDates', recordDates);
+                  }
+                }
+              }
+              await ref.read(mealRepoProvider).getMealList();
             }
           },
           child: ListTile(

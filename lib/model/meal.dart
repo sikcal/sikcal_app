@@ -1,10 +1,17 @@
 import 'package:sikcal/model/food.dart';
 
 class Meal {
+  late int recordId;
   final Map<Food, int> foodList = {};
 
   void addFood(Food food) {
-    foodList[food] = (foodList.containsKey(food)) ? foodList[food]! + 1 : 1;
+    for (Food key in foodList.keys) {
+      if (key.foodId == food.foodId) {
+        foodList[key] = foodList[key]! + 1;
+        return;
+      }
+    }
+    foodList[food] = 1;
   }
 
   // 개수 줄이기

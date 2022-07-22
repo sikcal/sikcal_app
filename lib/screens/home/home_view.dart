@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:sikcal/components/circular_progress.dart';
 import 'package:sikcal/data/constants.dart';
 import 'package:sikcal/data/providers.dart';
+import 'package:sikcal/data/repo/meal_repo.dart';
+import 'package:sikcal/data/shared_preferences.dart';
 import 'package:sikcal/model/meal.dart';
 import 'package:sikcal/screens/components/meal_list_view.dart';
 import 'package:sikcal/screens/home/search_menu_view.dart';
@@ -18,15 +21,21 @@ class HomeView extends ConsumerStatefulWidget {
 
 class _HomeViewState extends ConsumerState<HomeView> {
   @override
+  void initState() {
+    super.initState();
+    SchedulerBinding.instance.addPostFrameCallback((timeStamp) => ref.read(mealRepoProvider).getMealList());
+  }
+
+  @override
   Widget build(BuildContext context) {
     final user = ref.watch(userProvider);
     if (user == null) return Container();
 
     final mealList = ref.watch(currentMealListProvider);
 
-    int gainedCarbohydrate = 0;
-    int gainedProtein = 0;
-    int gainedFat = 0;
+    int gainedCarbohydrate = ref.watch(gainedCaloriesProvider)['carbohydrate'] ?? 0;
+    int gainedProtein = ref.watch(gainedCaloriesProvider)['protein'] ?? 0;
+    int gainedFat = ref.watch(gainedCaloriesProvider)['fat'] ?? 0;
 
     int maxCarbohydrate = user.carbohydrate; // 하루 권장 섭취 탄, 단, 지
     int maxProtein = user.protein;
@@ -38,6 +47,7 @@ class _HomeViewState extends ConsumerState<HomeView> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
+            const SizedBox(height: 10),
             // 원형의 형태로 현재 섭취량 알려주는 위젯
             Row(
               mainAxisSize: MainAxisSize.max,
@@ -166,7 +176,15 @@ class _HomeViewState extends ConsumerState<HomeView> {
                         onPressed: () async {
                           Meal? meal = await Navigator.push(context, MaterialPageRoute(builder: (context) => SearchMenuView()));
                           if (meal != null) {
-                            ref.read(currentMealListProvider.notifier).set([meal, ...mealList]);
+                            MealResponse? result = await ref.read(mealRepoProvider).addMeal(meal);
+                            if (result == null) return;
+                            
+                            records.add(result.recordId.toString());
+                            recordDates.add(result.recordDate.toString());
+
+                            prefs.setStringList('records', records);
+                            prefs.setStringList('recordDates', recordDates);
+                            await ref.read(mealRepoProvider).getMealList();
                           }
                         },
                       ),
