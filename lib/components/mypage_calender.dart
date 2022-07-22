@@ -3,7 +3,9 @@ import 'package:table_calendar/table_calendar.dart';
 
 
 class MyCalender extends StatefulWidget {
-  const MyCalender({Key? key}) : super(key: key);
+  MyCalender({Key? key, required this.issuccess}) : super(key: key);
+
+  List issuccess;
 
   @override
   _MyCalender createState() => _MyCalender();
@@ -13,7 +15,6 @@ class _MyCalender extends State<MyCalender> {
 
   @override
   Widget build(BuildContext context) {
-    bool issuccess = true;
 
     DateTime now = DateTime.now();
 
@@ -27,14 +28,15 @@ class _MyCalender extends State<MyCalender> {
         leftChevronVisible: false,
         rightChevronVisible: false
       ),
-      eventLoader: (day){
-        if(issuccess == true) {
-          return['mark'];
-        }
-        return[];
-
-      },
-
+      eventLoader: (day) {
+        for (int i=0;i<widget.issuccess.length; i++) {
+          if(day.day.toInt() == i+1) {
+            return['mark'];
+          }
+          return[];
+        };
+        return [];
+      }
     );
   }
 }
