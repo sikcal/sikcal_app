@@ -80,7 +80,7 @@ class _SearchMenuViewState extends ConsumerState<SearchMenuView> {
               onSubmit: () async {
                 if (controller.text.isEmpty) return;
 
-                currentFoodList = await ref.read(foodRepoProvider)?.searchFood(controller.text) ?? [];
+                currentFoodList = await ref.read(foodRepoProvider).searchFood(controller.text);
                 setState(() {});
               },
             ),
