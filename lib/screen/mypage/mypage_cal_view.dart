@@ -7,6 +7,8 @@ import '../../components/RoundedText.dart';
 import '../../components/mypage_calender.dart';
 import '../../data/constants.dart';
 
+import 'package:http/http.dart' as http;
+
 class MyPageCalView extends ConsumerStatefulWidget {
   const MyPageCalView({Key? key}) : super(key: key);
 
@@ -171,5 +173,17 @@ class _MyPageCalView extends ConsumerState<MyPageCalView> {
     var currentMonth = current.month;
 
     return [currentYear, currentMonth];
+  }
+  void _callAPI() async {
+
+    var uri = Uri(
+        scheme: 'http',
+        host: '43.200.102.54:8080',
+        path: 'getPublic',
+        queryParameters: {
+          'date' : 'date',
+        }
+    );
+    final response = await http.get(uri);
   }
 }
