@@ -24,6 +24,9 @@ class _MyPageCalView extends ConsumerState<MyPageCalView> {
 
     List current = getCurrentdate();
 
+    //api 요청보내서 한달 치 true/false 리스트 만들고 calender 위젯에 parameter로 넣음
+    List _issuccess = [true, false, true];
+
     return Scaffold(
       appBar: AppBar(
         title: Row(
@@ -103,7 +106,9 @@ class _MyPageCalView extends ConsumerState<MyPageCalView> {
                 child: Container(
                 width: 300,
                 height: 300,
-                child: MyCalender(),
+                child: MyCalender(
+                  issuccess : _issuccess
+                ),
               )),
             ],
           ),
