@@ -42,7 +42,7 @@ class _MyAppState extends State<MyApp> {
             textTheme: TextTheme(
               bodyText2: kDefaultTextStyle,
             )),
-        home: Main(),
+        home: MainView(),
       ),
     );
   }

@@ -9,6 +9,11 @@ import '../../data/constants.dart';
 
 import 'package:http/http.dart' as http;
 
+import '../../screens/feed/feed_view.dart';
+import '../../screens/home/home_view.dart';
+import '../mydiet/mydiet_main_view.dart';
+import 'mypage_main_view.dart';
+
 class MyPageCalView extends ConsumerStatefulWidget {
   const MyPageCalView({Key? key}) : super(key: key);
 
@@ -18,12 +23,21 @@ class MyPageCalView extends ConsumerStatefulWidget {
 
 class _MyPageCalView extends ConsumerState<MyPageCalView> {
 
+  List<Widget> pages = [
+    FeedView(),
+    Container(),
+    const HomeView(),
+    const MyDietMainView(),
+    const MyPageMainView(),
+  ];
+
   @override
   Widget build(BuildContext context) {
     final user = ref.watch(userProvider);
     String username = user?.name ?? "사용자";
     int _currentPage = 5;
     String userimg = "images/profile.jpg";
+
 
     List current = getCurrentdate();
 
