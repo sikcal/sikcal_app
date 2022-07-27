@@ -62,16 +62,13 @@ class _MyPageMainView extends ConsumerState<MyPageMainView> {
               ),
               TextButton(
                   onPressed: () {
-                    // Navigator.of(context).push(MaterialPageRoute<Null>(
-                    //     fullscreenDialog: true,
-                    //     builder: (BuildContext context) {
-                    //       return MyPageUpdateView(
-                    //         // diet: diets[i],
-                    //       );
-                    //     }
-                    // )
-                    // );
-                    showUserInfoUpdateView(context);
+                    Navigator.of(context).push(MaterialPageRoute<Null>(
+                        fullscreenDialog: true,
+                        builder: (BuildContext context) {
+                          return MyPageUpdateView();
+                        }
+                    )
+                    );
                   },
                   child: Text('현재 체중 변경하기',
                         style : TextStyle(
@@ -151,120 +148,6 @@ class _MyPageMainView extends ConsumerState<MyPageMainView> {
           ),
         )
       ),
-    );
-  }
-  void showUserInfoUpdateView(BuildContext context) {
-    showModalBottomSheet(
-      context: context,
-      // isScrollControlled를 true로 설정.
-      isScrollControlled: true,
-
-      builder: (BuildContext context) {
-        final userweightcontroller = TextEditingController();
-        final _formkey = GlobalKey<FormState>();
-
-        return SizedBox(
-          height: MediaQuery.of(context).size.height * 0.8,
-          child: Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text('체중을 입력해주세요.', style: kLargeTextStyle),
-                SizedBox(height: 50),
-                Form(
-                  key: _formkey,
-                  child: MyTextFormField(
-                    obscureText: false,
-                    controller: userweightcontroller,
-                    label: '현재 체중을 입력해주세요',
-                    onSaved: (value) {
-                      setState(() {});
-                    },
-                    validator: (value) {
-                      if (value.length < 1) {
-                        return '현재 체중은 필수사항입니다.';
-                      }
-                      if (!RegExp('[0-9]').hasMatch(value)) {
-                        return '숫자를 입력해주세요';
-                      }
-                    },
-                  ),
-                ),
-                SizedBox(height: 50),
-                RoundedButton(
-                    text: '변경하기',
-                    color: const Color(0xff8BC34A),
-                    press: () {
-                      final form = _formkey.currentState;
-                      if (form != null && !form.validate()) {
-                      } else {
-
-                        Navigator.pop(context);
-                        return;
-                      }
-                    }),
-              ],
-            ),
-          ),
-        );
-      },
-    );
-  }
-  void showUserCal(BuildContext context) {
-    showModalBottomSheet(
-      context: context,
-      // isScrollControlled를 true로 설정.
-      isScrollControlled: true,
-
-      builder: (BuildContext context) {
-        final userweightcontroller = TextEditingController();
-        final _formkey = GlobalKey<FormState>();
-
-        return SizedBox(
-          height: MediaQuery.of(context).size.height * 0.8,
-          child: Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text('체중을 입력해주세요.', style: kLargeTextStyle),
-                SizedBox(height: 50),
-                Form(
-                  key: _formkey,
-                  child: MyTextFormField(
-                    obscureText: false,
-                    controller: userweightcontroller,
-                    label: '현재 체중을 입력해주세요',
-                    onSaved: (value) {
-                      setState(() {});
-                    },
-                    validator: (value) {
-                      if (value.length < 1) {
-                        return '현재 체중은 필수사항입니다.';
-                      }
-                      if (!RegExp('[0-9]').hasMatch(value)) {
-                        return '숫자를 입력해주세요';
-                      }
-                    },
-                  ),
-                ),
-                SizedBox(height: 50),
-                RoundedButton(
-                    text: '변경하기',
-                    color: const Color(0xff8BC34A),
-                    press: () {
-                      final form = _formkey.currentState;
-                      if (form != null && !form.validate()) {
-                      } else {
-
-                        Navigator.pop(context);
-                        return;
-                      }
-                    }),
-              ],
-            ),
-          ),
-        );
-      },
     );
   }
 }

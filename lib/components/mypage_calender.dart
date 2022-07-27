@@ -1,68 +1,54 @@
-import 'dart:convert';
 import 'dart:core';
-import 'dart:io';
-
 import 'package:flutter/cupertino.dart';
+import 'package:intl/intl.dart';
 import 'package:table_calendar/table_calendar.dart';
-import 'package:http/http.dart' as http;
-
-import '../data/shared_preferences.dart';
 
 class MyCalender extends StatefulWidget {
-  MyCalender({Key? key}) : super(key: key);
+  MyCalender({Key? key, required this.issuccess}) : super(key: key);
+
+  var issuccess;
 
   @override
   _MyCalender createState() => _MyCalender();
 }
 
 class _MyCalender extends State<MyCalender> {
-  // List<dynamic> issuccess = [];
-
-   getData() async {
-
-    final url = Uri.http("43.200.102.54:8080","/api/user/calendar", {"yearMonth":"2022-07-23"});
-    final req = http.Request("GET", url);
-    req.headers[HttpHeaders.authorizationHeader] = 'Bearer $accessToken';
-
-    final res = await req.send();
-
-    print("res:");
-    print(res.statusCode);
-    // List<dynamic> response = jsonDecode(await res.stream.bytesToString());
-    List<dynamic> issuccess = jsonDecode(await res.stream.bytesToString());
-    print(issuccess);
-    // print(response);
-
-    return true;
-  }
 
   @override
   Widget build(BuildContext context) {
 
-    DateTime now = DateTime.now();
-    getData();
-
+    var _issuccess = widget.issuccess[0];
 
     return TableCalendar(
       focusedDay: DateTime.now(),
-      firstDay: DateTime(now.year, now.month,     1),
-      lastDay: DateTime(now.year, now.month + 1, 0),
+      firstDay: DateTime.utc(2010, 10, 16),
+      lastDay: DateTime.utc(2030, 3, 14),
       headerStyle: HeaderStyle(
         formatButtonVisible: false,
         titleCentered: true,
-        leftChevronVisible: false,
-        rightChevronVisible: false
+        leftChevronVisible: true,
+        rightChevronVisible: true,
       ),
       eventLoader: (day) {
-
-        for (int i=0;i<9; i++) {
-          if(day.day.toInt() == i+1) {
-            return['mark'];
-          }
-          return[];
+        if((day.day.toInt()<=_issuccess.length)&&(_issuccess[day.day.toInt()-1] == "SUCCESS")) {
+          return ['mark'];
+        }else {
+          return [];
         }
-        return [];
-      }
+      },
+      onPageChanged: (focusedDay) {
+        DateTime current = DateTime.now();
+        var current_month = DateFormat('M').format(current);
+        var focused_month = DateFormat('M').format(focusedDay);
+
+        if((int.parse(current_month)-int.parse(focused_month)) == 0) {
+          _issuccess = widget.issuccess[0];
+        }else if((int.parse(current_month)-int.parse(focused_month)) == 1) {
+          _issuccess = widget.issuccess[1];
+        }else if((int.parse(current_month)-int.parse(focused_month)) == 2) {
+          _issuccess = widget.issuccess[2];
+        }
+    },
     );
   }
 }
