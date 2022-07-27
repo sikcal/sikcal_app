@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sikcal/data/shared_preferences.dart';
 import 'package:sikcal/data/constants.dart';
+import 'package:sikcal/screen/mypage/mypage_main_view.dart';
 import 'package:sikcal/screens/auth/auth_gate.dart';
 import 'package:sikcal/screens/main_view.dart';
 
