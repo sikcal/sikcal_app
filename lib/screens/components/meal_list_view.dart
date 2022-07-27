@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:sikcal/data/constants.dart';
 import 'package:sikcal/data/providers.dart';
 import 'package:sikcal/data/repo/meal_repo.dart';
@@ -146,8 +147,12 @@ class MealListView extends ConsumerWidget {
                   ],
                 ),
                 InkWell(
-                  onTap: () {
-                    // TODO : share to community
+                  onTap: () async {
+                    final image = await showModalBottomSheet(context: context, builder: (context) => _BottomPopup());
+                    if (image == null) {
+                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('공유하려면 사진을 첨부해야 합니다.')));
+                      return;
+                    }
                   },
                   child: const Icon(
                     FontAwesomeIcons.shareNodes,
@@ -159,6 +164,54 @@ class MealListView extends ConsumerWidget {
           ),
         );
       },
+    );
+  }
+}
+
+class _BottomPopup extends StatelessWidget {
+  const _BottomPopup({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    final ImagePicker _picker = ImagePicker();
+
+    return SafeArea(
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 5),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            SizedBox(
+              width: double.infinity,
+              child: TextButton(
+                onPressed: () async {
+                  final image = await _picker.pickImage(source: ImageSource.gallery);
+                  Navigator.pop(context, image);
+                },
+                child: Text(
+                  '갤러리에서 식단 사진 추가하기',
+                  style: kDefaultTextStyle,
+                ),
+              ),
+            ),
+            const SizedBox(height: 5),
+            SizedBox(
+              width: double.infinity,
+              child: TextButton(
+                onPressed: () async {
+                  final image = await _picker.pickImage(source: ImageSource.camera);
+                  Navigator.pop(context, image);
+                },
+                child: Text(
+                  '카메라로 촬영하기',
+                  style: kDefaultTextStyle,
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }
