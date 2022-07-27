@@ -21,8 +21,6 @@ class _MyPageImgView extends ConsumerState<MyPageImgView> {
     String username = user?.name ?? "사용자";
     String userimg = "images/profile.jpg";
 
-    int _currentPage = 5;
-
     return Scaffold(
       appBar: AppBar(
         title: Row(
@@ -58,6 +56,7 @@ class _MyPageImgView extends ConsumerState<MyPageImgView> {
       body:Center(
         child: Column(
           children: [
+            SizedBox(height: 20),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
@@ -105,55 +104,6 @@ class _MyPageImgView extends ConsumerState<MyPageImgView> {
             ),
           ],
         ),
-      ),
-      bottomNavigationBar: BottomBar(
-        itemPadding: const EdgeInsets.fromLTRB(10.0, 10.0, 10.0, 20.0),
-        backgroundColor: primaryColor,
-        items: [
-          BottomBarItem(
-              icon: const Icon(
-                Icons.feed,
-                color: Colors.white,
-              ),
-              title: const Text("피드"),
-              activeColor: Colors.white),
-          BottomBarItem(
-              icon: const Icon(
-                Icons.chat_bubble_outline,
-                color: Colors.white,
-              ),
-              title: const Text("그룹 채팅"),
-              activeColor: Colors.white),
-          BottomBarItem(
-              icon: const Icon(
-                Icons.home_outlined,
-                size: 30.0,
-                color: Colors.white,
-              ),
-              title: const Text("홈 화면"),
-              activeColor: Colors.white),
-          BottomBarItem(
-              icon: const Icon(
-                Icons.star_outline,
-                size: 30.0,
-                color: Colors.white,
-              ),
-              title: const Text("나의 식단"),
-              activeColor: Colors.white),
-          BottomBarItem(
-              icon: const Icon(
-                Icons.person,
-                color: Colors.white,
-              ),
-              title: const Text("마이페이지"),
-              activeColor: Colors.white),
-        ],
-        onTap: (int value) {
-          setState(() {
-            _currentPage = value;
-          });
-        },
-        selectedIndex: _currentPage,
       ),
     );
   }
