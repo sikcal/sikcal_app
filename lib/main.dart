@@ -1,8 +1,10 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sikcal/data/shared_preferences.dart';
 import 'package:sikcal/data/constants.dart';
+import 'package:sikcal/firebase_options.dart';
 import 'package:sikcal/screens/auth/auth_gate.dart';
 import 'package:sikcal/screens/main_view.dart';
 
@@ -14,10 +16,12 @@ void main() async {
     accessToken = prefs.getStringList('token')![0];
     refreshToken = prefs.getStringList('token')![1];
   }
-  if (prefs.containsKey('records')) {
-    records = prefs.getStringList('records') ?? [];
-    recordDates = prefs.getStringList('recordDates') ?? [];
-  }
+  records = prefs.getStringList('records') ?? [];
+  recordDates = prefs.getStringList('recordDates') ?? [];
+
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
 
   runApp(const MyApp());
 }
