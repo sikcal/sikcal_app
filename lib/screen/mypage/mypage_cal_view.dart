@@ -1,6 +1,10 @@
+import 'dart:convert';
+import 'dart:io';
+
 import 'package:bottom_bar/bottom_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:intl/intl.dart';
 import 'package:sikcal/data/providers.dart';
 
 import '../../components/RoundedText.dart';
@@ -8,6 +12,12 @@ import '../../components/mypage_calender.dart';
 import '../../data/constants.dart';
 
 import 'package:http/http.dart' as http;
+
+import '../../data/shared_preferences.dart';
+import '../../screens/feed/feed_view.dart';
+import '../../screens/home/home_view.dart';
+import '../mydiet/mydiet_main_view.dart';
+import 'mypage_main_view.dart';
 
 class MyPageCalView extends ConsumerStatefulWidget {
   const MyPageCalView({Key? key}) : super(key: key);
@@ -18,17 +28,67 @@ class MyPageCalView extends ConsumerStatefulWidget {
 
 class _MyPageCalView extends ConsumerState<MyPageCalView> {
 
+  List getCurrentdate () {
+    DateTime current = DateTime.now();
+    // DateFormat dateFormat = DateFormat("yy");
+    var currentYear = DateFormat('yyyy').format(current);
+    var currentMonth = DateFormat('MM').format(current);
+    var currentDay = DateFormat('dd').format(current);
+
+    return [currentYear, currentMonth, currentDay];
+  }
+
+  getData() async {
+    // var current = getCurrentdate();
+    // var yearMonth = "${current[0]}-${current[1]}-${current[2]}";
+
+    //가져올 월별 success status 리스트 세팅
+    int result_numer = 3;
+    var list_yearMonth = [];
+    var total = [];
+    //현재 날짜
+    DateTime now = DateTime.now();
+    var current_ym = DateFormat('yyyy-MM-dd').format(now);
+    list_yearMonth.add(current_ym);
+    //한달전(한달전의 마지막 day)
+    var beforeDate = new DateTime(now.year, now.month, 0);
+    var before_ym = DateFormat('yyyy-MM-dd').format(beforeDate);
+    list_yearMonth.add(before_ym);
+    //두달전(두달전의 마지막 day)
+    var bbeforeDate = new DateTime(now.year, now.month - 1, 0);
+    var bbefore_ym = DateFormat('yyyy-MM-dd').format(bbeforeDate);
+    list_yearMonth.add(bbefore_ym);
+
+    print(list_yearMonth);
+
+    for (int i=0; i<result_numer; i++){
+      final url = Uri.http("43.200.102.54:8080","/api/user/calendar", {"yearMonth": list_yearMonth[i]});
+      final req = http.Request("GET", url);
+      req.headers[HttpHeaders.authorizationHeader] = 'Bearer $accessToken';
+
+      final streamedResponse = await req.send();
+
+      final ress = await http.Response.fromStream(streamedResponse);
+      final result = jsonDecode(ress.body) as List<dynamic>;
+      print(ress.statusCode);
+
+      var suc = [];
+      for (int i=0; i< result.length; i++) {
+        suc.add(result[i]['status']);
+      }
+      total.add(suc);
+    }
+    return total;
+  }
+
   @override
   Widget build(BuildContext context) {
     final user = ref.watch(userProvider);
     String username = user?.name ?? "사용자";
-    int _currentPage = 5;
     String userimg = "images/profile.jpg";
 
-    List current = getCurrentdate();
 
-    //api 요청보내서 한달 치 true/false 리스트 만들고 calender 위젯에 parameter로 넣음
-    List _issuccess = [true, false, true];
+    List current = getCurrentdate();
 
     return Scaffold(
       appBar: AppBar(
@@ -105,85 +165,37 @@ class _MyPageCalView extends ConsumerState<MyPageCalView> {
                   fontSize: 20.0,
                 ),
               ),
-              Expanded(
-                child: Container(
-                width: 300,
-                height: 300,
-                child: MyCalender(
-                  issuccess : _issuccess
-                ),
-              )),
+              FutureBuilder(
+                  future:getData(),
+                  builder: (BuildContext context, AsyncSnapshot snapshot) {
+                    if (snapshot.hasData == false) {
+                      return CircularProgressIndicator();
+                    }
+                    //error가 발생하게 될 경우 반환하게 되는 부분
+                    else if (snapshot.hasError) {
+                      return Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text(
+                          'Error: ${snapshot.error}',
+                          style: TextStyle(fontSize: 15),
+                        ),
+                      );
+                    }
+                    else {
+                      return Expanded(
+                          child: Container(
+                            width: 300,
+                            height: 300,
+                            child: MyCalender(
+                              issuccess: snapshot.data,
+                            ),
+                          )
+                      );
+                    }
+                  })
             ],
           ),
       ),
-      bottomNavigationBar: BottomBar(
-        itemPadding: const EdgeInsets.fromLTRB(10.0, 10.0, 10.0, 20.0),
-        backgroundColor: primaryColor,
-        items: [
-          BottomBarItem(
-              icon: const Icon(
-                Icons.feed,
-                color: Colors.white,
-              ),
-              title: const Text("피드"),
-              activeColor: Colors.white),
-          BottomBarItem(
-              icon: const Icon(
-                Icons.chat_bubble_outline,
-                color: Colors.white,
-              ),
-              title: const Text("그룹 채팅"),
-              activeColor: Colors.white),
-          BottomBarItem(
-              icon: const Icon(
-                Icons.home_outlined,
-                size: 30.0,
-                color: Colors.white,
-              ),
-              title: const Text("홈 화면"),
-              activeColor: Colors.white),
-          BottomBarItem(
-              icon: const Icon(
-                Icons.star_outline,
-                size: 30.0,
-                color: Colors.white,
-              ),
-              title: const Text("나의 식단"),
-              activeColor: Colors.white),
-          BottomBarItem(
-              icon: const Icon(
-                Icons.person,
-                color: Colors.white,
-              ),
-              title: const Text("마이페이지"),
-              activeColor: Colors.white),
-        ],
-        onTap: (int value) {
-          setState(() {
-            _currentPage = value;
-          });
-        },
-        selectedIndex: _currentPage,
-      ),
     );
-  }
-  List getCurrentdate () {
-    DateTime current = DateTime.now();
-    var currentYear = current.year;
-    var currentMonth = current.month;
-
-    return [currentYear, currentMonth];
-  }
-  void _callAPI() async {
-
-    var uri = Uri(
-        scheme: 'http',
-        host: '43.200.102.54:8080',
-        path: 'getPublic',
-        queryParameters: {
-          'date' : 'date',
-        }
-    );
-    final response = await http.get(uri);
   }
 }

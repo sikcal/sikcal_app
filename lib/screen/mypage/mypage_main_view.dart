@@ -3,8 +3,11 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sikcal/data/providers.dart';
 import 'package:sikcal/screen/mypage/mypage_cal_view.dart';
 
+import '../../components/RoundedButton.dart';
 import '../../components/RoundedText.dart';
 import '../../components/RoundedTextButton.dart';
+import '../../components/mytextformfield.dart';
+import '../../data/constants.dart';
 import 'mypage_img_view.dart';
 import 'mypage_update_view.dart';
 
@@ -25,8 +28,8 @@ class _MyPageMainView extends ConsumerState<MyPageMainView> {
     final user = ref.watch(userProvider);
     String username = user?.name ?? "사용자";
 
-    return Scaffold(
-      body:Container(
+    return SafeArea(
+      child:Padding(
         padding: EdgeInsets.all(8.0),
         child: Center(
           child: Column(
@@ -62,9 +65,7 @@ class _MyPageMainView extends ConsumerState<MyPageMainView> {
                     Navigator.of(context).push(MaterialPageRoute<Null>(
                         fullscreenDialog: true,
                         builder: (BuildContext context) {
-                          return MyPageUpdateView(
-                            // diet: diets[i],
-                          );
+                          return MyPageUpdateView();
                         }
                     )
                     );
@@ -74,6 +75,7 @@ class _MyPageMainView extends ConsumerState<MyPageMainView> {
                           color: Color(0xff8BC34A),
                         ))
               ),
+
               RoundedText(
                 text: "목표 체중      $userTweight kg",
                 textStyle: TextStyle(
