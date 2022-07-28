@@ -1,20 +1,93 @@
-import 'package:sikcal/model/food.dart';
+import 'dart:convert';
+import 'dart:io';
+
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:sikcal/data/providers.dart';
+import 'package:sikcal/data/shared_preferences.dart';
+import 'package:http/http.dart' as http;
+import 'package:sikcal/model/meal.dart';
 import 'package:sikcal/model/post.dart';
 
 class PostRepo {
-  Post getBestPost() {
-    return Post(
-      uid: 1,
-      menuName: "맛있는 토마토 계란 볶음",
-      foodList: [
-        Food(foodName: "닭가슴살", carbohydrate: 10, protein: 30, fat: 2, totalKcal: 250, foodId: 1),
-        Food(foodName: "토마토", carbohydrate: 10, protein: 30, fat: 2, totalKcal: 100, foodId: 2),
-        Food(foodName: "계란", carbohydrate: 10, protein: 30, fat: 2, totalKcal: 120, foodId: 3),
-        Food(foodName: "발아현미", carbohydrate: 10, protein: 30, fat: 2, totalKcal: 130, foodId: 4),
-      ],
-      numOfLikes: 275,
-      recipe: "조리순서\n달군 팬에 마늘과 버터를 넣고 고루 볶아줍니다.\n손질한 닭가슴살을 넣고 완전히 익도록 볶아줍니다.\n토마토와 청양고추를 썰어서 넣어줍니다.\n소금으로 약간의 간을 한후 계란을 부어줍니다.\n스크램블 하듯 고루 볶아 계란을 익혀줍니다.",
-      imagePath: "https://cloudfront.haemukja.com/vh.php?url=https://d1hk7gw6lgygff.cloudfront.net/uploads/direction/image_file/58139/pad_thumb_0.JPG&convert=jpgmin&rt=600",
-    );
+  PostRepo(this.ref, this.host, this.refresh);
+
+  final Ref ref;
+  final String host;
+  final Function refresh;
+
+  clickLike(int postId) async {
+    final url = Uri.http(host, '/api/user/record/post/likes', {'postId' : '$postId'});
+    final req = http.Request('PUT', url);
+    req.headers[HttpHeaders.authorizationHeader] = 'Bearer $accessToken';
+
+    print(req);
+
+    final res = await req.send();
+    print('clickLike ${res.statusCode}');
+    if (res.statusCode == 403) {
+      if (!await refresh()) {
+        return null;
+      }
+      return getBestPostList();
+    }
+
+    print(await res.stream.bytesToString());
+    // TODO 새로고침
+  }
+
+  Future<List<Post>?> getBestPostList() async {
+    final url = Uri.http(host, '/api/user/record/postlist');
+    final req = http.Request('GET', url);
+    req.headers[HttpHeaders.authorizationHeader] = 'Bearer $accessToken';
+
+    final res = await req.send();
+    print('getBestPostList ${res.statusCode}');
+    if (res.statusCode == 403) {
+      if (!await refresh()) {
+        return null;
+      }
+      return getBestPostList();
+    }
+
+    final response = jsonDecode(await res.stream.bytesToString());
+    List<Post> postList = [];
+    for(Map<String, dynamic> r in response) {
+      r['postId'] = r['id'];
+      r['recordId'] = r['record']['id'];
+
+      Post post = Post.fromJson(r);
+      Meal? meal = await ref.read(mealRepoProvider).getMeal(r['recordId']);
+      if (meal == null) continue;
+
+      post.meal = meal;
+
+      postList.add(post);
+    }
+
+    return postList;
+  }
+
+  void addPost(Post post) async {
+    final url = Uri.http(host, '/api/user/record/post');
+    final req = http.Request('POST', url);
+    req.headers[HttpHeaders.authorizationHeader] = 'Bearer $accessToken';
+    req.headers[HttpHeaders.contentTypeHeader] = 'application/json';
+    req.body = jsonEncode({
+      "menu": post.menu,
+      "picUri": post.picUri,
+      "recipe": post.recipe,
+      "recordId": post.meal!.recordId,
+    });
+
+    final res = await req.send();
+    print('addPost ${res.statusCode}');
+    if (res.statusCode == 403) {
+      if (!await refresh()) {
+        return null;
+      }
+      return addPost(post);
+    }
+
+    print(await res.stream.bytesToString());
   }
 }

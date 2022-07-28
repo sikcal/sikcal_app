@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -7,6 +10,7 @@ import 'package:sikcal/data/providers.dart';
 import 'package:sikcal/data/repo/meal_repo.dart';
 import 'package:sikcal/data/shared_preferences.dart';
 import 'package:sikcal/model/meal.dart';
+import 'package:sikcal/model/post.dart';
 import 'package:sikcal/screens/home/search_menu_view.dart';
 
 class MealListView extends ConsumerWidget {
@@ -148,11 +152,68 @@ class MealListView extends ConsumerWidget {
                 ),
                 InkWell(
                   onTap: () async {
-                    final image = await showModalBottomSheet(context: context, builder: (context) => _BottomPopup());
+                    final user = ref.read(userProvider);
+                    if (user == null) return;
+
+                    final XFile? image = await showModalBottomSheet(context: context, builder: (context) => const _BottomPopup());
                     if (image == null) {
-                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('공유하려면 사진을 첨부해야 합니다.')));
+                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('공유하려면 사진을 첨부해야 합니다.')));
                       return;
                     }
+
+                    Post? post = await showModalBottomSheet(
+                        isScrollControlled: true,
+                        context: context,
+                        builder: (context) {
+                          String menu = '', recipe = '', picUri = '';
+
+                          return Scaffold(
+                            body: SafeArea(
+                              child: Padding(
+                                padding: const EdgeInsets.symmetric(vertical: 80, horizontal: 20),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.end,
+                                  children: [
+                                    TextField(
+                                      decoration: const InputDecoration(hintText: "메뉴 이름을 입력해주세요"),
+                                      onChanged: (val) => menu = val,
+                                    ),
+                                    const SizedBox(height: 20),
+                                    TextField(
+                                      maxLines: 15,
+                                      decoration: const InputDecoration(
+                                        hintText: "조리법을 입력해주세요",
+                                      ),
+                                      onChanged: (val) => recipe = val,
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                            floatingActionButton: FloatingActionButton(
+                              child: const Icon(Icons.send),
+                              onPressed: () async {
+                                final fileName = '${user.hashCode}-${DateTime.now().toString()}';
+                                try {
+                                  await ref.read(storageRefProvider).child('posts').child(fileName).putFile(File(image.path));
+                                  picUri = await ref.read(storageRefProvider).child('posts').child(fileName).getDownloadURL();
+                                } on FirebaseException catch (e) {
+                                  print('image upload exception ${e.code} : ${e.message}');
+                                  return;
+                                }
+
+                                if (menu.isEmpty || recipe.isEmpty || picUri.isEmpty) {
+                                  Navigator.pop(context);
+                                }
+                                Navigator.pop(context, Post(menu: menu, recipe: recipe, picUri: picUri));
+                              },
+                            ),
+                          );
+                        });
+
+                    if (post == null) return;
+                    post.meal = meal;
+                    ref.read(postRepoProvider).addPost(post);
                   },
                   child: const Icon(
                     FontAwesomeIcons.shareNodes,
@@ -186,7 +247,7 @@ class _BottomPopup extends StatelessWidget {
               width: double.infinity,
               child: TextButton(
                 onPressed: () async {
-                  final image = await _picker.pickImage(source: ImageSource.gallery);
+                  final image = await _picker.pickImage(source: ImageSource.gallery, maxHeight: 300, maxWidth: 400);
                   Navigator.pop(context, image);
                 },
                 child: Text(
@@ -200,7 +261,7 @@ class _BottomPopup extends StatelessWidget {
               width: double.infinity,
               child: TextButton(
                 onPressed: () async {
-                  final image = await _picker.pickImage(source: ImageSource.camera);
+                  final image = await _picker.pickImage(source: ImageSource.camera, maxHeight: 300, maxWidth: 400);
                   Navigator.pop(context, image);
                 },
                 child: Text(

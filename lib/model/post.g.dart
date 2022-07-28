@@ -7,21 +7,20 @@ part of 'post.dart';
 // **************************************************************************
 
 Post _$PostFromJson(Map<String, dynamic> json) => Post(
-      uid: json['uid'] as int,
-      menuName: json['menuName'] as String,
-      foodList: (json['foodList'] as List<dynamic>)
-          .map((e) => Food.fromJson(e as Map<String, dynamic>))
-          .toList(),
-      numOfLikes: json['numOfLikes'] as int,
+      postId: json['postId'] as int? ?? -1,
+      menu: json['menu'] as String,
+      numOfLike: json['numOfLike'] as int? ?? 0,
       recipe: json['recipe'] as String,
-      imagePath: json['imagePath'] as String,
-    );
+      picUri: json['picUri'] as String,
+    )..meal = json['meal'] == null
+        ? null
+        : Meal.fromJson(json['meal'] as Map<String, dynamic>);
 
 Map<String, dynamic> _$PostToJson(Post instance) => <String, dynamic>{
-      'uid': instance.uid,
-      'menuName': instance.menuName,
-      'foodList': instance.foodList,
-      'numOfLikes': instance.numOfLikes,
+      'postId': instance.postId,
+      'menu': instance.menu,
+      'numOfLike': instance.numOfLike,
       'recipe': instance.recipe,
-      'imagePath': instance.imagePath,
+      'picUri': instance.picUri,
+      'meal': instance.meal,
     };
