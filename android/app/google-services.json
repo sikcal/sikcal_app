@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "206805142346",
+    "project_id": "sikcal-image",
+    "storage_bucket": "sikcal-image.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:206805142346:android:fa42c3a76665182bddcfb3",
+        "android_client_info": {
+          "package_name": "com.appgaebom.sikcal"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "206805142346-rld6d2rh1hc87uhoeh1ed8i999ho840k.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCoOj4K30gRhbZTmXcTNaMLLhZ1z23RGvg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "206805142346-rld6d2rh1hc87uhoeh1ed8i999ho840k.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "206805142346-ob5ma0fei9kpp1uus180mktbfhi4tbct.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.appgaebom.sikcal"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

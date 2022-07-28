@@ -214,29 +214,34 @@ class _BottomPopup extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            TextButton(
-              onPressed: () async {
-                final image = await _picker.pickImage(source: ImageSource.gallery);
-                // TODO image 다른 화면으로 보내기
-                Navigator.pop(context);
-              },
-              child: Text(
-                '갤러리에서 눈바디 사진 찾기',
-                style: kDefaultTextStyle,
-                textAlign: TextAlign.start,
+            SizedBox(
+              width: double.infinity,
+              child: TextButton(
+                onPressed: () async {
+                  final image = await _picker.pickImage(source: ImageSource.gallery);
+                  // TODO image 다른 화면으로 보내기
+                  Navigator.pop(context);
+                },
+                child: Text(
+                  '갤러리에서 눈바디 사진 찾기',
+                  style: kDefaultTextStyle,
+                ),
               ),
             ),
             const SizedBox(height: 5),
-            TextButton(
-              onPressed: () async {
-                final image = await _picker.pickImage(source: ImageSource.camera);
-                // TODO image 다른 화면으로 보내기
-                Navigator.pop(context);
-              },
-              child: Text(
-                '카메라로 촬영하기',
-                style: kDefaultTextStyle,
-                textAlign: TextAlign.start,
+            SizedBox(
+              width: double.infinity,
+              child: TextButton(
+                onPressed: () async {
+                  final image = await _picker.pickImage(source: ImageSource.camera);
+                  // TODO image 다른 화면으로 보내기
+                  Navigator.pop(context);
+                },
+                child: Text(
+                  '카메라로 촬영하기',
+                  style: kDefaultTextStyle,
+                  textAlign: TextAlign.start,
+                ),
               ),
             ),
           ],
