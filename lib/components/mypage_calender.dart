@@ -1,6 +1,5 @@
 import 'dart:core';
 import 'package:flutter/cupertino.dart';
-import 'package:intl/intl.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 class MyCalender extends StatefulWidget {
@@ -13,52 +12,54 @@ class MyCalender extends StatefulWidget {
 }
 
 class _MyCalender extends State<MyCalender> {
+  final currentDate = DateTime.now();
+  Map<DateTime, dynamic> successInfo = {};
+
+  @override
+  void initState() {
+    super.initState();
+    final startDate = DateTime(currentDate.year, currentDate.month - 2, 1);
+    List successData = [];
+    successData.addAll(widget.issuccess[2]); // 2달 전
+    successData.addAll(widget.issuccess[1]); // 1달 전
+    successData.addAll(widget.issuccess[0]); // 이번 달
+
+    int offset = 0;
+    while (currentDate.difference(startDate.add(Duration(days: offset))).inDays >= 1) {
+      successInfo[startDate.add(Duration(days: offset))] = successData[offset];
+      ++offset;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
-
-    var _issuccess = widget.issuccess[0];
-    print(widget.issuccess);
+    DateTime _focusedDay = DateTime.now();
 
     //현재 날짜 기준으로 firstday, lastday 구함
     DateTime current = DateTime.now();
-    DateTime firstday = new DateTime(current.year, current.month-2, 1);
-    DateTime lastday = new DateTime(current.year, current.month+1, 0);
+    DateTime firstday = DateTime(current.year, current.month - 2, 1);
+    DateTime lastday = DateTime(current.year, current.month + 1, 0);
 
     return TableCalendar(
-      focusedDay: DateTime.now(),
+      focusedDay: _focusedDay,
       firstDay: firstday,
       lastDay: lastday,
-      headerStyle: HeaderStyle(
+      headerStyle: const HeaderStyle(
         formatButtonVisible: false,
         titleCentered: true,
         leftChevronVisible: true,
         rightChevronVisible: true,
       ),
       eventLoader: (day) {
-        if((day.day.toInt()<=_issuccess.length)&&(_issuccess[day.day.toInt()-1] == "SUCCESS")) {
+        if (successInfo[DateTime(day.year, day.month, day.day)] == "SUCCESS") {
           return ['mark'];
-        }else {
+        } else {
           return [];
         }
       },
       onPageChanged: (focusedDay) {
-        DateTime current = DateTime.now();
-        var current_month = DateFormat('M').format(current);
-        var focused_month = DateFormat('M').format(focusedDay);
-
-
-        if((int.parse(current_month)-int.parse(focused_month)) == 0) {
-          print(int.parse(current_month)-int.parse(focused_month));
-          _issuccess = widget.issuccess[1];
-        }else if((int.parse(current_month)-int.parse(focused_month)) == 1) {
-          print(int.parse(current_month)-int.parse(focused_month));
-          _issuccess = widget.issuccess[0];
-        }else if((int.parse(current_month)-int.parse(focused_month)) == 2) {
-          print(int.parse(current_month)-int.parse(focused_month));
-          _issuccess = widget.issuccess[1];
-        }
-    },
+        _focusedDay = focusedDay;
+      },
     );
   }
 }

@@ -35,15 +35,15 @@ class _MyPageCalView extends ConsumerState<MyPageCalView> {
     var list_yearMonth = [];
     var total = [];
     //현재 날짜
-    DateTime now = DateTime.now();
+    DateTime now = DateTime.now().subtract(const Duration(days: 1));
     var current_ym = DateFormat('yyyy-MM-dd').format(now);
     list_yearMonth.add(current_ym);
     //한달전(한달전의 마지막 day)
-    var beforeDate = new DateTime(now.year, now.month, 0);
+    var beforeDate = DateTime(now.year, now.month, 0);
     var before_ym = DateFormat('yyyy-MM-dd').format(beforeDate);
     list_yearMonth.add(before_ym);
     //두달전(두달전의 마지막 day)
-    var bbeforeDate = new DateTime(now.year, now.month - 1, 0);
+    var bbeforeDate = DateTime(now.year, now.month - 1, 0);
     var bbefore_ym = DateFormat('yyyy-MM-dd').format(bbeforeDate);
     list_yearMonth.add(bbefore_ym);
 
@@ -51,6 +51,7 @@ class _MyPageCalView extends ConsumerState<MyPageCalView> {
       final url = Uri.http("43.200.102.54:8080","/api/user/calendar", {"yearMonth": list_yearMonth[i]});
       final req = http.Request("GET", url);
       req.headers[HttpHeaders.authorizationHeader] = 'Bearer $accessToken';
+      print(req);
 
       final streamedResponse = await req.send();
 

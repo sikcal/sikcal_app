@@ -99,8 +99,8 @@ class MealRepo {
     for (int i = 0; i < recordDates.length; i++) {
       String date = recordDates[i];
       DateTime d = DateTime.parse(date);
-      print("$today   $d");
-      if (d.difference(today).inDays != 0) shouldRemove.add(i);
+      print("${DateTime(d.year, d.month, d.day)}   ${DateTime(today.year, today.month, today.day)}");
+      if (DateTime(d.year, d.month, d.day).difference(DateTime(today.year, today.month, today.day)).inDays != 0) shouldRemove.add(i);
     }
     for (int r in shouldRemove.reversed) {
       recordDates.removeAt(r);
