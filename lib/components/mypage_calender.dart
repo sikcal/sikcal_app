@@ -18,6 +18,7 @@ class _MyCalender extends State<MyCalender> {
   Widget build(BuildContext context) {
 
     var _issuccess = widget.issuccess[0];
+    print(widget.issuccess);
 
     //현재 날짜 기준으로 firstday, lastday 구함
     DateTime current = DateTime.now();
@@ -46,12 +47,16 @@ class _MyCalender extends State<MyCalender> {
         var current_month = DateFormat('M').format(current);
         var focused_month = DateFormat('M').format(focusedDay);
 
+
         if((int.parse(current_month)-int.parse(focused_month)) == 0) {
-          _issuccess = widget.issuccess[0];
-        }else if((int.parse(current_month)-int.parse(focused_month)) == 1) {
+          print(int.parse(current_month)-int.parse(focused_month));
           _issuccess = widget.issuccess[1];
+        }else if((int.parse(current_month)-int.parse(focused_month)) == 1) {
+          print(int.parse(current_month)-int.parse(focused_month));
+          _issuccess = widget.issuccess[0];
         }else if((int.parse(current_month)-int.parse(focused_month)) == 2) {
-          _issuccess = widget.issuccess[2];
+          print(int.parse(current_month)-int.parse(focused_month));
+          _issuccess = widget.issuccess[1];
         }
     },
     );
