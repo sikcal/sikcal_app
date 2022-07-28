@@ -75,15 +75,6 @@ class _MyPageMainView extends ConsumerState<MyPageMainView> {
                           color: Color(0xff8BC34A),
                         ))
               ),
-
-              RoundedText(
-                text: "목표 체중      $userTweight kg",
-                textStyle: TextStyle(
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 20.0,
-                ),
-              ),
               SizedBox(height: 50.0),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
