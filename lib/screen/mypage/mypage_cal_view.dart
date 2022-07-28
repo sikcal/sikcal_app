@@ -1,23 +1,14 @@
 import 'dart:convert';
 import 'dart:io';
-
-import 'package:bottom_bar/bottom_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:sikcal/data/providers.dart';
-
-import '../../components/RoundedText.dart';
 import '../../components/mypage_calender.dart';
 import '../../data/constants.dart';
-
 import 'package:http/http.dart' as http;
-
 import '../../data/shared_preferences.dart';
-import '../../screens/feed/feed_view.dart';
-import '../../screens/home/home_view.dart';
-import '../mydiet/mydiet_main_view.dart';
-import 'mypage_main_view.dart';
+
 
 class MyPageCalView extends ConsumerStatefulWidget {
   const MyPageCalView({Key? key}) : super(key: key);
@@ -39,9 +30,6 @@ class _MyPageCalView extends ConsumerState<MyPageCalView> {
   }
 
   getData() async {
-    // var current = getCurrentdate();
-    // var yearMonth = "${current[0]}-${current[1]}-${current[2]}";
-
     //가져올 월별 success status 리스트 세팅
     int result_numer = 3;
     var list_yearMonth = [];
@@ -58,8 +46,6 @@ class _MyPageCalView extends ConsumerState<MyPageCalView> {
     var bbeforeDate = new DateTime(now.year, now.month - 1, 0);
     var bbefore_ym = DateFormat('yyyy-MM-dd').format(bbeforeDate);
     list_yearMonth.add(bbefore_ym);
-
-    print(list_yearMonth);
 
     for (int i=0; i<result_numer; i++){
       final url = Uri.http("43.200.102.54:8080","/api/user/calendar", {"yearMonth": list_yearMonth[i]});
@@ -86,9 +72,6 @@ class _MyPageCalView extends ConsumerState<MyPageCalView> {
     final user = ref.watch(userProvider);
     String username = user?.name ?? "사용자";
     String userimg = "images/profile.jpg";
-
-
-    List current = getCurrentdate();
 
     return Scaffold(
       appBar: AppBar(
