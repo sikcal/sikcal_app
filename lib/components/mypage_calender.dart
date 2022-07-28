@@ -19,10 +19,15 @@ class _MyCalender extends State<MyCalender> {
 
     var _issuccess = widget.issuccess[0];
 
+    //현재 날짜 기준으로 firstday, lastday 구함
+    DateTime current = DateTime.now();
+    DateTime firstday = new DateTime(current.year, current.month-2, 1);
+    DateTime lastday = new DateTime(current.year, current.month+1, 0);
+
     return TableCalendar(
       focusedDay: DateTime.now(),
-      firstDay: DateTime.utc(2010, 10, 16),
-      lastDay: DateTime.utc(2030, 3, 14),
+      firstDay: firstday,
+      lastDay: lastday,
       headerStyle: HeaderStyle(
         formatButtonVisible: false,
         titleCentered: true,

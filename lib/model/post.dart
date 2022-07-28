@@ -1,24 +1,23 @@
-import 'package:sikcal/model/food.dart';
 import 'package:json_annotation/json_annotation.dart';
+import 'package:sikcal/model/meal.dart';
 
 part 'post.g.dart';
 
 @JsonSerializable()
 class Post {
-  int uid;
-  String menuName;
-  List<Food> foodList;
-  int numOfLikes; // 좋아요 개수
+  int postId;
+  String menu; // menuName
+  int numOfLike; // 좋아요 개수
   String recipe; // 조리법
-  String imagePath;
+  String picUri;
+  Meal? meal;
 
   Post({
-    required this.uid,
-    required this.menuName,
-    required this.foodList,
-    required this.numOfLikes,
+    this.postId = -1,
+    required this.menu,
+    this.numOfLike = 0,
     required this.recipe,
-    required this.imagePath,
+    required this.picUri,
   });
 
   factory Post.fromJson(Map<String, dynamic> json) => _$PostFromJson(json);

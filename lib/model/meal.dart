@@ -1,8 +1,14 @@
+import 'package:json_annotation/json_annotation.dart';
 import 'package:sikcal/model/food.dart';
 
+part 'meal.g.dart';
+
+@JsonSerializable()
 class Meal {
   late int recordId;
   final Map<Food, int> foodList = {};
+
+  Meal();
 
   void addFood(Food food) {
     for (Food key in foodList.keys) {
@@ -33,4 +39,7 @@ class Meal {
 
     return result.trim();
   }
+
+  factory Meal.fromJson(Map<String, dynamic> json) => _$MealFromJson(json);
+  Map<String, dynamic> toJson() => _$MealToJson(this);
 }

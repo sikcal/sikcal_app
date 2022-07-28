@@ -89,8 +89,9 @@ class MealRepo {
   }
 
   Future<void> getMealList() async {
-    if (records == null) {
+    if (records.isEmpty) {
       print("getMealList no records");
+      ref.watch(currentMealListProvider.notifier).set([]);
       return;
     }
     List<int> shouldRemove = [];
@@ -118,8 +119,6 @@ class MealRepo {
         }
       }
       ref.watch(currentMealListProvider.notifier).set(mealList);
-    } else {
-      ref.watch(currentMealListProvider.notifier).set([]);
     }
   }
 
