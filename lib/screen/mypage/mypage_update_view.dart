@@ -25,6 +25,37 @@ class _FormScreenStateWeight extends ConsumerState<MyPageUpdateView> {
     int _currentPage = 5;
     
     return Scaffold(
+      appBar: AppBar(
+        title: Row(
+          children: const [
+            Image(
+              image: AssetImage('images/fork.png'),
+              height: 25.0,
+            ),
+            SizedBox(
+              width: 10.0,
+            ),
+            Text(
+              "식칼", // FIXME 화면 별로 title 변경
+              style: TextStyle(
+                fontSize: 25.0,
+                color: Colors.white,
+                decoration: TextDecoration.none,
+                fontWeight: FontWeight.normal,
+              ),
+            ),
+            SizedBox(
+              width: 10.0,
+            ),
+            Image(
+              image: AssetImage('images/knife.png'),
+              height: 25.0,
+            ),
+          ],
+          mainAxisSize: MainAxisSize.min,
+        ),
+        backgroundColor: primaryColor,
+      ),
       body:Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,

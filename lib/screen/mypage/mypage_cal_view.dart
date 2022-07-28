@@ -148,23 +148,7 @@ class _MyPageCalView extends ConsumerState<MyPageCalView> {
                   ),
                 ],
               ),
-              // SizedBox(height: 5.0),
-              RoundedText(
-                text: "YEAR     "+current[0].toString(),
-                textStyle: TextStyle(
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 20.0,
-                ),
-              ),
-              RoundedText(
-                text: "MONTH    "+current[1].toString(),
-                textStyle: TextStyle(
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 20.0,
-                ),
-              ),
+              // SizedBox(height: 5.0)
               FutureBuilder(
                   future:getData(),
                   builder: (BuildContext context, AsyncSnapshot snapshot) {
