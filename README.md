@@ -11,7 +11,7 @@
 - [x] 아이디어 회의
 - [x] 디자인 프로토타입 (figma)
 - [x] Auth / MainView / ProfileView 구현
-- [ ] 백엔드 연동
+- [x] 백엔드 연동
 - [ ] (언젠가) Community 기능 구현
 
 --- 
